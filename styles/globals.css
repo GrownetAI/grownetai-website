@@ -1,0 +1,1054 @@
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   Premium Global Stylesheet
+   Flat two-tone system — Teal #008080 + Aqua #00E5E5
+   No gradients anywhere (logo asset excluded).
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── 1. DESIGN TOKENS ─────────────────────────────────── */
+:root {
+  /* Brand palette — flat */
+  --color-teal: #008080;        /* primary / background */
+  --color-teal-deep: #006666;   /* hover / pressed */
+  --color-teal-dark: #004d4d;   /* deep surfaces */
+  --color-teal-mist: #e0f7f7;   /* soft tint */
+  --color-aqua: #00e5e5;        /* accent */
+  --color-aqua-deep: #00b3b3;   /* accent (readable on light) */
+  --color-green: #00e5e5;       /* legacy alias → aqua */
+  --color-forest: #006666;      /* legacy alias → teal-deep */
+  --color-mint: #e6fbfb;
+  --color-charcoal: #0b1f1f;
+  --color-dark-leaf: #0f2e2e;
+  --color-slate: #5c6b6b;
+  --color-cloud: #f2fbfb;
+  --color-light-gray: #94a3a3;
+
+  /* Layout */
+  --navbar-height: 72px;
+  --section-pad: 96px;
+
+  /* Radii */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-2xl: 32px;
+
+  /* Shadows */
+  --shadow-card: 0 2px 12px rgba(0, 0, 0, 0.06), 0 1px 3px rgba(0, 0, 0, 0.04);
+  --shadow-card-hover:
+    0 8px 32px rgba(0, 128, 128, 0.14), 0 2px 8px rgba(0, 0, 0, 0.06);
+  --shadow-brand: 0 8px 32px rgba(0, 128, 128, 0.25);
+  --shadow-brand-lg: 0 16px 48px rgba(0, 128, 128, 0.35);
+
+  /* Brand fills — FLAT colours (named "gradient-*" only for back-compat) */
+  --gradient-brand: #008080;
+  --gradient-brand-2: #008080;
+  --gradient-dark: #004d4d;
+  --gradient-hero: #008080;
+  --gradient-card: #e6fbfb;
+}
+
+/* ── 2. BASE RESET & TYPOGRAPHY ───────────────────────── */
+@layer base {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    @apply font-sans text-brand-slate-gray bg-white;
+    line-height: 1.65;
+    overflow-x: hidden;
+  }
+
+  ::selection {
+    background: rgba(0, 128, 128, 0.18);
+    color: var(--color-teal-deep);
+  }
+
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #f0f0f0;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--color-teal);
+    border-radius: 999px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--color-teal-deep);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-heading font-bold text-brand-charcoal;
+    line-height: 1.12;
+    letter-spacing: -0.025em;
+    text-wrap: balance;
+  }
+
+  p {
+    line-height: 1.65;
+    text-wrap: pretty;
+  }
+
+  a {
+    @apply text-brand-teal;
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+  a:hover {
+    @apply text-brand-teal-deep;
+  }
+
+  img {
+    @apply max-w-full;
+  }
+
+  input,
+  textarea,
+  select {
+    font-family: inherit;
+    font-size: inherit;
+  }
+}
+
+/* ── 3. LAYOUT UTILITIES ──────────────────────────────── */
+@layer components {
+  .container-site {
+    @apply w-full mx-auto px-4 sm:px-6 lg:px-8;
+    max-width: 1200px;
+  }
+
+  /* Hide scrollbar while keeping horizontal scroll (country selector) */
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .section-padding {
+    padding-top: 96px;
+    padding-bottom: 96px;
+  }
+  .section-padding-sm {
+    padding-top: 56px;
+    padding-bottom: 56px;
+  }
+  .section-padding-xs {
+    padding-top: 32px;
+    padding-bottom: 32px;
+  }
+
+  /* ── 4. TYPOGRAPHY SYSTEM ─────────────────────────── */
+  .heading-display {
+    @apply font-display font-extrabold text-brand-charcoal;
+    font-size: clamp(2.75rem, 6.2vw, 5.25rem);
+    letter-spacing: -0.035em;
+    line-height: 1.02;
+  }
+
+  .heading-section {
+    @apply font-heading font-bold text-brand-charcoal;
+    font-size: clamp(1.9rem, 3.4vw, 2.9rem);
+    letter-spacing: -0.032em;
+    line-height: 1.08;
+  }
+
+  .heading-card {
+    @apply font-heading font-semibold text-brand-charcoal;
+    font-size: 1.0625rem;
+    letter-spacing: -0.015em;
+    line-height: 1.35;
+  }
+
+  /* Small uppercase eyebrow above section headings */
+  .eyebrow {
+    display: inline-block;
+    font-family: var(--font-inter);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--color-teal);
+  }
+
+  .text-body {
+    @apply text-brand-slate-gray leading-relaxed;
+  }
+  .text-body-lg {
+    @apply text-brand-slate-gray text-lg leading-relaxed;
+  }
+  .text-caption {
+    @apply text-brand-light-gray text-sm;
+  }
+
+  /* ── 5. ACCENT TEXT (flat, was gradient text) ─────── */
+  .text-gradient {
+    color: var(--color-teal);
+    -webkit-text-fill-color: var(--color-teal);
+    background: none;
+  }
+
+  /* ── 6. SECTION LABEL ─────────────────────────────── */
+  .section-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 16px;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    font-family: var(--font-inter);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-teal);
+    background: rgba(0, 128, 128, 0.1);
+    border: 1px solid rgba(0, 128, 128, 0.25);
+  }
+  .section-label::before {
+    content: "";
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--color-aqua);
+    flex-shrink: 0;
+  }
+
+  /* ── 7. CARD SYSTEM ───────────────────────────────── */
+  .card {
+    background: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.07);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-card);
+    transition:
+      transform 0.25s ease,
+      box-shadow 0.25s ease,
+      border-color 0.25s ease;
+  }
+
+  .card-hover {
+    @apply card;
+    cursor: pointer;
+  }
+  .card-hover:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-card-hover);
+    border-color: rgba(0, 128, 128, 0.25);
+  }
+
+  .card-brand {
+    @apply card;
+    background: var(--color-mint);
+    border-color: rgba(0, 128, 128, 0.15);
+  }
+
+  .card-dark {
+    @apply card;
+    background: var(--color-teal-dark);
+    border-color: rgba(255, 255, 255, 0.08);
+    color: #fff;
+  }
+
+  .card-glass {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-card);
+  }
+
+  /* ── 8. BUTTON SYSTEM ─────────────────────────────── */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 24px;
+    border-radius: 12px;
+    font-family: var(--font-inter);
+    font-size: 0.9rem;
+    font-weight: 600;
+    line-height: 1;
+    letter-spacing: -0.01em;
+    border: 2px solid transparent;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    white-space: nowrap;
+    text-decoration: none;
+  }
+  .btn:focus-visible {
+    outline: 3px solid rgba(0, 128, 128, 0.5);
+    outline-offset: 2px;
+  }
+  .btn:active {
+    transform: scale(0.97);
+  }
+
+  .btn-sm {
+    padding: 8px 18px;
+    font-size: 0.8rem;
+    border-radius: 10px;
+  }
+  .btn-lg {
+    padding: 15px 32px;
+    font-size: 0.975rem;
+    border-radius: 14px;
+  }
+  .btn-xl {
+    padding: 18px 40px;
+    font-size: 1.05rem;
+    border-radius: 16px;
+  }
+
+  /* Primary — matte solid teal (no glow). Flat, tactile, confident. */
+  .btn-primary {
+    border-radius: 0.75rem;
+    padding: 0.75rem 1.5rem;
+    background: var(--color-teal);
+    color: #fff;
+    border-color: transparent;
+    box-shadow: none;
+  }
+  .btn-primary:hover {
+    background: var(--color-teal-deep);
+    transform: translateY(-1px);
+    color: #fff;
+  }
+
+  /* Accent — matte solid aqua (dark text for contrast, no glow). */
+  .btn-accent {
+    background: var(--color-aqua);
+    color: var(--color-teal-dark);
+    border-color: transparent;
+    box-shadow: none;
+  }
+  .btn-accent:hover {
+    background: var(--color-aqua-deep);
+    color: #ffffff;
+    transform: translateY(-1px);
+  }
+
+  .btn-secondary {
+    background: transparent;
+    color: var(--color-teal);
+    border-color: var(--color-teal);
+  }
+  .btn-secondary:hover {
+    background: var(--color-teal-mist);
+    border-color: var(--color-teal-deep);
+    color: var(--color-teal-deep);
+  }
+
+  .btn-outline {
+    background: transparent;
+    color: var(--color-teal);
+    border-color: var(--color-teal);
+  }
+  .btn-outline:hover {
+    background: var(--color-teal-mist);
+    color: var(--color-teal-deep);
+  }
+
+  .btn-dark {
+    background: var(--color-charcoal);
+    color: #fff;
+    border-color: transparent;
+    box-shadow: none;
+  }
+  .btn-dark:hover {
+    background: var(--color-dark-leaf);
+    color: #fff;
+    transform: translateY(-1px);
+  }
+
+  .btn-ghost {
+    background: transparent;
+    color: var(--color-teal);
+    border-color: transparent;
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+  .btn-ghost:hover {
+    background: var(--color-teal-mist);
+    color: var(--color-teal-deep);
+  }
+
+  .btn-white {
+    background: #fff;
+    color: var(--color-teal-deep);
+    border-color: transparent;
+    box-shadow: none;
+  }
+  .btn-white:hover {
+    background: var(--color-teal-mist);
+    transform: translateY(-1px);
+  }
+
+  /* ── 9. BADGE SYSTEM ──────────────────────────────── */
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    font-family: var(--font-inter);
+    letter-spacing: 0.02em;
+    line-height: 1.4;
+  }
+  .badge-teal {
+    @apply badge;
+    background: rgba(0, 128, 128, 0.12);
+    color: var(--color-teal-deep);
+    border: 1px solid rgba(0, 128, 128, 0.25);
+  }
+  .badge-green {
+    @apply badge;
+    background: rgba(0, 229, 229, 0.14);
+    color: var(--color-teal-deep);
+    border: 1px solid rgba(0, 229, 229, 0.35);
+  }
+  .badge-dark {
+    @apply badge;
+    background: rgba(11, 31, 31, 0.08);
+    color: var(--color-charcoal);
+    border: 1px solid rgba(11, 31, 31, 0.15);
+  }
+
+  /* ── 10. FORM SYSTEM ──────────────────────────────── */
+  .input {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1.5px solid #e5e7eb;
+    border-radius: 12px;
+    font-size: 0.925rem;
+    font-family: var(--font-inter);
+    color: var(--color-charcoal);
+    background: #fff;
+    transition:
+      border-color 0.2s,
+      box-shadow 0.2s;
+    appearance: none;
+    -webkit-appearance: none;
+    line-height: 1.5;
+  }
+  .input:focus {
+    outline: none;
+    border-color: var(--color-teal);
+    box-shadow: 0 0 0 4px rgba(0, 128, 128, 0.12);
+  }
+  .input::placeholder {
+    color: #aaa;
+  }
+
+  .textarea {
+    @apply input;
+    min-height: 140px;
+    resize: vertical;
+    line-height: 1.6;
+  }
+
+  /* ── 11. GLASS MORPHISM ───────────────────────────── */
+  .glass {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(12px) saturate(160%);
+    -webkit-backdrop-filter: blur(12px) saturate(160%);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: var(--radius-xl);
+  }
+
+  /* ── 12. NOISE / GRAIN OVERLAY ────────────────────── */
+  .noise-overlay::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.035'/%3E%3C/svg%3E");
+    background-repeat: repeat;
+    background-size: 200px 200px;
+    pointer-events: none;
+    mix-blend-mode: overlay;
+    opacity: 0.4;
+  }
+
+  /* ── 13. SOLID BRAND BACKGROUNDS (flat) ───────────── */
+  .bg-gradient-hero {
+    background-color: var(--gradient-hero);
+    background-image: none;
+  }
+  .bg-gradient-brand {
+    background-color: var(--gradient-brand);
+    background-image: none;
+  }
+  .bg-gradient-brand-2 {
+    background-color: var(--gradient-brand-2);
+    background-image: none;
+  }
+  .bg-gradient-dark {
+    background-color: var(--gradient-dark);
+    background-image: none;
+  }
+  .bg-gradient-card {
+    background-color: var(--gradient-card);
+    background-image: none;
+  }
+
+  /* ── 14. PROSE ─────────────────────────────────────── */
+  .prose-brand {
+    @apply text-brand-slate-gray;
+    font-size: 1.0625rem;
+    line-height: 1.8;
+  }
+  .prose-brand h1,
+  .prose-brand h2,
+  .prose-brand h3 {
+    @apply text-brand-charcoal font-heading;
+    margin-top: 2em;
+    margin-bottom: 0.6em;
+  }
+  .prose-brand h2 {
+    font-size: 1.5rem;
+  }
+  .prose-brand h3 {
+    font-size: 1.2rem;
+  }
+  .prose-brand p {
+    margin-bottom: 1.25em;
+  }
+  .prose-brand a {
+    @apply text-brand-teal underline;
+  }
+  .prose-brand strong {
+    @apply text-brand-charcoal font-bold;
+  }
+  .prose-brand ul {
+    padding-left: 1.4em;
+    margin-bottom: 1.25em;
+  }
+  .prose-brand ul li {
+    margin-bottom: 0.4em;
+    list-style: disc;
+  }
+  .prose-brand blockquote {
+    border-left: 3px solid var(--color-teal);
+    padding-left: 1.2em;
+    margin: 1.6em 0;
+    color: var(--color-slate);
+    font-style: italic;
+  }
+
+  /* ── 15. MARQUEE ───────────────────────────────────── */
+  .marquee-track {
+    display: flex;
+    gap: 48px;
+    animation: marquee 28s linear infinite;
+    width: max-content;
+  }
+  @keyframes marquee {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+  .marquee-track:hover {
+    animation-play-state: paused;
+  }
+
+  /* ── 16. SWIPER ────────────────────────────────────── */
+  .swiper-pagination-bullet {
+    width: 8px !important;
+    height: 8px !important;
+    background: rgba(0, 128, 128, 0.35) !important;
+    opacity: 1 !important;
+    transition: all 0.3s !important;
+  }
+  .swiper-pagination-bullet-active {
+    background: var(--color-teal) !important;
+    width: 24px !important;
+    border-radius: 4px !important;
+  }
+
+  /* ── 17. ACCORDION ────────────────────────────────── */
+  @keyframes accordion-down {
+    from {
+      height: 0;
+      opacity: 0;
+    }
+    to {
+      height: var(--radix-accordion-content-height);
+      opacity: 1;
+    }
+  }
+  @keyframes accordion-up {
+    from {
+      height: var(--radix-accordion-content-height);
+      opacity: 1;
+    }
+    to {
+      height: 0;
+      opacity: 0;
+    }
+  }
+  .animate-accordion-down {
+    animation: accordion-down 0.25s ease-out;
+  }
+  .animate-accordion-up {
+    animation: accordion-up 0.2s ease-out;
+  }
+
+  /* ── 18. FLOAT ────────────────────────────────────── */
+  @keyframes float {
+    0%,
+    100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+  .animate-float {
+    animation: float 5s ease-in-out infinite;
+  }
+
+  /* ── 19. SHINE / SHIMMER (neutral) ────────────────── */
+  @keyframes shimmer {
+    0% {
+      background-position: -200% center;
+    }
+    100% {
+      background-position: 200% center;
+    }
+  }
+  .shimmer {
+    background: linear-gradient(
+      90deg,
+      transparent 30%,
+      rgba(255, 255, 255, 0.6) 50%,
+      transparent 70%
+    );
+    background-size: 200% auto;
+    animation: shimmer 2.5s linear infinite;
+  }
+
+  /* ── 20. SHADOWS ──────────────────────────────────── */
+  .shadow-card {
+    box-shadow: var(--shadow-card);
+  }
+  .shadow-card-hover {
+    box-shadow: var(--shadow-card-hover);
+  }
+  .shadow-brand {
+    box-shadow: var(--shadow-brand);
+  }
+  .shadow-brand-lg {
+    box-shadow: var(--shadow-brand-lg);
+  }
+
+  /* ── 21. DIVIDERS ─────────────────────────────────── */
+  .divider {
+    width: 48px;
+    height: 3px;
+    background: var(--color-teal);
+    border-radius: 999px;
+  }
+
+  /* ── 22. DOT GRID PATTERN (flat dots) ─────────────── */
+  .dot-grid {
+    background-image: radial-gradient(
+      circle at 2px 2px,
+      rgba(0, 128, 128, 0.12) 1.5px,
+      transparent 0
+    );
+    background-size: 32px 32px;
+  }
+
+  /* ── 23. HERO GLOW (soft solid blur) ──────────────── */
+  .hero-glow {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    pointer-events: none;
+  }
+
+  /* ── 24. NUMBER BADGE ─────────────────────────────── */
+  .step-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
+    font-family: var(--font-inter);
+    font-weight: 800;
+    font-size: 1rem;
+    background: var(--color-teal);
+    color: #fff;
+    box-shadow: var(--shadow-brand);
+    flex-shrink: 0;
+  }
+
+  /* ── 25. STAT VALUE (flat teal) ───────────────────── */
+  .stat-card-value {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: clamp(2rem, 4vw, 3.25rem);
+    color: var(--color-teal);
+    -webkit-text-fill-color: var(--color-teal);
+    line-height: 1;
+  }
+
+  /* ── 26. PRICING HIGHLIGHT ────────────────────────── */
+  .pricing-popular {
+    position: relative;
+    background: #ffffff;
+    border-color: var(--color-teal) !important;
+    box-shadow: var(--shadow-brand-lg) !important;
+  }
+  .pricing-popular::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 2px;
+    background: var(--color-teal);
+    -webkit-mask:
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+
+  /* ── 27. FOCUS VISIBLE ────────────────────────────── */
+  :focus-visible {
+    outline: 2px solid var(--color-teal);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  /* ── 28. SMOOTH IMAGE LOADING ─────────────────────── */
+  img {
+    transition: opacity 0.3s ease;
+  }
+
+  /* ── 29. PAGE TRANSITION ──────────────────────────── */
+  @keyframes fadeInPage {
+    from {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  .page-enter {
+    animation: fadeInPage 0.45s ease-out both;
+  }
+}
+
+/* ── 30. RESPONSIVE SECTION PADDING ──────────────────── */
+@media (max-width: 768px) {
+  :root {
+    --navbar-height: 64px;
+  }
+  .section-padding {
+    padding-top: 64px;
+    padding-bottom: 64px;
+  }
+  .section-padding-sm {
+    padding-top: 40px;
+    padding-bottom: 40px;
+  }
+}
+
+/* ── 31. PRINT ────────────────────────────────────────── */
+@media print {
+  .btn,
+  nav,
+  footer {
+    display: none !important;
+  }
+  body {
+    background: white;
+    color: black;
+  }
+}
+
+/* ── 32. SURFACE SYSTEM (flat — was aurora) ───────────── */
+/* Light branded surface */
+.aurora-bg {
+  position: relative;
+  background: #f2fbfb;
+  overflow: hidden;
+}
+.aurora-bg::before {
+  display: none;
+}
+.aurora-bg > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Surface card */
+.aurora-card {
+  background: #ffffff;
+  border: 1px solid rgba(0, 128, 128, 0.16);
+  border-radius: var(--radius-xl);
+  box-shadow:
+    0 4px 24px rgba(0, 128, 128, 0.08),
+    0 1px 4px rgba(0, 0, 0, 0.04);
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    border-color 0.25s ease,
+    background 0.25s ease;
+}
+.aurora-card:hover {
+  transform: translateY(-4px);
+  background: #ffffff;
+  border-color: rgba(0, 229, 229, 0.45);
+  box-shadow:
+    0 12px 40px rgba(0, 128, 128, 0.14),
+    0 4px 12px rgba(0, 229, 229, 0.1);
+}
+
+/* Navbar surfaces */
+.aurora-navbar {
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(24px) saturate(200%);
+  -webkit-backdrop-filter: blur(24px) saturate(200%);
+  border-bottom: 1px solid rgba(0, 128, 128, 0.12);
+  box-shadow: 0 4px 24px rgba(0, 128, 128, 0.08);
+}
+.aurora-navbar-default {
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(12px) saturate(160%);
+  -webkit-backdrop-filter: blur(12px) saturate(160%);
+  border-bottom: 1px solid rgba(0, 128, 128, 0.06);
+}
+
+/* Dropdown */
+.aurora-dropdown {
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  border: 1px solid rgba(0, 128, 128, 0.15);
+  border-radius: var(--radius-lg);
+  box-shadow:
+    0 16px 48px rgba(0, 128, 128, 0.12),
+    0 4px 16px rgba(0, 0, 0, 0.06);
+}
+
+/* Mobile menu */
+.aurora-mobile-menu {
+  background: rgba(255, 255, 255, 0.96);
+  backdrop-filter: blur(28px) saturate(200%);
+  -webkit-backdrop-filter: blur(28px) saturate(200%);
+  border-top: 1px solid rgba(0, 128, 128, 0.1);
+  box-shadow: 0 16px 48px rgba(0, 128, 128, 0.1);
+}
+
+/* Footer — solid deep teal */
+.aurora-footer {
+  background: #003b3b;
+  position: relative;
+  overflow: hidden;
+}
+.aurora-footer::before {
+  display: none;
+}
+.aurora-footer > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Badge */
+.aurora-badge {
+  background: rgba(0, 128, 128, 0.1);
+  color: var(--color-teal-deep);
+  border: 1px solid rgba(0, 128, 128, 0.22);
+  border-radius: 999px;
+  padding: 4px 12px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* Section label */
+.aurora-section-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 16px;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-teal);
+  background: rgba(0, 128, 128, 0.08);
+  border: 1px solid rgba(0, 128, 128, 0.2);
+}
+.aurora-section-label::before {
+  content: "";
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-aqua);
+  flex-shrink: 0;
+}
+
+/* Accent button */
+.btn-aurora {
+  background: rgba(0, 229, 229, 0.14);
+  color: var(--color-teal-deep);
+  border: 1px solid rgba(0, 229, 229, 0.4);
+  border-radius: 12px;
+  padding: 12px 24px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  text-decoration: none;
+}
+.btn-aurora:hover {
+  background: rgba(0, 229, 229, 0.26);
+  border-color: rgba(0, 229, 229, 0.6);
+  transform: translateY(-1px);
+  color: var(--color-teal-deep);
+}
+
+/* Decorative orb — soft solid blur (no gradient) */
+.aurora-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(72px);
+  pointer-events: none;
+}
+.aurora-orb-teal {
+  background: rgba(0, 128, 128, 0.18);
+}
+.aurora-orb-green {
+  background: rgba(0, 229, 229, 0.16);
+}
+
+/* Header is a transparent positioner — the pill carries its own bg */
+header.fixed {
+  background: transparent !important;
+  border-bottom: none !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   TYPOGRAPHY SYSTEM  (Inter · strict scale · semantic roles)
+   Plain top-level CSS so it always wins over the base h1 reset.
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+/* Inter rendering polish */
+html {
+  font-feature-settings: "cv11", "ss01";
+}
+
+/* ── Marketing display tokens ── */
+.display-hero {
+  font-family: var(--font-inter), system-ui, sans-serif;
+  font-weight: 800;
+  font-size: clamp(2.5rem, 5.4vw, 4.5rem);
+  line-height: 1.04;
+  letter-spacing: -0.04em;
+  text-wrap: balance;
+}
+.display-lg {
+  font-family: var(--font-inter), system-ui, sans-serif;
+  font-weight: 800;
+  font-size: clamp(1.9rem, 4vw, 3rem);
+  line-height: 1.06;
+  letter-spacing: -0.035em;
+  text-wrap: balance;
+}
+
+/* ── Glossy headline (white → aqua sheen; stays in palette) ── */
+.text-glossy {
+  color: #ffffff;
+}
+@supports ((-webkit-background-clip: text) or (background-clip: text)) {
+  .text-glossy {
+    background-image: linear-gradient(180deg, #ffffff 0%, #eafeff 50%, #aef2f2 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 2px 16px rgba(0, 0, 0, 0.18));
+  }
+}
+
+/* ── Semantic role utilities (mirror the <Typography> component) ── */
+.ty-h1 {
+  @apply font-display font-bold text-3xl sm:text-4xl tracking-tight leading-tight text-content;
+}
+.ty-h2 {
+  @apply font-heading font-semibold text-2xl sm:text-3xl tracking-tight leading-tight text-content;
+}
+.ty-h3 {
+  @apply font-heading font-semibold text-xl sm:text-2xl tracking-tight leading-snug text-content;
+}
+.ty-h4 {
+  @apply font-heading font-medium text-lg sm:text-xl leading-snug text-content;
+}
+.ty-body-lg {
+  @apply font-normal text-lg leading-relaxed text-content;
+}
+.ty-body {
+  @apply font-normal text-base leading-relaxed text-content;
+}
+.ty-body-sm {
+  @apply font-normal text-sm leading-normal text-content;
+}
+.ty-caption {
+  @apply font-normal text-xs leading-normal text-muted;
+}
+.ty-label {
+  @apply font-medium text-sm leading-normal text-content;
+}
+.ty-button {
+  @apply font-semibold text-sm;
+  line-height: 1;
+}
+.ty-overline {
+  @apply font-semibold text-xs uppercase tracking-widest leading-normal text-muted;
+}

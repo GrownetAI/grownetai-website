@@ -1,0 +1,1353 @@
+{
+  "IN": {
+    "currency": "INR",
+    "services": {
+      "application_development": {
+        "starter": {
+          "min": 150000,
+          "max": 400000
+        },
+        "professional": {
+          "min": 400000,
+          "max": 1200000
+        },
+        "advanced": {
+          "min": 1200000,
+          "max": 5000000
+        },
+        "enterprise": {
+          "min": 5000000,
+          "max": 20000000
+        }
+      },
+      "seo": {
+        "starter": {
+          "min": 8000,
+          "max": 25000
+        },
+        "growth": {
+          "min": 25000,
+          "max": 60000
+        },
+        "advanced": {
+          "min": 60000,
+          "max": 150000
+        },
+        "enterprise": {
+          "min": 150000,
+          "max": 500000
+        }
+      },
+      "ads_management": {
+        "starter": {
+          "min": 8000,
+          "max": 20000
+        },
+        "growth": {
+          "min": 20000,
+          "max": 60000
+        },
+        "advanced": {
+          "min": 60000,
+          "max": 150000
+        },
+        "enterprise": {
+          "min": 150000,
+          "max": 400000
+        }
+      },
+      "social_media_management": {
+        "starter": {
+          "min": 10000,
+          "max": 30000
+        },
+        "growth": {
+          "min": 35000,
+          "max": 80000
+        },
+        "advanced": {
+          "min": 80000,
+          "max": 250000
+        },
+        "enterprise": {
+          "min": 250000,
+          "max": 500000
+        }
+      },
+      "social_media_optimization": {
+        "starter": {
+          "min": 10000,
+          "max": 25000
+        },
+        "growth": {
+          "min": 25000,
+          "max": 50000
+        },
+        "advanced": {
+          "min": 50000,
+          "max": 100000
+        },
+        "enterprise": {
+          "min": 100000,
+          "max": 200000
+        }
+      },
+      "ai_agent_development": {
+        "starter": {
+          "min": 800000,
+          "max": 2000000
+        },
+        "professional": {
+          "min": 2000000,
+          "max": 5000000
+        },
+        "advanced": {
+          "min": 5000000,
+          "max": 10000000
+        },
+        "enterprise": {
+          "min": 10000000,
+          "max": 20000000
+        }
+      },
+      "llm_integration": {
+        "starter": {
+          "min": 200000,
+          "max": 600000
+        },
+        "professional": {
+          "min": 600000,
+          "max": 1500000
+        },
+        "advanced": {
+          "min": 1500000,
+          "max": 4000000
+        },
+        "enterprise": {
+          "min": 4000000,
+          "max": 10000000
+        }
+      },
+      "ai_automation": {
+        "starter": {
+          "min": 50000,
+          "max": 200000
+        },
+        "professional": {
+          "min": 200000,
+          "max": 600000
+        },
+        "advanced": {
+          "min": 600000,
+          "max": 1500000
+        },
+        "enterprise": {
+          "min": 1500000,
+          "max": 5000000
+        }
+      },
+      "custom_model_training": {
+        "starter": {
+          "min": 200000,
+          "max": 500000
+        },
+        "professional": {
+          "min": 500000,
+          "max": 1500000
+        },
+        "advanced": {
+          "min": 1500000,
+          "max": 5000000
+        },
+        "enterprise": {
+          "min": 5000000,
+          "max": 15000000
+        }
+      }
+    }
+  },
+  "US": {
+    "currency": "USD",
+    "services": {
+      "application_development": {
+        "starter": {
+          "min": 20000,
+          "max": 50000
+        },
+        "professional": {
+          "min": 50000,
+          "max": 150000
+        },
+        "advanced": {
+          "min": 150000,
+          "max": 300000
+        },
+        "enterprise": {
+          "min": 300000,
+          "max": 750000
+        }
+      },
+      "seo": {
+        "starter": {
+          "min": 700,
+          "max": 1500
+        },
+        "growth": {
+          "min": 1500,
+          "max": 3500
+        },
+        "advanced": {
+          "min": 3500,
+          "max": 7500
+        },
+        "enterprise": {
+          "min": 7500,
+          "max": 20000
+        }
+      },
+      "ads_management": {
+        "starter": {
+          "min": 750,
+          "max": 1500
+        },
+        "growth": {
+          "min": 1500,
+          "max": 3500
+        },
+        "advanced": {
+          "min": 3500,
+          "max": 7500
+        },
+        "enterprise": {
+          "min": 7500,
+          "max": 20000
+        }
+      },
+      "social_media_management": {
+        "starter": {
+          "min": 500,
+          "max": 1500
+        },
+        "growth": {
+          "min": 1500,
+          "max": 5000
+        },
+        "advanced": {
+          "min": 5000,
+          "max": 10000
+        },
+        "enterprise": {
+          "min": 10000,
+          "max": 25000
+        }
+      },
+      "social_media_optimization": {
+        "starter": {
+          "min": 500,
+          "max": 1500
+        },
+        "growth": {
+          "min": 1500,
+          "max": 4000
+        },
+        "advanced": {
+          "min": 4000,
+          "max": 10000
+        },
+        "enterprise": {
+          "min": 10000,
+          "max": 20000
+        }
+      },
+      "ai_agent_development": {
+        "starter": {
+          "min": 10000,
+          "max": 50000
+        },
+        "professional": {
+          "min": 50000,
+          "max": 120000
+        },
+        "advanced": {
+          "min": 120000,
+          "max": 250000
+        },
+        "enterprise": {
+          "min": 250000,
+          "max": 500000
+        }
+      },
+      "llm_integration": {
+        "starter": {
+          "min": 15000,
+          "max": 40000
+        },
+        "professional": {
+          "min": 40000,
+          "max": 120000
+        },
+        "advanced": {
+          "min": 120000,
+          "max": 250000
+        },
+        "enterprise": {
+          "min": 250000,
+          "max": 500000
+        }
+      },
+      "ai_automation": {
+        "starter": {
+          "min": 5000,
+          "max": 15000
+        },
+        "professional": {
+          "min": 15000,
+          "max": 80000
+        },
+        "advanced": {
+          "min": 80000,
+          "max": 250000
+        },
+        "enterprise": {
+          "min": 250000,
+          "max": 1000000
+        }
+      },
+      "custom_model_training": {
+        "starter": {
+          "min": 5000,
+          "max": 25000
+        },
+        "professional": {
+          "min": 50000,
+          "max": 200000
+        },
+        "advanced": {
+          "min": 200000,
+          "max": 500000
+        },
+        "enterprise": {
+          "min": 500000,
+          "max": 2000000
+        }
+      }
+    }
+  },
+  "CA": {
+    "currency": "CAD",
+    "services": {
+      "application_development": {
+        "starter": {
+          "min": 15000,
+          "max": 75000
+        },
+        "professional": {
+          "min": 75000,
+          "max": 200000
+        },
+        "advanced": {
+          "min": 200000,
+          "max": 540000
+        },
+        "enterprise": {
+          "min": 540000,
+          "max": 950000
+        }
+      },
+      "seo": {
+        "starter": {
+          "min": 800,
+          "max": 2000
+        },
+        "growth": {
+          "min": 2000,
+          "max": 5000
+        },
+        "advanced": {
+          "min": 5000,
+          "max": 10000
+        },
+        "enterprise": {
+          "min": 10000,
+          "max": 20000
+        }
+      },
+      "ads_management": {
+        "starter": {
+          "min": 800,
+          "max": 1500
+        },
+        "growth": {
+          "min": 1500,
+          "max": 3000
+        },
+        "advanced": {
+          "min": 3000,
+          "max": 6000
+        },
+        "enterprise": {
+          "min": 6000,
+          "max": 15000
+        }
+      },
+      "social_media_management": {
+        "starter": {
+          "min": 500,
+          "max": 1500
+        },
+        "growth": {
+          "min": 1500,
+          "max": 5000
+        },
+        "advanced": {
+          "min": 5000,
+          "max": 10000
+        },
+        "enterprise": {
+          "min": 10000,
+          "max": 20000
+        }
+      },
+      "social_media_optimization": {
+        "starter": {
+          "min": 500,
+          "max": 1500
+        },
+        "growth": {
+          "min": 1500,
+          "max": 5000
+        },
+        "advanced": {
+          "min": 5000,
+          "max": 12000
+        },
+        "enterprise": {
+          "min": 12000,
+          "max": 20000
+        }
+      },
+      "ai_agent_development": {
+        "starter": {
+          "min": 10000,
+          "max": 55000
+        },
+        "professional": {
+          "min": 55000,
+          "max": 130000
+        },
+        "advanced": {
+          "min": 130000,
+          "max": 270000
+        },
+        "enterprise": {
+          "min": 270000,
+          "max": 550000
+        }
+      },
+      "llm_integration": {
+        "starter": {
+          "min": 15000,
+          "max": 65000
+        },
+        "professional": {
+          "min": 65000,
+          "max": 175000
+        },
+        "advanced": {
+          "min": 175000,
+          "max": 350000
+        },
+        "enterprise": {
+          "min": 350000,
+          "max": 750000
+        }
+      },
+      "ai_automation": {
+        "starter": {
+          "min": 3000,
+          "max": 10000
+        },
+        "professional": {
+          "min": 10000,
+          "max": 50000
+        },
+        "advanced": {
+          "min": 50000,
+          "max": 150000
+        },
+        "enterprise": {
+          "min": 150000,
+          "max": 500000
+        }
+      },
+      "custom_model_training": {
+        "starter": {
+          "min": 7000,
+          "max": 30000
+        },
+        "professional": {
+          "min": 65000,
+          "max": 250000
+        },
+        "advanced": {
+          "min": 250000,
+          "max": 650000
+        },
+        "enterprise": {
+          "min": 650000,
+          "max": 2500000
+        }
+      }
+    }
+  },
+  "GB": {
+    "currency": "GBP",
+    "services": {
+      "application_development": {
+        "starter": {
+          "min": 15000,
+          "max": 35000
+        },
+        "professional": {
+          "min": 35000,
+          "max": 80000
+        },
+        "advanced": {
+          "min": 80000,
+          "max": 250000
+        },
+        "enterprise": {
+          "min": 250000,
+          "max": 500000
+        }
+      },
+      "seo": {
+        "starter": {
+          "min": 500,
+          "max": 1200
+        },
+        "growth": {
+          "min": 1200,
+          "max": 3000
+        },
+        "advanced": {
+          "min": 3000,
+          "max": 6000
+        },
+        "enterprise": {
+          "min": 6000,
+          "max": 20000
+        }
+      },
+      "ads_management": {
+        "starter": {
+          "min": 500,
+          "max": 1000
+        },
+        "growth": {
+          "min": 1000,
+          "max": 2500
+        },
+        "advanced": {
+          "min": 2500,
+          "max": 5000
+        },
+        "enterprise": {
+          "min": 5000,
+          "max": 12000
+        }
+      },
+      "social_media_management": {
+        "starter": {
+          "min": 250,
+          "max": 600
+        },
+        "growth": {
+          "min": 600,
+          "max": 1500
+        },
+        "advanced": {
+          "min": 1500,
+          "max": 5000
+        },
+        "enterprise": {
+          "min": 5000,
+          "max": 10000
+        }
+      },
+      "social_media_optimization": {
+        "starter": {
+          "min": 300,
+          "max": 800
+        },
+        "growth": {
+          "min": 800,
+          "max": 2000
+        },
+        "advanced": {
+          "min": 2000,
+          "max": 5000
+        },
+        "enterprise": {
+          "min": 5000,
+          "max": 10000
+        }
+      },
+      "ai_agent_development": {
+        "starter": {
+          "min": 8000,
+          "max": 10000
+        },
+        "professional": {
+          "min": 10000,
+          "max": 40000
+        },
+        "advanced": {
+          "min": 40000,
+          "max": 100000
+        },
+        "enterprise": {
+          "min": 100000,
+          "max": 250000
+        }
+      },
+      "llm_integration": {
+        "starter": {
+          "min": 15000,
+          "max": 45000
+        },
+        "professional": {
+          "min": 45000,
+          "max": 100000
+        },
+        "advanced": {
+          "min": 100000,
+          "max": 200000
+        },
+        "enterprise": {
+          "min": 200000,
+          "max": 400000
+        }
+      },
+      "ai_automation": {
+        "starter": {
+          "min": 3000,
+          "max": 10000
+        },
+        "professional": {
+          "min": 10000,
+          "max": 30000
+        },
+        "advanced": {
+          "min": 30000,
+          "max": 100000
+        },
+        "enterprise": {
+          "min": 100000,
+          "max": 400000
+        }
+      },
+      "custom_model_training": {
+        "starter": {
+          "min": 5000,
+          "max": 20000
+        },
+        "professional": {
+          "min": 40000,
+          "max": 150000
+        },
+        "advanced": {
+          "min": 150000,
+          "max": 400000
+        },
+        "enterprise": {
+          "min": 400000,
+          "max": 1500000
+        }
+      }
+    }
+  },
+  "AU": {
+    "currency": "AUD",
+    "services": {
+      "application_development": {
+        "starter": {
+          "min": 30000,
+          "max": 100000
+        },
+        "professional": {
+          "min": 100000,
+          "max": 250000
+        },
+        "advanced": {
+          "min": 250000,
+          "max": 500000
+        },
+        "enterprise": {
+          "min": 500000,
+          "max": 900000
+        }
+      },
+      "seo": {
+        "starter": {
+          "min": 1500,
+          "max": 3000
+        },
+        "growth": {
+          "min": 3000,
+          "max": 5000
+        },
+        "advanced": {
+          "min": 5000,
+          "max": 8000
+        },
+        "enterprise": {
+          "min": 8000,
+          "max": 20000
+        }
+      },
+      "ads_management": {
+        "starter": {
+          "min": 800,
+          "max": 1500
+        },
+        "growth": {
+          "min": 1500,
+          "max": 3500
+        },
+        "advanced": {
+          "min": 3500,
+          "max": 7000
+        },
+        "enterprise": {
+          "min": 7000,
+          "max": 15000
+        }
+      },
+      "social_media_management": {
+        "starter": {
+          "min": 500,
+          "max": 2000
+        },
+        "growth": {
+          "min": 2000,
+          "max": 5000
+        },
+        "advanced": {
+          "min": 5000,
+          "max": 15000
+        },
+        "enterprise": {
+          "min": 15000,
+          "max": 30000
+        }
+      },
+      "social_media_optimization": {
+        "starter": {
+          "min": 1500,
+          "max": 3000
+        },
+        "growth": {
+          "min": 3000,
+          "max": 6000
+        },
+        "advanced": {
+          "min": 6000,
+          "max": 12000
+        },
+        "enterprise": {
+          "min": 12000,
+          "max": 25000
+        }
+      },
+      "ai_agent_development": {
+        "starter": {
+          "min": 15000,
+          "max": 60000
+        },
+        "professional": {
+          "min": 60000,
+          "max": 150000
+        },
+        "advanced": {
+          "min": 150000,
+          "max": 350000
+        },
+        "enterprise": {
+          "min": 350000,
+          "max": 750000
+        }
+      },
+      "llm_integration": {
+        "starter": {
+          "min": 20000,
+          "max": 60000
+        },
+        "professional": {
+          "min": 60000,
+          "max": 150000
+        },
+        "advanced": {
+          "min": 150000,
+          "max": 350000
+        },
+        "enterprise": {
+          "min": 350000,
+          "max": 750000
+        }
+      },
+      "ai_automation": {
+        "starter": {
+          "min": 3000,
+          "max": 10000
+        },
+        "professional": {
+          "min": 10000,
+          "max": 35000
+        },
+        "advanced": {
+          "min": 35000,
+          "max": 120000
+        },
+        "enterprise": {
+          "min": 120000,
+          "max": 500000
+        }
+      },
+      "custom_model_training": {
+        "starter": {
+          "min": 8000,
+          "max": 35000
+        },
+        "professional": {
+          "min": 60000,
+          "max": 250000
+        },
+        "advanced": {
+          "min": 250000,
+          "max": 600000
+        },
+        "enterprise": {
+          "min": 600000,
+          "max": 2000000
+        }
+      }
+    }
+  },
+  "NZ": {
+    "currency": "NZD",
+    "services": {
+      "application_development": {
+        "starter": {
+          "min": 25000,
+          "max": 45000
+        },
+        "professional": {
+          "min": 45000,
+          "max": 90000
+        },
+        "advanced": {
+          "min": 90000,
+          "max": 200000
+        },
+        "enterprise": {
+          "min": 200000,
+          "max": 400000
+        }
+      },
+      "seo": {
+        "starter": {
+          "min": 1000,
+          "max": 2500
+        },
+        "growth": {
+          "min": 2500,
+          "max": 6000
+        },
+        "advanced": {
+          "min": 6000,
+          "max": 10000
+        },
+        "enterprise": {
+          "min": 10000,
+          "max": 25000
+        }
+      },
+      "ads_management": {
+        "starter": {
+          "min": 750,
+          "max": 1500
+        },
+        "growth": {
+          "min": 1500,
+          "max": 3500
+        },
+        "advanced": {
+          "min": 3500,
+          "max": 7500
+        },
+        "enterprise": {
+          "min": 7500,
+          "max": 18000
+        }
+      },
+      "social_media_management": {
+        "starter": {
+          "min": 800,
+          "max": 2500
+        },
+        "growth": {
+          "min": 2500,
+          "max": 6000
+        },
+        "advanced": {
+          "min": 6000,
+          "max": 15000
+        },
+        "enterprise": {
+          "min": 15000,
+          "max": 30000
+        }
+      },
+      "social_media_optimization": {
+        "starter": {
+          "min": 1000,
+          "max": 2500
+        },
+        "growth": {
+          "min": 2500,
+          "max": 5000
+        },
+        "advanced": {
+          "min": 5000,
+          "max": 10000
+        },
+        "enterprise": {
+          "min": 10000,
+          "max": 20000
+        }
+      },
+      "ai_agent_development": {
+        "starter": {
+          "min": 20000,
+          "max": 70000
+        },
+        "professional": {
+          "min": 70000,
+          "max": 170000
+        },
+        "advanced": {
+          "min": 170000,
+          "max": 380000
+        },
+        "enterprise": {
+          "min": 380000,
+          "max": 800000
+        }
+      },
+      "llm_integration": {
+        "starter": {
+          "min": 25000,
+          "max": 65000
+        },
+        "professional": {
+          "min": 65000,
+          "max": 170000
+        },
+        "advanced": {
+          "min": 170000,
+          "max": 350000
+        },
+        "enterprise": {
+          "min": 350000,
+          "max": 750000
+        }
+      },
+      "ai_automation": {
+        "starter": {
+          "min": 3000,
+          "max": 10000
+        },
+        "professional": {
+          "min": 10000,
+          "max": 40000
+        },
+        "advanced": {
+          "min": 40000,
+          "max": 150000
+        },
+        "enterprise": {
+          "min": 150000,
+          "max": 600000
+        }
+      },
+      "custom_model_training": {
+        "starter": {
+          "min": 10000,
+          "max": 40000
+        },
+        "professional": {
+          "min": 65000,
+          "max": 275000
+        },
+        "advanced": {
+          "min": 275000,
+          "max": 650000
+        },
+        "enterprise": {
+          "min": 650000,
+          "max": 2200000
+        }
+      }
+    }
+  },
+  "SG": {
+    "currency": "SGD",
+    "services": {
+      "application_development": {
+        "starter": {
+          "min": 15000,
+          "max": 30000
+        },
+        "professional": {
+          "min": 30000,
+          "max": 80000
+        },
+        "advanced": {
+          "min": 80000,
+          "max": 150000
+        },
+        "enterprise": {
+          "min": 150000,
+          "max": 400000
+        }
+      },
+      "seo": {
+        "starter": {
+          "min": 800,
+          "max": 1500
+        },
+        "growth": {
+          "min": 1500,
+          "max": 3500
+        },
+        "advanced": {
+          "min": 3500,
+          "max": 6000
+        },
+        "enterprise": {
+          "min": 6000,
+          "max": 20000
+        }
+      },
+      "ads_management": {
+        "starter": {
+          "min": 1000,
+          "max": 2500
+        },
+        "growth": {
+          "min": 2500,
+          "max": 5000
+        },
+        "advanced": {
+          "min": 5000,
+          "max": 9000
+        },
+        "enterprise": {
+          "min": 9000,
+          "max": 20000
+        }
+      },
+      "social_media_management": {
+        "starter": {
+          "min": 500,
+          "max": 1500
+        },
+        "growth": {
+          "min": 1500,
+          "max": 3500
+        },
+        "advanced": {
+          "min": 3500,
+          "max": 8000
+        },
+        "enterprise": {
+          "min": 8000,
+          "max": 20000
+        }
+      },
+      "social_media_optimization": {
+        "starter": {
+          "min": 1500,
+          "max": 3000
+        },
+        "growth": {
+          "min": 3000,
+          "max": 8000
+        },
+        "advanced": {
+          "min": 8000,
+          "max": 15000
+        },
+        "enterprise": {
+          "min": 15000,
+          "max": 30000
+        }
+      },
+      "ai_agent_development": {
+        "starter": {
+          "min": 20000,
+          "max": 60000
+        },
+        "professional": {
+          "min": 60000,
+          "max": 130000
+        },
+        "advanced": {
+          "min": 130000,
+          "max": 250000
+        },
+        "enterprise": {
+          "min": 250000,
+          "max": 500000
+        }
+      },
+      "llm_integration": {
+        "starter": {
+          "min": 10000,
+          "max": 30000
+        },
+        "professional": {
+          "min": 30000,
+          "max": 70000
+        },
+        "advanced": {
+          "min": 70000,
+          "max": 150000
+        },
+        "enterprise": {
+          "min": 150000,
+          "max": 300000
+        }
+      },
+      "ai_automation": {
+        "starter": {
+          "min": 8000,
+          "max": 20000
+        },
+        "professional": {
+          "min": 20000,
+          "max": 80000
+        },
+        "advanced": {
+          "min": 80000,
+          "max": 200000
+        },
+        "enterprise": {
+          "min": 200000,
+          "max": 700000
+        }
+      },
+      "custom_model_training": {
+        "starter": {
+          "min": 10000,
+          "max": 50000
+        },
+        "professional": {
+          "min": 60000,
+          "max": 250000
+        },
+        "advanced": {
+          "min": 250000,
+          "max": 600000
+        },
+        "enterprise": {
+          "min": 600000,
+          "max": 2000000
+        }
+      }
+    }
+  },
+  "AE": {
+    "currency": "AED",
+    "services": {
+      "application_development": {
+        "starter": {
+          "min": 25000,
+          "max": 60000
+        },
+        "professional": {
+          "min": 60000,
+          "max": 150000
+        },
+        "advanced": {
+          "min": 150000,
+          "max": 350000
+        },
+        "enterprise": {
+          "min": 350000,
+          "max": 800000
+        }
+      },
+      "seo": {
+        "starter": {
+          "min": 2500,
+          "max": 6000
+        },
+        "growth": {
+          "min": 6000,
+          "max": 10000
+        },
+        "advanced": {
+          "min": 10000,
+          "max": 18000
+        },
+        "enterprise": {
+          "min": 18000,
+          "max": 40000
+        }
+      },
+      "ads_management": {
+        "starter": {
+          "min": 2500,
+          "max": 6000
+        },
+        "growth": {
+          "min": 6000,
+          "max": 12000
+        },
+        "advanced": {
+          "min": 12000,
+          "max": 22000
+        },
+        "enterprise": {
+          "min": 22000,
+          "max": 55000
+        }
+      },
+      "social_media_management": {
+        "starter": {
+          "min": 3000,
+          "max": 6000
+        },
+        "growth": {
+          "min": 6000,
+          "max": 12000
+        },
+        "advanced": {
+          "min": 12000,
+          "max": 25000
+        },
+        "enterprise": {
+          "min": 25000,
+          "max": 50000
+        }
+      },
+      "social_media_optimization": {
+        "starter": {
+          "min": 3000,
+          "max": 6000
+        },
+        "growth": {
+          "min": 6000,
+          "max": 12000
+        },
+        "advanced": {
+          "min": 12000,
+          "max": 20000
+        },
+        "enterprise": {
+          "min": 20000,
+          "max": 35000
+        }
+      },
+      "ai_agent_development": {
+        "starter": {
+          "min": 20000,
+          "max": 75000
+        },
+        "professional": {
+          "min": 75000,
+          "max": 200000
+        },
+        "advanced": {
+          "min": 200000,
+          "max": 500000
+        },
+        "enterprise": {
+          "min": 500000,
+          "max": 1200000
+        }
+      },
+      "llm_integration": {
+        "starter": {
+          "min": 20000,
+          "max": 75000
+        },
+        "professional": {
+          "min": 75000,
+          "max": 200000
+        },
+        "advanced": {
+          "min": 200000,
+          "max": 500000
+        },
+        "enterprise": {
+          "min": 500000,
+          "max": 1200000
+        }
+      },
+      "ai_automation": {
+        "starter": {
+          "min": 10000,
+          "max": 30000
+        },
+        "professional": {
+          "min": 30000,
+          "max": 100000
+        },
+        "advanced": {
+          "min": 100000,
+          "max": 300000
+        },
+        "enterprise": {
+          "min": 300000,
+          "max": 1000000
+        }
+      },
+      "custom_model_training": {
+        "starter": {
+          "min": 20000,
+          "max": 90000
+        },
+        "professional": {
+          "min": 150000,
+          "max": 600000
+        },
+        "advanced": {
+          "min": 600000,
+          "max": 1500000
+        },
+        "enterprise": {
+          "min": 1500000,
+          "max": 5500000
+        }
+      }
+    }
+  },
+  "meta": {
+    "last_updated": "2026-06",
+    "confidence": "medium",
+    "pricing_basis": {
+      "application_development": "one-time",
+      "seo": "monthly",
+      "ads_management": "monthly",
+      "social_media_management": "monthly",
+      "social_media_optimization": "monthly",
+      "ai_agent_development": "one-time",
+      "llm_integration": "one-time",
+      "ai_automation": "one-time",
+      "custom_model_training": "one-time"
+    }
+  }
+}

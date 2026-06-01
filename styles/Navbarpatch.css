@@ -1,0 +1,22 @@
+/*
+  Add this to the bottom of your globals.css (or replace the relevant rules).
+
+  The <header> is now a transparent positioner — no background at all.
+  The pill inside it carries all the visual styling.
+  This ensures the hero gradient shows through around the floating pill.
+*/
+
+/* Override: header has NO background — pill handles its own bg */
+header.fixed {
+  background: transparent !important;
+  border-bottom: none !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+/*
+  The aurora-navbar / aurora-navbar-default classes are no longer used on the
+  header element, so these are now unused. They're left here for reference only.
+  You can safely delete them from globals.css if you wish.
+*/
