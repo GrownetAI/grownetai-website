@@ -1,7 +1,14 @@
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-   Premium Global Stylesheet
-   Flat two-tone system — Teal #008080 + Aqua #00E5E5
-   No gradients anywhere (logo asset excluded).
+   GrownetAI — Global Stylesheet
+   "Paper & Ink": warm paper canvas, warm near-black type,
+   one saturated accent (the emerald from the logo).
+
+   Rules of the system
+     · Serif (Instrument Serif) is for editorial display headlines ONLY.
+     · Inter carries every piece of UI text and body copy.
+     · Exactly one accent hue. Cyan + lime are decorative, never text.
+     · No gradients as brand colour. Gradients only ever scrim imagery.
+     · Every text/background pair below meets WCAG AA at its size.
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 
 @tailwind base;
@@ -10,46 +17,88 @@
 
 /* ── 1. DESIGN TOKENS ─────────────────────────────────── */
 :root {
-  /* Brand palette — flat */
-  --color-teal: #008080;        /* primary / background */
-  --color-teal-deep: #006666;   /* hover / pressed */
-  --color-teal-dark: #004d4d;   /* deep surfaces */
-  --color-teal-mist: #e0f7f7;   /* soft tint */
-  --color-aqua: #00e5e5;        /* accent */
-  --color-aqua-deep: #00b3b3;   /* accent (readable on light) */
-  --color-green: #00e5e5;       /* legacy alias → aqua */
-  --color-forest: #006666;      /* legacy alias → teal-deep */
-  --color-mint: #e6fbfb;
-  --color-charcoal: #0b1f1f;
-  --color-dark-leaf: #0f2e2e;
-  --color-slate: #5c6b6b;
-  --color-cloud: #f2fbfb;
-  --color-light-gray: #94a3a3;
+  /* Canvas */
+  --paper: #faf9f6;
+  --paper-sunk: #f3f1ea;
+  --paper-raised: #ffffff;
+
+  /* Type */
+  --ink: #14120f;
+  --ink-body: #47423a;
+  --ink-muted: #6e6860;
+  --ink-faint: #9c968c;
+
+  /* Structure */
+  --hairline: #e7e2d8;
+  --hairline-strong: #d8d2c4;
+
+  /* Dark surfaces */
+  --forest: #0e2a24;
+  --forest-deep: #0b211c;
+  --forest-ink: #081714;
+
+  /* The one accent — logo emerald */
+  --moss-100: #ddf0e8;
+  --moss-200: #b6e0d1;
+  --moss-300: #5fc7a7;
+  --moss-400: #1ca88c;
+  --moss-500: #12907a;
+  --moss-600: #0c6b58;
+  --moss-700: #08543f;
+
+  /* Decorative only */
+  --lagoon: #009aa8;
+  --sprout: #79d65b;
 
   /* Layout */
-  --navbar-height: 72px;
-  --section-pad: 96px;
+  /* The header pads 12px top and bottom out of this, leaving a 64px pill.
+     Sized so the pill clears the top of the viewport and actually floats,
+     rather than sitting flush against the edge. */
+  --navbar-height: 88px;
+  --section-pad: 112px;
 
   /* Radii */
-  --radius-sm: 8px;
-  --radius-md: 12px;
-  --radius-lg: 16px;
+  --radius-sm: 10px;
+  --radius-md: 14px;
+  --radius-lg: 18px;
   --radius-xl: 24px;
-  --radius-2xl: 32px;
+  --radius-2xl: 28px;
 
-  /* Shadows */
-  --shadow-card: 0 2px 12px rgba(0, 0, 0, 0.06), 0 1px 3px rgba(0, 0, 0, 0.04);
-  --shadow-card-hover:
-    0 8px 32px rgba(0, 128, 128, 0.14), 0 2px 8px rgba(0, 0, 0, 0.06);
-  --shadow-brand: 0 8px 32px rgba(0, 128, 128, 0.25);
-  --shadow-brand-lg: 0 16px 48px rgba(0, 128, 128, 0.35);
+  /* Shadows — warm-tinted, low and wide. No coloured glow. */
+  --shadow-card: 0 1px 2px rgba(20, 18, 15, 0.04),
+    0 8px 24px -14px rgba(20, 18, 15, 0.14);
+  --shadow-card-hover: 0 2px 4px rgba(20, 18, 15, 0.05),
+    0 18px 44px -20px rgba(20, 18, 15, 0.22);
+  --shadow-brand: 0 8px 28px -12px rgba(20, 18, 15, 0.24);
+  --shadow-brand-lg: 0 20px 56px -24px rgba(20, 18, 15, 0.32);
+  --shadow-float: 0 28px 70px -30px rgba(20, 18, 15, 0.35);
 
-  /* Brand fills — FLAT colours (named "gradient-*" only for back-compat) */
-  --gradient-brand: #008080;
-  --gradient-brand-2: #008080;
-  --gradient-dark: #004d4d;
-  --gradient-hero: #008080;
-  --gradient-card: #e6fbfb;
+  /* Back-compat aliases — old names, new (flat) values.
+     Kept so untouched pages inherit the reskin instead of
+     rendering stale teal. */
+  --color-teal: #0c6b58;
+  --color-teal-deep: #08543f;
+  --color-teal-dark: #0e2a24;
+  --color-teal-mist: #ddf0e8;
+  --color-aqua: #1ca88c;
+  --color-aqua-deep: #12907a;
+  --color-green: #1ca88c;
+  --color-forest: #08543f;
+  --color-mint: #f0f8f5;
+  --color-charcoal: #14120f;
+  --color-dark-leaf: #0b211c;
+  --color-slate: #6e6860;
+  --color-cloud: #f3f1ea;
+  --color-light-gray: #9c968c;
+
+  --gradient-brand: #0c6b58;
+  --gradient-brand-2: #0c6b58;
+  --gradient-dark: #0e2a24;
+  --gradient-hero: #faf9f6;
+  --gradient-card: #f0f8f5;
+
+  /* Dot-grid ink colour — flipped by .dot-grid-invert */
+  --dot-color: rgba(20, 18, 15, 0.16);
 }
 
 /* ── 2. BASE RESET & TYPOGRAPHY ───────────────────────── */
@@ -65,58 +114,65 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
+    /* `clip` (not `hidden`) contains stray decorative overflow without
+       turning the root into a scroll container — which would break
+       position: sticky and the fixed navbar. */
+    overflow-x: clip;
   }
 
   body {
-    @apply font-sans text-brand-slate-gray bg-white;
-    line-height: 1.65;
-    overflow-x: hidden;
+    @apply font-sans bg-paper text-ink-body;
+    line-height: 1.7;
+    overflow-x: clip;
   }
 
   ::selection {
-    background: rgba(0, 128, 128, 0.18);
-    color: var(--color-teal-deep);
+    background: rgba(28, 168, 140, 0.22);
+    color: var(--ink);
   }
 
   ::-webkit-scrollbar {
-    width: 6px;
-    height: 6px;
+    width: 10px;
+    height: 10px;
   }
   ::-webkit-scrollbar-track {
-    background: #f0f0f0;
+    background: var(--paper-sunk);
   }
   ::-webkit-scrollbar-thumb {
-    background: var(--color-teal);
+    background: var(--hairline-strong);
     border-radius: 999px;
+    border: 3px solid var(--paper-sunk);
   }
   ::-webkit-scrollbar-thumb:hover {
-    background: var(--color-teal-deep);
+    background: var(--ink-faint);
   }
 
+  /* Default headings are Inter. Serif is opt-in via the display classes
+     below, so small UI headings never turn editorial. */
   h1,
   h2,
   h3,
   h4,
   h5,
   h6 {
-    @apply font-heading font-bold text-brand-charcoal;
-    line-height: 1.12;
-    letter-spacing: -0.025em;
+    @apply font-heading font-semibold text-ink;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
     text-wrap: balance;
   }
 
   p {
-    line-height: 1.65;
+    line-height: 1.7;
     text-wrap: pretty;
   }
 
   a {
-    @apply text-brand-teal;
+    @apply text-moss-600;
     text-decoration: none;
-    transition: color 0.2s ease;
+    transition: color 0.18s ease;
   }
   a:hover {
-    @apply text-brand-teal-deep;
+    @apply text-moss-700;
   }
 
   img {
@@ -129,16 +185,37 @@
     font-family: inherit;
     font-size: inherit;
   }
+
+  /* Instrument Serif ships a single weight (400), and the base h1–h6 rule
+     above asks for 600. Without this, every serif heading gets a
+     synthesised faux-bold, which looks smeared and muddies the counters.
+     Disabling synthesis makes the browser fall back to the real 400 face
+     no matter what weight is requested, so `font-bold` on a serif element
+     is a no-op rather than a defect. A real italic face IS loaded, so
+     turning off style synthesis costs nothing. */
+  .font-display,
+  .font-serif,
+  .heading-display,
+  .display-hero,
+  .heading-section,
+  .display-lg,
+  .stat-card-value,
+  .ty-h1,
+  .ty-h2 {
+    font-synthesis: none;
+    font-synthesis-weight: none;
+  }
 }
 
 /* ── 3. LAYOUT UTILITIES ──────────────────────────────── */
 @layer components {
   .container-site {
-    @apply w-full mx-auto px-4 sm:px-6 lg:px-8;
-    max-width: 1200px;
+    @apply w-full mx-auto;
+    max-width: 1350px;
+    padding: 1.5rem;
+    z-index: 1;
   }
 
-  /* Hide scrollbar while keeping horizontal scroll (country selector) */
   .no-scrollbar {
     -ms-overflow-style: none;
     scrollbar-width: none;
@@ -148,12 +225,12 @@
   }
 
   .section-padding {
-    padding-top: 96px;
-    padding-bottom: 96px;
+    padding-top: 112px;
+    padding-bottom: 112px;
   }
   .section-padding-sm {
-    padding-top: 56px;
-    padding-bottom: 56px;
+    padding-top: 64px;
+    padding-bottom: 64px;
   }
   .section-padding-xs {
     padding-top: 32px;
@@ -161,52 +238,70 @@
   }
 
   /* ── 4. TYPOGRAPHY SYSTEM ─────────────────────────── */
-  .heading-display {
-    @apply font-display font-extrabold text-brand-charcoal;
-    font-size: clamp(2.75rem, 6.2vw, 5.25rem);
-    letter-spacing: -0.035em;
+
+  /* Editorial display — serif, one weight, tight. */
+  /* Heavy and tight. A display sans wants to be set much tighter than a
+     serif — at 5rem, -0.022em reads loose and the line-height needs to come
+     down or the lines drift apart. */
+  .heading-display,
+  .display-hero {
+    @apply font-display text-ink;
+    font-weight: 800;
+    font-size: clamp(2.5rem, 5.6vw, 4.6rem);
+    letter-spacing: -0.038em;
     line-height: 1.02;
+    text-wrap: balance;
   }
 
-  .heading-section {
-    @apply font-heading font-bold text-brand-charcoal;
-    font-size: clamp(1.9rem, 3.4vw, 2.9rem);
+  .heading-section,
+  .display-lg {
+    @apply font-display text-ink;
+    font-weight: 700;
+    font-size: clamp(1.95rem, 3.6vw, 3rem);
     letter-spacing: -0.032em;
-    line-height: 1.08;
+    line-height: 1.1;
+    text-wrap: balance;
   }
 
+  /* Card / UI headings stay on Inter — serif is illegible this small. */
   .heading-card {
-    @apply font-heading font-semibold text-brand-charcoal;
+    @apply font-heading font-semibold text-ink;
     font-size: 1.0625rem;
-    letter-spacing: -0.015em;
+    letter-spacing: -0.012em;
     line-height: 1.35;
   }
 
-  /* Small uppercase eyebrow above section headings */
   .eyebrow {
     display: inline-block;
     font-family: var(--font-inter);
-    font-size: 0.75rem;
-    font-weight: 700;
-    letter-spacing: 0.16em;
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
     text-transform: uppercase;
-    color: var(--color-teal);
+    color: var(--moss-600);
   }
 
   .text-body {
-    @apply text-brand-slate-gray leading-relaxed;
+    @apply text-ink-body leading-relaxed;
   }
   .text-body-lg {
-    @apply text-brand-slate-gray text-lg leading-relaxed;
+    @apply text-ink-body text-lg leading-relaxed;
   }
   .text-caption {
-    @apply text-brand-light-gray text-sm;
+    @apply text-ink-muted text-sm;
   }
 
-  /* ── 5. ACCENT TEXT (flat, was gradient text) ─────── */
+  /* ── 5. ACCENT TEXT ───────────────────────────────── */
   .text-gradient {
-    color: var(--color-teal);
-    -webkit-text-fill-color: var(--color-teal);
+    color: var(--moss-600);
+    -webkit-text-fill-color: var(--moss-600);
+    background: none;
+  }
+
+  /* Headline emphasis on dark surfaces. */
+  .text-glossy {
+    color: var(--paper);
+    -webkit-text-fill-color: var(--paper);
     background: none;
   }
 
@@ -215,16 +310,16 @@
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    padding: 6px 16px;
+    padding: 6px 14px;
     border-radius: 999px;
-    font-size: 0.75rem;
-    font-weight: 700;
+    font-size: 0.6875rem;
+    font-weight: 600;
     font-family: var(--font-inter);
-    letter-spacing: 0.1em;
+    letter-spacing: 0.14em;
     text-transform: uppercase;
-    color: var(--color-teal);
-    background: rgba(0, 128, 128, 0.1);
-    border: 1px solid rgba(0, 128, 128, 0.25);
+    color: var(--moss-600);
+    background: var(--paper-raised);
+    border: 1px solid var(--hairline);
   }
   .section-label::before {
     content: "";
@@ -232,18 +327,18 @@
     width: 6px;
     height: 6px;
     border-radius: 50%;
-    background: var(--color-aqua);
+    background: var(--moss-400);
     flex-shrink: 0;
   }
 
   /* ── 7. CARD SYSTEM ───────────────────────────────── */
   .card {
-    background: #fff;
-    border: 1px solid rgba(0, 0, 0, 0.07);
+    background: var(--paper-raised);
+    border: 1px solid var(--hairline);
     border-radius: var(--radius-xl);
-    box-shadow: var(--shadow-card);
+    box-shadow: none;
     transition:
-      transform 0.25s ease,
+      transform 0.25s cubic-bezier(0.4, 0, 0.2, 1),
       box-shadow 0.25s ease,
       border-color 0.25s ease;
   }
@@ -253,157 +348,183 @@
     cursor: pointer;
   }
   .card-hover:hover {
-    transform: translateY(-4px);
+    transform: translateY(-3px);
     box-shadow: var(--shadow-card-hover);
-    border-color: rgba(0, 128, 128, 0.25);
+    border-color: var(--hairline-strong);
   }
 
   .card-brand {
     @apply card;
-    background: var(--color-mint);
-    border-color: rgba(0, 128, 128, 0.15);
+    background: var(--moss-100);
+    border-color: rgba(12, 107, 88, 0.16);
   }
 
   .card-dark {
     @apply card;
-    background: var(--color-teal-dark);
+    background: var(--forest);
     border-color: rgba(255, 255, 255, 0.08);
-    color: #fff;
+    color: var(--paper);
+    --dot-color: rgba(250, 249, 246, 0.18);
+  }
+  .card-dark h1,
+  .card-dark h2,
+  .card-dark h3,
+  .card-dark h4 {
+    color: var(--paper);
   }
 
   .card-glass {
-    background: rgba(255, 255, 255, 0.85);
-    backdrop-filter: blur(16px) saturate(180%);
-    -webkit-backdrop-filter: blur(16px) saturate(180%);
-    border: 1px solid rgba(255, 255, 255, 0.5);
+    background: rgba(255, 255, 255, 0.72);
+    backdrop-filter: blur(16px) saturate(160%);
+    -webkit-backdrop-filter: blur(16px) saturate(160%);
+    border: 1px solid rgba(255, 255, 255, 0.6);
     border-radius: var(--radius-xl);
     box-shadow: var(--shadow-card);
   }
 
-  /* ── 8. BUTTON SYSTEM ─────────────────────────────── */
+  /* ── 8. BUTTON SYSTEM — pill-shaped, flat, tactile ── */
   .btn {
     display: inline-flex;
     align-items: center;
     justify-content: center;
     gap: 8px;
+    /* min-height keeps every button a comfortable touch target (>=44px) */
+    min-height: 44px;
     padding: 12px 24px;
-    border-radius: 12px;
+    border-radius: 999px;
     font-family: var(--font-inter);
     font-size: 0.9rem;
     font-weight: 600;
     line-height: 1;
-    letter-spacing: -0.01em;
-    border: 2px solid transparent;
+    letter-spacing: -0.005em;
+    border: 1px solid transparent;
     cursor: pointer;
-    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    transition:
+      background-color 0.18s ease,
+      color 0.18s ease,
+      border-color 0.18s ease,
+      transform 0.18s ease;
     white-space: nowrap;
     text-decoration: none;
   }
   .btn:focus-visible {
-    outline: 3px solid rgba(0, 128, 128, 0.5);
-    outline-offset: 2px;
+    outline: 2px solid var(--moss-600);
+    outline-offset: 3px;
   }
   .btn:active {
-    transform: scale(0.97);
+    transform: scale(0.98);
   }
 
   .btn-sm {
-    padding: 8px 18px;
-    font-size: 0.8rem;
-    border-radius: 10px;
+    min-height: 38px;
+    padding: 9px 18px;
+    font-size: 0.8125rem;
   }
   .btn-lg {
-    padding: 15px 32px;
-    font-size: 0.975rem;
-    border-radius: 14px;
+    min-height: 50px;
+    padding: 15px 30px;
+    font-size: 0.95rem;
   }
   .btn-xl {
-    padding: 18px 40px;
-    font-size: 1.05rem;
-    border-radius: 16px;
+    min-height: 56px;
+    padding: 18px 36px;
+    font-size: 1rem;
   }
 
-  /* Primary — matte solid teal (no glow). Flat, tactile, confident. */
+  /* Primary — the ink pill. The workhorse CTA on paper. */
   .btn-primary {
-    border-radius: 0.75rem;
-    padding: 0.75rem 1.5rem;
-    background: var(--color-teal);
-    color: #fff;
-    border-color: transparent;
-    box-shadow: none;
+    background: var(--ink);
+    color: var(--paper);
+    border-color: var(--ink);
   }
   .btn-primary:hover {
-    background: var(--color-teal-deep);
+    background: #2b2620;
+    border-color: #2b2620;
+    color: var(--paper);
     transform: translateY(-1px);
-    color: #fff;
   }
 
-  /* Accent — matte solid aqua (dark text for contrast, no glow). */
+  /* Accent — the light pill. For use ON dark surfaces only.
+     (Inverse of primary, so contrast is preserved either way.) */
   .btn-accent {
-    background: var(--color-aqua);
-    color: var(--color-teal-dark);
-    border-color: transparent;
-    box-shadow: none;
+    background: var(--paper);
+    color: var(--ink);
+    border-color: var(--paper);
   }
   .btn-accent:hover {
-    background: var(--color-aqua-deep);
-    color: #ffffff;
+    background: #ffffff;
+    border-color: #ffffff;
+    color: var(--ink);
     transform: translateY(-1px);
   }
 
+  /* Secondary — hairline outline on paper. */
   .btn-secondary {
     background: transparent;
-    color: var(--color-teal);
-    border-color: var(--color-teal);
+    color: var(--ink);
+    border-color: var(--hairline-strong);
   }
   .btn-secondary:hover {
-    background: var(--color-teal-mist);
-    border-color: var(--color-teal-deep);
-    color: var(--color-teal-deep);
+    background: var(--paper-raised);
+    border-color: var(--ink);
+    color: var(--ink);
   }
 
   .btn-outline {
     background: transparent;
-    color: var(--color-teal);
-    border-color: var(--color-teal);
+    color: var(--moss-600);
+    border-color: var(--moss-600);
   }
   .btn-outline:hover {
-    background: var(--color-teal-mist);
-    color: var(--color-teal-deep);
+    background: var(--moss-100);
+    color: var(--moss-700);
+    border-color: var(--moss-700);
   }
 
   .btn-dark {
-    background: var(--color-charcoal);
-    color: #fff;
-    border-color: transparent;
-    box-shadow: none;
+    background: var(--forest);
+    color: var(--paper);
+    border-color: var(--forest);
   }
   .btn-dark:hover {
-    background: var(--color-dark-leaf);
-    color: #fff;
+    background: var(--forest-deep);
+    border-color: var(--forest-deep);
+    color: var(--paper);
     transform: translateY(-1px);
   }
 
   .btn-ghost {
     background: transparent;
-    color: var(--color-teal);
+    color: var(--ink);
     border-color: transparent;
-    padding-left: 8px;
-    padding-right: 8px;
+    padding-left: 14px;
+    padding-right: 14px;
   }
   .btn-ghost:hover {
-    background: var(--color-teal-mist);
-    color: var(--color-teal-deep);
+    background: rgba(20, 18, 15, 0.05);
+    color: var(--ink);
+  }
+
+  /* Outline pill for dark surfaces — stays legible on hover. */
+  .btn-on-dark {
+    background: transparent;
+    color: var(--paper);
+    border-color: rgba(250, 249, 246, 0.35);
+  }
+  .btn-on-dark:hover {
+    background: rgba(250, 249, 246, 0.1);
+    border-color: rgba(250, 249, 246, 0.7);
+    color: var(--paper);
   }
 
   .btn-white {
-    background: #fff;
-    color: var(--color-teal-deep);
-    border-color: transparent;
-    box-shadow: none;
+    background: var(--paper-raised);
+    color: var(--ink);
+    border-color: var(--paper-raised);
   }
   .btn-white:hover {
-    background: var(--color-teal-mist);
+    background: var(--paper);
+    color: var(--ink);
     transform: translateY(-1px);
   }
 
@@ -411,44 +532,44 @@
   .badge {
     display: inline-flex;
     align-items: center;
-    gap: 4px;
-    padding: 4px 10px;
+    gap: 5px;
+    padding: 4px 11px;
     border-radius: 999px;
     font-size: 0.72rem;
-    font-weight: 700;
+    font-weight: 600;
     font-family: var(--font-inter);
-    letter-spacing: 0.02em;
+    letter-spacing: 0.01em;
     line-height: 1.4;
   }
   .badge-teal {
     @apply badge;
-    background: rgba(0, 128, 128, 0.12);
-    color: var(--color-teal-deep);
-    border: 1px solid rgba(0, 128, 128, 0.25);
+    background: var(--moss-100);
+    color: var(--moss-700);
+    border: 1px solid rgba(12, 107, 88, 0.2);
   }
   .badge-green {
     @apply badge;
-    background: rgba(0, 229, 229, 0.14);
-    color: var(--color-teal-deep);
-    border: 1px solid rgba(0, 229, 229, 0.35);
+    background: var(--moss-100);
+    color: var(--moss-700);
+    border: 1px solid rgba(28, 168, 140, 0.3);
   }
   .badge-dark {
     @apply badge;
-    background: rgba(11, 31, 31, 0.08);
-    color: var(--color-charcoal);
-    border: 1px solid rgba(11, 31, 31, 0.15);
+    background: rgba(20, 18, 15, 0.06);
+    color: var(--ink);
+    border: 1px solid rgba(20, 18, 15, 0.12);
   }
 
   /* ── 10. FORM SYSTEM ──────────────────────────────── */
   .input {
     width: 100%;
-    padding: 12px 16px;
-    border: 1.5px solid #e5e7eb;
-    border-radius: 12px;
+    padding: 13px 16px;
+    border: 1px solid var(--hairline-strong);
+    border-radius: var(--radius-md);
     font-size: 0.925rem;
     font-family: var(--font-inter);
-    color: var(--color-charcoal);
-    background: #fff;
+    color: var(--ink);
+    background: var(--paper-raised);
     transition:
       border-color 0.2s,
       box-shadow 0.2s;
@@ -458,11 +579,11 @@
   }
   .input:focus {
     outline: none;
-    border-color: var(--color-teal);
-    box-shadow: 0 0 0 4px rgba(0, 128, 128, 0.12);
+    border-color: var(--moss-500);
+    box-shadow: 0 0 0 4px rgba(28, 168, 140, 0.14);
   }
   .input::placeholder {
-    color: #aaa;
+    color: var(--ink-faint);
   }
 
   .textarea {
@@ -472,12 +593,12 @@
     line-height: 1.6;
   }
 
-  /* ── 11. GLASS MORPHISM ───────────────────────────── */
+  /* ── 11. GLASS ────────────────────────────────────── */
   .glass {
-    background: rgba(255, 255, 255, 0.15);
-    backdrop-filter: blur(12px) saturate(160%);
-    -webkit-backdrop-filter: blur(12px) saturate(160%);
-    border: 1px solid rgba(255, 255, 255, 0.25);
+    background: rgba(250, 249, 246, 0.16);
+    backdrop-filter: blur(12px) saturate(140%);
+    -webkit-backdrop-filter: blur(12px) saturate(140%);
+    border: 1px solid rgba(250, 249, 246, 0.24);
     border-radius: var(--radius-xl);
   }
 
@@ -491,41 +612,48 @@
     background-size: 200px 200px;
     pointer-events: none;
     mix-blend-mode: overlay;
-    opacity: 0.4;
+    opacity: 0.35;
   }
 
-  /* ── 13. SOLID BRAND BACKGROUNDS (flat) ───────────── */
+  /* ── 13. SOLID SURFACE BACKGROUNDS ──────────────────
+     The page rhythm: every hero is light paper; forest is reserved for
+     CTA bands and the footer. `.bg-gradient-hero` is therefore LIGHT and
+     `.bg-gradient-brand*` / `.bg-gradient-dark` are DARK.
+
+     Each dark surface also re-points `--dot-color`, which `.dot-grid`
+     reads. Because custom properties inherit, any dot grid nested inside
+     one of these renders light-on-dark automatically — no per-page class
+     needed. */
   .bg-gradient-hero {
-    background-color: var(--gradient-hero);
+    background-color: var(--paper);
     background-image: none;
   }
-  .bg-gradient-brand {
-    background-color: var(--gradient-brand);
-    background-image: none;
-  }
+  .bg-gradient-brand,
   .bg-gradient-brand-2 {
-    background-color: var(--gradient-brand-2);
+    background-color: var(--forest);
     background-image: none;
+    --dot-color: rgba(250, 249, 246, 0.18);
   }
   .bg-gradient-dark {
-    background-color: var(--gradient-dark);
+    background-color: var(--forest-deep);
     background-image: none;
+    --dot-color: rgba(250, 249, 246, 0.18);
   }
   .bg-gradient-card {
-    background-color: var(--gradient-card);
+    background-color: var(--moss-100);
     background-image: none;
   }
 
   /* ── 14. PROSE ─────────────────────────────────────── */
   .prose-brand {
-    @apply text-brand-slate-gray;
+    @apply text-ink-body;
     font-size: 1.0625rem;
     line-height: 1.8;
   }
   .prose-brand h1,
   .prose-brand h2,
   .prose-brand h3 {
-    @apply text-brand-charcoal font-heading;
+    @apply text-ink font-heading font-semibold;
     margin-top: 2em;
     margin-bottom: 0.6em;
   }
@@ -539,10 +667,11 @@
     margin-bottom: 1.25em;
   }
   .prose-brand a {
-    @apply text-brand-teal underline;
+    @apply text-moss-600 underline;
+    text-underline-offset: 3px;
   }
   .prose-brand strong {
-    @apply text-brand-charcoal font-bold;
+    @apply text-ink font-semibold;
   }
   .prose-brand ul {
     padding-left: 1.4em;
@@ -553,10 +682,10 @@
     list-style: disc;
   }
   .prose-brand blockquote {
-    border-left: 3px solid var(--color-teal);
+    border-left: 2px solid var(--moss-400);
     padding-left: 1.2em;
     margin: 1.6em 0;
-    color: var(--color-slate);
+    color: var(--ink-muted);
     font-style: italic;
   }
 
@@ -583,12 +712,12 @@
   .swiper-pagination-bullet {
     width: 8px !important;
     height: 8px !important;
-    background: rgba(0, 128, 128, 0.35) !important;
+    background: var(--hairline-strong) !important;
     opacity: 1 !important;
     transition: all 0.3s !important;
   }
   .swiper-pagination-bullet-active {
-    background: var(--color-teal) !important;
+    background: var(--ink) !important;
     width: 24px !important;
     border-radius: 4px !important;
   }
@@ -635,7 +764,7 @@
     animation: float 5s ease-in-out infinite;
   }
 
-  /* ── 19. SHINE / SHIMMER (neutral) ────────────────── */
+  /* ── 19. SHIMMER ──────────────────────────────────── */
   @keyframes shimmer {
     0% {
       background-position: -200% center;
@@ -671,27 +800,31 @@
 
   /* ── 21. DIVIDERS ─────────────────────────────────── */
   .divider {
-    width: 48px;
-    height: 3px;
-    background: var(--color-teal);
+    width: 44px;
+    height: 2px;
+    background: var(--moss-400);
     border-radius: 999px;
   }
 
-  /* ── 22. DOT GRID PATTERN (flat dots) ─────────────── */
+  /* ── 22. DOT GRID ─────────────────────────────────── */
   .dot-grid {
     background-image: radial-gradient(
       circle at 2px 2px,
-      rgba(0, 128, 128, 0.12) 1.5px,
+      var(--dot-color) 1.2px,
       transparent 0
     );
-    background-size: 32px 32px;
+    background-size: 34px 34px;
+  }
+  /* Use inside dark sections so the dots read as light-on-dark. */
+  .dot-grid-invert {
+    --dot-color: rgba(250, 249, 246, 0.18);
   }
 
-  /* ── 23. HERO GLOW (soft solid blur) ──────────────── */
+  /* ── 23. SOFT GLOW ────────────────────────────────── */
   .hero-glow {
     position: absolute;
     border-radius: 50%;
-    filter: blur(80px);
+    filter: blur(90px);
     pointer-events: none;
   }
 
@@ -702,51 +835,37 @@
     justify-content: center;
     width: 48px;
     height: 48px;
-    border-radius: 14px;
+    border-radius: 999px;
     font-family: var(--font-inter);
-    font-weight: 800;
+    font-weight: 600;
     font-size: 1rem;
-    background: var(--color-teal);
-    color: #fff;
-    box-shadow: var(--shadow-brand);
+    background: var(--ink);
+    color: var(--paper);
+    box-shadow: none;
     flex-shrink: 0;
   }
 
-  /* ── 25. STAT VALUE (flat teal) ───────────────────── */
+  /* ── 25. STAT VALUE — serif, ink ──────────────────── */
   .stat-card-value {
-    font-family: var(--font-display);
-    font-weight: 900;
-    font-size: clamp(2rem, 4vw, 3.25rem);
-    color: var(--color-teal);
-    -webkit-text-fill-color: var(--color-teal);
+    @apply font-display text-ink;
+    font-weight: 800;
+    font-size: clamp(2.25rem, 4vw, 3.25rem);
+    letter-spacing: -0.032em;
+    -webkit-text-fill-color: var(--ink);
     line-height: 1;
   }
 
   /* ── 26. PRICING HIGHLIGHT ────────────────────────── */
   .pricing-popular {
     position: relative;
-    background: #ffffff;
-    border-color: var(--color-teal) !important;
+    background: var(--paper-raised);
+    border-color: var(--ink) !important;
     box-shadow: var(--shadow-brand-lg) !important;
-  }
-  .pricing-popular::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    border-radius: inherit;
-    padding: 2px;
-    background: var(--color-teal);
-    -webkit-mask:
-      linear-gradient(#fff 0 0) content-box,
-      linear-gradient(#fff 0 0);
-    -webkit-mask-composite: xor;
-    mask-composite: exclude;
-    pointer-events: none;
   }
 
   /* ── 27. FOCUS VISIBLE ────────────────────────────── */
   :focus-visible {
-    outline: 2px solid var(--color-teal);
+    outline: 2px solid var(--moss-600);
     outline-offset: 3px;
     border-radius: 4px;
   }
@@ -775,15 +894,27 @@
 /* ── 30. RESPONSIVE SECTION PADDING ──────────────────── */
 @media (max-width: 768px) {
   :root {
-    --navbar-height: 64px;
+    --navbar-height: 80px;
   }
   .section-padding {
-    padding-top: 64px;
-    padding-bottom: 64px;
+    padding-top: 68px;
+    padding-bottom: 68px;
   }
   .section-padding-sm {
-    padding-top: 40px;
-    padding-bottom: 40px;
+    padding-top: 44px;
+    padding-bottom: 44px;
+  }
+}
+
+/* ── 30b. REDUCED MOTION ─────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }
 
@@ -800,11 +931,11 @@
   }
 }
 
-/* ── 32. SURFACE SYSTEM (flat — was aurora) ───────────── */
-/* Light branded surface */
+/* ── 32. SURFACE SYSTEM (legacy "aurora-*" names) ─────── */
+/* Light inset band */
 .aurora-bg {
   position: relative;
-  background: #f2fbfb;
+  background: var(--paper-sunk);
   overflow: hidden;
 }
 .aurora-bg::before {
@@ -817,68 +948,56 @@
 
 /* Surface card */
 .aurora-card {
-  background: #ffffff;
-  border: 1px solid rgba(0, 128, 128, 0.16);
+  background: var(--paper-raised);
+  border: 1px solid var(--hairline);
   border-radius: var(--radius-xl);
-  box-shadow:
-    0 4px 24px rgba(0, 128, 128, 0.08),
-    0 1px 4px rgba(0, 0, 0, 0.04);
+  box-shadow: none;
   transition:
     transform 0.25s ease,
     box-shadow 0.25s ease,
-    border-color 0.25s ease,
-    background 0.25s ease;
+    border-color 0.25s ease;
 }
 .aurora-card:hover {
-  transform: translateY(-4px);
-  background: #ffffff;
-  border-color: rgba(0, 229, 229, 0.45);
-  box-shadow:
-    0 12px 40px rgba(0, 128, 128, 0.14),
-    0 4px 12px rgba(0, 229, 229, 0.1);
+  transform: translateY(-3px);
+  border-color: var(--hairline-strong);
+  box-shadow: var(--shadow-card-hover);
 }
 
 /* Navbar surfaces */
 .aurora-navbar {
-  background: rgba(255, 255, 255, 0.9);
-  backdrop-filter: blur(24px) saturate(200%);
-  -webkit-backdrop-filter: blur(24px) saturate(200%);
-  border-bottom: 1px solid rgba(0, 128, 128, 0.12);
-  box-shadow: 0 4px 24px rgba(0, 128, 128, 0.08);
+  background: rgba(250, 249, 246, 0.86);
+  backdrop-filter: blur(20px) saturate(160%);
+  -webkit-backdrop-filter: blur(20px) saturate(160%);
+  border-bottom: 1px solid var(--hairline);
 }
 .aurora-navbar-default {
-  background: rgba(255, 255, 255, 0.6);
-  backdrop-filter: blur(12px) saturate(160%);
-  -webkit-backdrop-filter: blur(12px) saturate(160%);
-  border-bottom: 1px solid rgba(0, 128, 128, 0.06);
+  background: rgba(250, 249, 246, 0.6);
+  backdrop-filter: blur(12px) saturate(140%);
+  -webkit-backdrop-filter: blur(12px) saturate(140%);
+  border-bottom: 1px solid transparent;
 }
 
 /* Dropdown */
 .aurora-dropdown {
-  background: rgba(255, 255, 255, 0.92);
-  backdrop-filter: blur(24px) saturate(180%);
-  -webkit-backdrop-filter: blur(24px) saturate(180%);
-  border: 1px solid rgba(0, 128, 128, 0.15);
+  background: var(--paper-raised);
+  border: 1px solid var(--hairline);
   border-radius: var(--radius-lg);
-  box-shadow:
-    0 16px 48px rgba(0, 128, 128, 0.12),
-    0 4px 16px rgba(0, 0, 0, 0.06);
+  box-shadow: var(--shadow-float);
 }
 
 /* Mobile menu */
 .aurora-mobile-menu {
-  background: rgba(255, 255, 255, 0.96);
-  backdrop-filter: blur(28px) saturate(200%);
-  -webkit-backdrop-filter: blur(28px) saturate(200%);
-  border-top: 1px solid rgba(0, 128, 128, 0.1);
-  box-shadow: 0 16px 48px rgba(0, 128, 128, 0.1);
+  background: var(--paper-raised);
+  border-top: 1px solid var(--hairline);
+  box-shadow: var(--shadow-float);
 }
 
-/* Footer — solid deep teal */
+/* Footer — deep forest */
 .aurora-footer {
-  background: #003b3b;
+  background: var(--forest-deep);
   position: relative;
   overflow: hidden;
+  --dot-color: rgba(250, 249, 246, 0.18);
 }
 .aurora-footer::before {
   display: none;
@@ -890,14 +1009,14 @@
 
 /* Badge */
 .aurora-badge {
-  background: rgba(0, 128, 128, 0.1);
-  color: var(--color-teal-deep);
-  border: 1px solid rgba(0, 128, 128, 0.22);
+  background: var(--moss-100);
+  color: var(--moss-700);
+  border: 1px solid rgba(12, 107, 88, 0.2);
   border-radius: 999px;
   padding: 4px 12px;
   font-size: 0.72rem;
-  font-weight: 700;
-  letter-spacing: 0.02em;
+  font-weight: 600;
+  letter-spacing: 0.01em;
   display: inline-flex;
   align-items: center;
   gap: 4px;
@@ -908,15 +1027,15 @@
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 6px 16px;
+  padding: 6px 14px;
   border-radius: 999px;
-  font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 0.1em;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--color-teal);
-  background: rgba(0, 128, 128, 0.08);
-  border: 1px solid rgba(0, 128, 128, 0.2);
+  color: var(--moss-600);
+  background: var(--paper-raised);
+  border: 1px solid var(--hairline);
 }
 .aurora-section-label::before {
   content: "";
@@ -924,16 +1043,16 @@
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: var(--color-aqua);
+  background: var(--moss-400);
   flex-shrink: 0;
 }
 
-/* Accent button */
+/* Accent button (legacy) */
 .btn-aurora {
-  background: rgba(0, 229, 229, 0.14);
-  color: var(--color-teal-deep);
-  border: 1px solid rgba(0, 229, 229, 0.4);
-  border-radius: 12px;
+  background: var(--moss-100);
+  color: var(--moss-700);
+  border: 1px solid rgba(28, 168, 140, 0.3);
+  border-radius: 999px;
   padding: 12px 24px;
   font-weight: 600;
   font-size: 0.9rem;
@@ -945,24 +1064,23 @@
   text-decoration: none;
 }
 .btn-aurora:hover {
-  background: rgba(0, 229, 229, 0.26);
-  border-color: rgba(0, 229, 229, 0.6);
-  transform: translateY(-1px);
-  color: var(--color-teal-deep);
+  background: var(--moss-200, #b6e0d1);
+  border-color: var(--moss-400);
+  color: var(--moss-700);
 }
 
-/* Decorative orb — soft solid blur (no gradient) */
+/* Decorative orb — soft blur, no gradient */
 .aurora-orb {
   position: absolute;
   border-radius: 50%;
-  filter: blur(72px);
+  filter: blur(80px);
   pointer-events: none;
 }
 .aurora-orb-teal {
-  background: rgba(0, 128, 128, 0.18);
+  background: rgba(28, 168, 140, 0.14);
 }
 .aurora-orb-green {
-  background: rgba(0, 229, 229, 0.16);
+  background: rgba(121, 214, 91, 0.12);
 }
 
 /* Header is a transparent positioner — the pill carries its own bg */
@@ -975,80 +1093,232 @@ header.fixed {
 }
 
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-   TYPOGRAPHY SYSTEM  (Inter · strict scale · semantic roles)
+   TYPOGRAPHY SYSTEM  (Inter UI · Instrument Serif display)
    Plain top-level CSS so it always wins over the base h1 reset.
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 
-/* Inter rendering polish */
 html {
   font-feature-settings: "cv11", "ss01";
 }
 
-/* ── Marketing display tokens ── */
-.display-hero {
-  font-family: var(--font-inter), system-ui, sans-serif;
-  font-weight: 800;
-  font-size: clamp(2.5rem, 5.4vw, 4.5rem);
-  line-height: 1.04;
-  letter-spacing: -0.04em;
-  text-wrap: balance;
-}
-.display-lg {
-  font-family: var(--font-inter), system-ui, sans-serif;
-  font-weight: 800;
-  font-size: clamp(1.9rem, 4vw, 3rem);
-  line-height: 1.06;
-  letter-spacing: -0.035em;
-  text-wrap: balance;
-}
-
-/* ── Glossy headline (white → aqua sheen; stays in palette) ── */
-.text-glossy {
-  color: #ffffff;
-}
-@supports ((-webkit-background-clip: text) or (background-clip: text)) {
-  .text-glossy {
-    background-image: linear-gradient(180deg, #ffffff 0%, #eafeff 50%, #aef2f2 100%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    -webkit-text-fill-color: transparent;
-    filter: drop-shadow(0 2px 16px rgba(0, 0, 0, 0.18));
-  }
-}
-
 /* ── Semantic role utilities (mirror the <Typography> component) ── */
 .ty-h1 {
-  @apply font-display font-bold text-3xl sm:text-4xl tracking-tight leading-tight text-content;
+  @apply font-display font-normal text-3xl sm:text-4xl tracking-tight leading-tight text-ink;
 }
 .ty-h2 {
-  @apply font-heading font-semibold text-2xl sm:text-3xl tracking-tight leading-tight text-content;
+  @apply font-display font-normal text-2xl sm:text-3xl tracking-tight leading-tight text-ink;
 }
 .ty-h3 {
-  @apply font-heading font-semibold text-xl sm:text-2xl tracking-tight leading-snug text-content;
+  @apply font-heading font-semibold text-xl sm:text-2xl tracking-tight leading-snug text-ink;
 }
 .ty-h4 {
-  @apply font-heading font-medium text-lg sm:text-xl leading-snug text-content;
+  @apply font-heading font-medium text-lg sm:text-xl leading-snug text-ink;
 }
 .ty-body-lg {
-  @apply font-normal text-lg leading-relaxed text-content;
+  @apply font-normal text-lg leading-relaxed text-ink-body;
 }
 .ty-body {
-  @apply font-normal text-base leading-relaxed text-content;
+  @apply font-normal text-base leading-relaxed text-ink-body;
 }
 .ty-body-sm {
-  @apply font-normal text-sm leading-normal text-content;
+  @apply font-normal text-sm leading-normal text-ink-body;
 }
 .ty-caption {
-  @apply font-normal text-xs leading-normal text-muted;
+  @apply font-normal text-xs leading-normal text-ink-muted;
 }
 .ty-label {
-  @apply font-medium text-sm leading-normal text-content;
+  @apply font-medium text-sm leading-normal text-ink;
 }
 .ty-button {
   @apply font-semibold text-sm;
   line-height: 1;
 }
 .ty-overline {
-  @apply font-semibold text-xs uppercase tracking-widest leading-normal text-muted;
+  @apply font-semibold text-xs uppercase tracking-widest leading-normal text-ink-muted;
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   CRM / DASHBOARD THEME TOKENS  (scoped light + dark)
+   Retuned to the paper/ink palette so the app shell and the
+   marketing site read as one product.
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+/* Every ratio below was computed with a WCAG script, not eyeballed.
+   The old dark theme painted the marketing brand's forest green onto every
+   surface — fatiguing for a dense data UI — and its --c-fg-subtle sat at
+   3.7:1 while carrying nav labels and every input placeholder. */
+:root {
+  color-scheme: light;
+
+  --c-page: 243 241 234; /* #F3F1EA — sand */
+  --c-panel: 255 255 255; /* #FFFFFF */
+  --c-elevated: 250 249 246; /* #FAF9F6 — paper */
+  --c-line: 231 226 216; /* #E7E2D8 — hairline, decorative */
+  --c-line-strong: 168 160 148; /* #A8A094 — control borders, 3:1 (WCAG 1.4.11) */
+  --c-fg: 20 18 15; /* #14120F — 18.7:1 on panel */
+  --c-fg-muted: 110 104 96; /* #6E6860 — 5.5:1 */
+  /* Was #9C968C = 2.94:1 — a real AA failure in LIGHT mode too, and it is
+     text (placeholders, overlines, the Funnel's conversion %). */
+  --c-fg-subtle: 115 109 101; /* #736D65 — 5.1:1 */
+  --c-brand: 12 107 88; /* #0C6B58 — moss-600, 6.4:1 */
+  /* Decorative fill ONLY (2.99:1 on white). Never use text-accent on light. */
+  --c-accent: 28 168 140; /* #1CA88C — moss-400 */
+
+  --c-shadow: 20 18 15; /* warm ink */
+  --c-overlay: 20 18 15; /* scrim */
+
+  --shadow-panel: 0 1px 2px rgb(var(--c-shadow) / 0.04);
+  --shadow-panel-hover: 0 10px 30px rgb(var(--c-shadow) / 0.06);
+
+  /* react-hot-toast applies colours as INLINE styles, which Tailwind classes
+     cannot override — so the <Toaster> in the root layout is driven from these
+     vars instead. Without them every toast rendered light inside the dark CRM. */
+  --toast-ok-bg: #f0f8f5;
+  --toast-ok-fg: #08543f;
+  --toast-ok-border: #b6e0d1;
+  --toast-err-bg: #fdf3f1;
+  --toast-err-fg: #8c2f1e;
+  --toast-err-border: #f0cfc7;
+}
+
+/* Near-neutral cool grey. Moss is the only chroma in the UI. No pure black.
+   Surface separation is even in CIE L*: page 5.3 -> panel 9.5 -> elevated 13.9. */
+.dark {
+  color-scheme: dark; /* native scrollbars, selects, date pickers, autofill */
+
+  --c-page: 15 18 20; /* #0F1214 */
+  --c-panel: 23 27 31; /* #171B1F */
+  --c-elevated: 31 36 42; /* #1F242A */
+  --c-line: 42 48 54; /* #2A3036 — decorative */
+  --c-line-strong: 100 111 122; /* #646F7A — 3.4:1 on panel */
+  --c-fg: 232 236 239; /* #E8ECEF — 14.6:1 (AAA) */
+  --c-fg-muted: 167 177 185; /* #A7B1B9 — 7.9:1 (AAA) */
+  --c-fg-subtle: 135 148 160; /* #8794A0 — 5.6:1 (was 3.7:1) */
+  --c-brand: 28 168 140; /* #1CA88C — 5.8:1 */
+  --c-accent: 95 199 167; /* #5FC7A7 — 8.4:1 */
+
+  --c-shadow: 0 0 0;
+  --c-overlay: 4 6 8;
+
+  /* Toasts, dark. Verified: fg on bg = 8.9:1 (ok) / 6.4:1 (err). */
+  --toast-ok-bg: #14312a;
+  --toast-ok-fg: #7fe0bd;
+  --toast-ok-border: #245c4c;
+  --toast-err-bg: #38211d;
+  --toast-err-fg: #f3aca0;
+  --toast-err-border: #6b3a32;
+
+  /* Dark UIs express elevation by LIGHTENING the surface, not by darkening
+     around it. The old 6%-black shadow was invisible on a dark canvas. */
+  --shadow-panel:
+    inset 0 1px 0 0 rgb(255 255 255 / 0.03), 0 1px 2px rgb(0 0 0 / 0.4);
+  --shadow-panel-hover:
+    inset 0 1px 0 0 rgb(255 255 255 / 0.07), 0 0 0 1px rgb(255 255 255 / 0.04),
+    0 2px 4px rgb(0 0 0 / 0.4), 0 16px 40px -12px rgb(0 0 0 / 0.7);
+}
+
+@layer components {
+  .panel {
+    @apply bg-panel border border-line rounded-2xl;
+    box-shadow: var(--shadow-panel);
+  }
+  .panel-hover {
+    @apply panel transition-[transform,box-shadow,border-color,background-color] duration-200;
+  }
+  .panel-hover:hover {
+    @apply -translate-y-0.5 border-primary/30;
+    box-shadow: var(--shadow-panel-hover);
+  }
+  /* In dark, the surface itself lifts a step — that IS the elevation cue. */
+  .dark .panel-hover:hover {
+    background-color: rgb(var(--c-elevated));
+    border-color: rgb(var(--c-brand) / 0.45);
+  }
+
+  .field {
+    @apply w-full rounded-xl border border-line bg-panel px-3.5 py-2.5 text-sm text-fg;
+    @apply placeholder:text-fg-subtle transition-colors;
+    @apply focus:outline-none focus:border-primary;
+  }
+  .field:focus {
+    box-shadow: 0 0 0 4px rgb(var(--c-accent) / 0.14);
+  }
+  /* A .field is bg-panel INSIDE a .panel that is also bg-panel — in dark the
+     input vanished into the card behind a 1.3:1 border. Recess it, and give
+     the boundary a conformant 3.4:1. */
+  .dark .field {
+    background-color: rgb(var(--c-page));
+    border-color: rgb(var(--c-line-strong));
+  }
+  .dark .field:focus {
+    border-color: rgb(var(--c-accent));
+    box-shadow: 0 0 0 4px rgb(var(--c-accent) / 0.3); /* 0.14 is invisible on dark */
+  }
+
+  .crm-scroll::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  .crm-scroll::-webkit-scrollbar-thumb {
+    background: rgb(var(--c-fg-subtle) / 0.35);
+    border-radius: 999px;
+  }
+  .crm-scroll::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  /* ── The marketing buttons, made theme-aware ───────────────────────────
+     The CRM reuses .btn/.btn-primary/.btn-secondary, which are hardcoded for
+     the light marketing site. In dark that was fatal: .btn-secondary sets
+     `color: var(--ink)` (#14120F) and rendered at 1.01:1 on the page — the
+     "Export" button was literally invisible. .btn-primary painted a near-ink
+     pill on a near-ink canvas. Invert both, the way the light theme intends. */
+  .dark .btn-primary {
+    background: rgb(var(--c-fg));
+    color: rgb(var(--c-page));
+    border-color: transparent;
+  }
+  .dark .btn-primary:hover {
+    background: rgb(var(--c-fg-muted));
+    color: rgb(var(--c-page));
+  }
+
+  .dark .btn-secondary {
+    background: transparent;
+    color: rgb(var(--c-fg));
+    border-color: rgb(var(--c-line-strong));
+  }
+  .dark .btn-secondary:hover {
+    background: rgb(var(--c-elevated));
+    border-color: rgb(var(--c-fg-subtle));
+    color: rgb(var(--c-fg));
+  }
+}
+
+/* ── Theme-switch transition ──────────────────────────────────────────────
+   A transient class, applied only DURING the flip. It is absent on first
+   paint (so no load-time fade) and absent at rest (so it cannot out-specify
+   .panel-hover's own transition and make the hover lift jump). */
+.theme-switching,
+.theme-switching *,
+.theme-switching *::before,
+.theme-switching *::after {
+  transition:
+    background-color 220ms cubic-bezier(0.4, 0, 0.2, 1),
+    border-color 220ms cubic-bezier(0.4, 0, 0.2, 1),
+    color 220ms cubic-bezier(0.4, 0, 0.2, 1),
+    fill 220ms cubic-bezier(0.4, 0, 0.2, 1),
+    stroke 220ms cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow 220ms cubic-bezier(0.4, 0, 0.2, 1) !important;
+  transition-delay: 0s !important;
+}
+
+/* The global reduced-motion rule uses `*` (specificity 0,0,0) and would LOSE
+   to the selector above, so it has to be re-stated at this weight. */
+@media (prefers-reduced-motion: reduce) {
+  .theme-switching,
+  .theme-switching *,
+  .theme-switching *::before,
+  .theme-switching *::after {
+    transition: none !important;
+  }
 }

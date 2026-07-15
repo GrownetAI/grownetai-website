@@ -1,11 +1,11 @@
 /**
  * Shared pricing data for the multi-country /pricing page.
  *
- * - COUNTRIES: the 8 English-business markets shown in the selector
- *   (codes/currencies match the existing /pricing/website page).
+ * - COUNTRIES: the 8 English-business markets shown in the selector.
  * - SERVICES: display content (tiers, features, copy) for every service.
  * - PRICES: numeric ranges keyed [serviceId][countryCode][tierId].
- *     • Website ranges are transcribed from the original /pricing/website page.
+ *     • Website ranges originated from an earlier standalone website-pricing
+ *       page and now live here as the single source of truth.
  *     • The 9 other services come from market research (see RESEARCH_META),
  *       normalised to realistic local-currency ranges (2024–2026).
  *
@@ -305,7 +305,184 @@ export const SERVICES: Service[] = [
       { id: "enterprise", tier: "Enterprise", name: "ML Platform", target: "Enterprises", blurb: "An end-to-end ML platform and team.", features: ["Custom architecture", "Dedicated ML team", "Private infrastructure", "Compliance & governance", "Ongoing retraining"] },
     ],
   },
+
+  /* 11 ── Logo & Graphic Design ──────────────────────────────────────────── */
+  {
+    id: "design",
+    eyebrow: "Design",
+    title: "Logo & Graphic",
+    accent: "Design",
+    subtitle:
+      "A memorable brand identity — from a sharp logo to a full visual system your business can grow into.",
+    icon: "Palette",
+    basis: "one-time",
+    basisLabel: "Estimated project cost",
+    tiers: [
+      { id: "starter", tier: "Logo", name: "Logo Design", target: "New businesses", blurb: "A distinctive logo with the essentials to launch.", features: ["3 logo concepts", "2 revision rounds", "Colour & font pairing", "PNG / SVG / vector files", "Social avatar & favicon"] },
+      { id: "growth", tier: "Identity", name: "Brand Identity", target: "Growing brands", popular: true, blurb: "A cohesive identity system, not just a mark.", features: ["Logo + variations", "Full colour & type system", "Brand guidelines PDF", "Business card & letterhead", "Social media kit"] },
+      { id: "advanced", tier: "Brand System", name: "Complete Brand", target: "Funded / scaling", blurb: "Everything you need to look established everywhere.", features: ["Complete visual identity", "Iconography & illustration style", "Marketing collateral set", "Pitch / deck template", "Packaging or signage (as needed)"] },
+      { id: "enterprise", tier: "Studio", name: "Brand + Content Studio", target: "Enterprises", blurb: "An ongoing design partner for every asset.", features: ["Rebrand or identity refresh", "Dedicated designer retainer", "On-demand creatives", "Motion & video graphics", "Brand governance"] },
+    ],
+  },
+
+  /* 12 ── Artificial Intelligence (umbrella) ─────────────────────────────── */
+  {
+    id: "ai",
+    eyebrow: "AI",
+    title: "Artificial",
+    accent: "Intelligence",
+    subtitle:
+      "AI woven into your product and operations — assistants, automation and custom models, built to your goals.",
+    icon: "Sparkles",
+    basis: "one-time",
+    basisLabel: "Estimated build cost",
+    tiers: [
+      { id: "starter", tier: "Integrate", name: "AI Integration", target: "First AI feature", blurb: "Add a genuinely useful AI feature to what you have.", features: ["1 AI feature (chat / search / summarise)", "LLM provider integration", "Prompt & guardrail design", "In-product deployment", "Usage monitoring"] },
+      { id: "professional", tier: "Automate", name: "AI Assistant & Automation", target: "Operations teams", popular: true, blurb: "An assistant that runs a real workflow end to end.", features: ["Multi-step agentic workflow", "3–5 tool / API integrations", "RAG over your knowledge", "Human-in-the-loop controls", "Monitoring & logs"] },
+      { id: "advanced", tier: "Scale", name: "Multi-Agent System", target: "Complex operations", blurb: "Coordinated agents and a fine-tuned model on your data.", features: ["Orchestrated multi-agent system", "Custom / fine-tuned model", "Evals & observability", "Scalable inference infra", "MLOps setup"] },
+      { id: "enterprise", tier: "Platform", name: "AI Platform", target: "Enterprises", blurb: "A governed AI platform for the whole organisation.", features: ["Org-wide AI platform", "SSO, security & governance", "Custom integrations", "SLAs & dedicated team", "Ongoing optimisation"] },
+    ],
+  },
 ];
+
+/* ──────────────────────────────────────────────────────────────────────────
+   SERVICE_INFO — the concise "what we provide" summary shown on /pricing.
+
+   The pricing page presents each service as one informational panel (not a
+   grid of tier cards): a short list of what the engagement includes plus a
+   realistic timeline. The "starting from" price is still composed live from
+   PRICES (the entry tier), so this stays purely descriptive — no numbers here.
+   Each `provides` list is distilled from the service's own tier features, kept
+   service-level and brief.
+   ────────────────────────────────────────────────────────────────────────── */
+export interface ServiceInfo {
+  provides: string[];
+  timeline: string;
+}
+
+export const SERVICE_INFO: Record<string, ServiceInfo> = {
+  "web-dev": {
+    provides: [
+      "Conversion-first design & UX",
+      "Fully mobile-responsive build",
+      "CMS to edit it yourself",
+      "On-page SEO & analytics",
+      "Lead capture & contact forms",
+    ],
+    // Spans a ~2-week landing site up to an e-commerce store / SaaS MVP build.
+    timeline: "2–8 weeks",
+  },
+  "app-dev": {
+    provides: [
+      "iOS, Android & web from one codebase",
+      "Custom UI/UX design",
+      "Auth, payments & push notifications",
+      "Admin dashboard & APIs",
+      "Analytics & app-store launch",
+    ],
+    timeline: "4–10 weeks",
+  },
+  seo: {
+    provides: [
+      "Keyword & competitor research",
+      "On-page & technical SEO",
+      "AI-assisted content & blogs",
+      "Link building & digital PR",
+      "Monthly reporting",
+    ],
+    timeline: "Ongoing · monthly",
+  },
+  ads: {
+    provides: [
+      "Google & Meta campaign setup",
+      "Creative & copy testing",
+      "Audiences & retargeting",
+      "Conversion tracking",
+      "Ongoing optimization & reports",
+    ],
+    timeline: "Ongoing · monthly",
+  },
+  smm: {
+    provides: [
+      "Content calendar & scheduling",
+      "Feed posts, reels & stories",
+      "Community management",
+      "Photo / video creatives",
+      "Analytics & reporting",
+    ],
+    timeline: "Ongoing · monthly",
+  },
+  smo: {
+    provides: [
+      "Profile setup & optimization",
+      "Optimized, on-brand posts",
+      "Engagement & community growth",
+      "Reels / Shorts optimization",
+      "Growth reporting",
+    ],
+    timeline: "Ongoing · monthly",
+  },
+  "ai-agents": {
+    provides: [
+      "Custom AI agents for real tasks",
+      "Tool & API integrations",
+      "Memory & context handling",
+      "Human-in-the-loop controls",
+      "Monitoring & guardrails",
+    ],
+    timeline: "2–8 weeks",
+  },
+  llm: {
+    provides: [
+      "LLM features inside your product",
+      "RAG over your own data",
+      "Prompt engineering & guardrails",
+      "Vector database setup",
+      "Usage analytics",
+    ],
+    timeline: "1–6 weeks",
+  },
+  "ai-automation": {
+    provides: [
+      "Automate repetitive workflows",
+      "Connect your existing tools",
+      "AI-assisted steps",
+      "Data pipelines & dashboards",
+      "Monitoring & support",
+    ],
+    timeline: "1–6 weeks",
+  },
+  "model-training": {
+    provides: [
+      "Dataset prep & labeling",
+      "Fine-tuning & evaluation",
+      "Serving infrastructure",
+      "Quality & cost monitoring",
+      "MLOps setup",
+    ],
+    timeline: "3–10 weeks",
+  },
+  design: {
+    provides: [
+      "Logo & visual identity",
+      "Colour & type system",
+      "Brand guidelines",
+      "Marketing & social collateral",
+      "Source & vector files",
+    ],
+    timeline: "1–3 weeks",
+  },
+  ai: {
+    provides: [
+      "Useful AI features in your product",
+      "Assistants & agentic workflows",
+      "RAG over your knowledge",
+      "Custom / fine-tuned models",
+      "Deployment & monitoring",
+    ],
+    timeline: "2–8 weeks",
+  },
+};
 
 /* ──────────────────────────────────────────────────────────────────────────
    PRICES — [serviceId][countryCode][tierId] = { min, max, plus? }
@@ -423,6 +600,31 @@ export const PRICES: Record<
     NZ: { starter: { min: 10000, max: 40000 }, professional: { min: 65000, max: 275000 }, advanced: { min: 275000, max: 650000 }, enterprise: { min: 650000, max: 2200000 } },
     SG: { starter: { min: 10000, max: 50000 }, professional: { min: 60000, max: 250000 }, advanced: { min: 250000, max: 600000 }, enterprise: { min: 600000, max: 2000000 } },
     AE: { starter: { min: 20000, max: 90000 }, professional: { min: 150000, max: 600000 }, advanced: { min: 600000, max: 1500000 }, enterprise: { min: 1500000, max: 5500000 } },
+  },
+
+  // Logo & graphic design — smaller-ticket creative work; researched 2026 ranges.
+  design: {
+    IN: { starter: { min: 8000, max: 25000 }, growth: { min: 25000, max: 75000 }, advanced: { min: 75000, max: 200000 }, enterprise: { min: 200000, max: 600000 } },
+    US: { starter: { min: 300, max: 1200 }, growth: { min: 1200, max: 4000 }, advanced: { min: 4000, max: 10000 }, enterprise: { min: 10000, max: 30000 } },
+    CA: { starter: { min: 400, max: 1500 }, growth: { min: 1500, max: 5000 }, advanced: { min: 5000, max: 12000 }, enterprise: { min: 12000, max: 35000 } },
+    GB: { starter: { min: 250, max: 1000 }, growth: { min: 1000, max: 3500 }, advanced: { min: 3500, max: 9000 }, enterprise: { min: 9000, max: 25000 } },
+    AU: { starter: { min: 400, max: 1500 }, growth: { min: 1500, max: 5000 }, advanced: { min: 5000, max: 12000 }, enterprise: { min: 12000, max: 35000 } },
+    NZ: { starter: { min: 400, max: 1600 }, growth: { min: 1600, max: 5500 }, advanced: { min: 5500, max: 13000 }, enterprise: { min: 13000, max: 38000 } },
+    SG: { starter: { min: 400, max: 1500 }, growth: { min: 1500, max: 5000 }, advanced: { min: 5000, max: 12000 }, enterprise: { min: 12000, max: 35000 } },
+    AE: { starter: { min: 1000, max: 4000 }, growth: { min: 4000, max: 12000 }, advanced: { min: 12000, max: 30000 }, enterprise: { min: 30000, max: 90000 } },
+  },
+
+  // Artificial Intelligence (umbrella) — starts lower than ai-agents because a
+  // first AI feature is more accessible than a full agentic build.
+  ai: {
+    IN: { starter: { min: 150000, max: 500000 }, professional: { min: 500000, max: 2000000 }, advanced: { min: 2000000, max: 6000000 }, enterprise: { min: 6000000, max: 20000000, plus: true } },
+    US: { starter: { min: 5000, max: 20000 }, professional: { min: 20000, max: 75000 }, advanced: { min: 75000, max: 200000 }, enterprise: { min: 200000, max: 500000, plus: true } },
+    CA: { starter: { min: 6000, max: 25000 }, professional: { min: 25000, max: 90000 }, advanced: { min: 90000, max: 240000 }, enterprise: { min: 240000, max: 600000, plus: true } },
+    GB: { starter: { min: 4000, max: 16000 }, professional: { min: 16000, max: 60000 }, advanced: { min: 60000, max: 160000 }, enterprise: { min: 160000, max: 450000, plus: true } },
+    AU: { starter: { min: 7000, max: 28000 }, professional: { min: 28000, max: 100000 }, advanced: { min: 100000, max: 280000 }, enterprise: { min: 280000, max: 700000, plus: true } },
+    NZ: { starter: { min: 8000, max: 30000 }, professional: { min: 30000, max: 110000 }, advanced: { min: 110000, max: 300000 }, enterprise: { min: 300000, max: 750000, plus: true } },
+    SG: { starter: { min: 7000, max: 26000 }, professional: { min: 26000, max: 95000 }, advanced: { min: 95000, max: 250000 }, enterprise: { min: 250000, max: 600000, plus: true } },
+    AE: { starter: { min: 9000, max: 35000 }, professional: { min: 35000, max: 130000 }, advanced: { min: 130000, max: 350000 }, enterprise: { min: 350000, max: 900000, plus: true } },
   },
 };
 

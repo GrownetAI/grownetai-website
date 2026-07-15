@@ -1,6 +1,9 @@
 import type { Config } from "tailwindcss";
 
 const config: Config = {
+  // Scoped dark mode: the `.dark` class is toggled on the CRM shell root only,
+  // so the marketing site (all hardcoded-light) is never affected.
+  darkMode: "class",
   content: [
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
@@ -9,12 +12,20 @@ const config: Config = {
   ],
   theme: {
     extend: {
-      /* ── Font Families ─────────────────────────── */
-      /* Single primary typeface (Inter). Monospace is for code only. */
+      /* ── Font Families ─────────────────────────────
+         Two typefaces, two jobs:
+           display → Instrument Serif, editorial headlines only (weight 400)
+           sans    → Inter, everything else (UI, body, labels)
+         `heading` stays on Inter so card titles and UI headings keep
+         their legibility at small sizes. */
       fontFamily: {
         sans: ["var(--font-inter)", "system-ui", "sans-serif"],
         heading: ["var(--font-inter)", "system-ui", "sans-serif"],
-        display: ["var(--font-inter)", "system-ui", "sans-serif"],
+        /* Display is now Inter Tight, not a serif. `serif` is kept pointing at
+           the same face so the handful of legacy `font-serif` usages don't
+           fall through to Georgia and reintroduce a second type system. */
+        display: ["var(--font-display)", "system-ui", "sans-serif"],
+        serif: ["var(--font-display)", "system-ui", "sans-serif"],
         mono: ["ui-monospace", "SFMono-Regular", "Menlo", "Consolas", "monospace"],
       },
 
@@ -22,23 +33,21 @@ const config: Config = {
       fontSize: {
         xs: ["0.75rem", { lineHeight: "1rem" }],
         sm: ["0.875rem", { lineHeight: "1.25rem" }],
-        base: ["1rem", { lineHeight: "1.625rem" }],
-        lg: ["1.125rem", { lineHeight: "1.75rem" }],
+        base: ["1rem", { lineHeight: "1.65rem" }],
+        lg: ["1.125rem", { lineHeight: "1.8rem" }],
         xl: ["1.25rem", { lineHeight: "1.75rem", letterSpacing: "-0.01em" }],
         "2xl": ["1.5rem", { lineHeight: "1.9rem", letterSpacing: "-0.014em" }],
         "3xl": ["1.875rem", { lineHeight: "2.25rem", letterSpacing: "-0.02em" }],
         "4xl": ["2.25rem", { lineHeight: "2.5rem", letterSpacing: "-0.022em" }],
       },
 
-      /* ── Named line-heights ────────────────────── */
       lineHeight: {
         tight: "1.15",
         snug: "1.3",
         normal: "1.5",
-        relaxed: "1.65",
+        relaxed: "1.7",
       },
 
-      /* ── Letter-spacing (tight for headings) ───── */
       letterSpacing: {
         tighter: "-0.03em",
         tight: "-0.02em",
@@ -48,80 +57,160 @@ const config: Config = {
         widest: "0.16em",
       },
 
-      /* ── Brand Colors — FLAT two-tone system ───── */
-      /* Teal = primary/background · Aqua = accent · NO gradients */
+      /* ══════════════════════════════════════════════════════════
+         COLOR SYSTEM — "Paper & Ink"
+
+         Canvas is warm paper, type is warm near-black, and exactly one
+         saturated hue does the accent work: the emerald sampled straight
+         out of the GrownetAI logo (#1CA88C). The logo's cyan and lime are
+         kept as *decorative-only* tints for charts and small marks — they
+         never carry text.
+
+         Every text colour below is checked against its intended surface:
+           ink        on paper → 17.6:1  (AAA)
+           ink-body   on paper →  9.5:1  (AAA)
+           ink-muted  on paper →  5.2:1  (AA)
+           moss-600   on paper →  6.1:1  (AA, links + accents)
+           paper      on forest → 15.3:1 (AAA)
+      ══════════════════════════════════════════════════════════ */
       colors: {
+        /* ── Canvas ── */
+        paper: {
+          DEFAULT: "#FAF9F6", // page background — warm off-white
+          sunk: "#F3F1EA", // alternating band / inset surfaces
+          raised: "#FFFFFF", // cards sitting on paper
+        },
+        sand: "#F3F1EA",
+
+        /* ── Type ── */
+        ink: {
+          DEFAULT: "#14120F", // headings
+          body: "#47423A", // body copy
+          muted: "#6E6860", // secondary / captions
+          faint: "#9C968C", // disabled, axis labels
+          inverse: "#FAF9F6", // type on dark surfaces
+        },
+
+        /* ── Structure ── */
+        hairline: {
+          DEFAULT: "#E7E2D8",
+          strong: "#D8D2C4",
+        },
+
+        /* ── Dark surfaces (hero cards, CTA band, footer) ── */
+        forest: {
+          DEFAULT: "#0E2A24",
+          deep: "#0B211C",
+          ink: "#081714",
+        },
+
+        /* ── The one accent: logo emerald ── */
+        moss: {
+          50: "#F0F8F5",
+          100: "#DDF0E8",
+          200: "#B6E0D1",
+          300: "#5FC7A7",
+          400: "#1CA88C", // logo emerald — fills, icons, marks
+          500: "#12907A",
+          600: "#0C6B58", // text-safe on paper: links, eyebrows
+          700: "#08543F",
+        },
+
+        /* ── Decorative only — never text ── */
+        lagoon: "#009AA8", // logo cyan
+        sprout: "#79D65B", // logo lime
+
+        /* ══════════════════════════════════════════════════════
+           LEGACY ALIASES — remapped to the new palette.
+           The old `brand-*` names are used ~300× across the pages;
+           repointing them here reskins every page that hasn't been
+           hand-touched, instead of leaving teal islands behind.
+        ══════════════════════════════════════════════════════ */
         brand: {
-          teal: "#008080",
-          "teal-deep": "#006666",
-          "teal-dark": "#004D4D",
-          "teal-mist": "#E0F7F7",
-          aqua: "#00E5E5",
-          "aqua-deep": "#00B3B3",
-          green: "#00E5E5",
-          forest: "#006666",
-          "mint-cream": "#E6FBFB",
-          charcoal: "#0B1F1F",
-          "dark-leaf": "#0F2E2E",
-          "slate-gray": "#5C6B6B",
-          "cloud-white": "#F2FBFB",
-          "light-gray": "#94A3A3",
+          teal: "#0C6B58", // → moss-600 (was #008080)
+          "teal-deep": "#08543F", // → moss-700
+          "teal-dark": "#0E2A24", // → forest
+          "teal-mist": "#DDF0E8", // → moss-100
+          aqua: "#1CA88C", // → moss-400
+          "aqua-deep": "#12907A", // → moss-500
+          green: "#1CA88C",
+          forest: "#08543F",
+          "mint-cream": "#F0F8F5",
+          charcoal: "#14120F", // → ink
+          "dark-leaf": "#0B211C",
+          "slate-gray": "#6E6860", // → ink-muted
+          "cloud-white": "#F3F1EA", // → sand
+          "light-gray": "#9C968C", // → ink-faint
           white: "#FFFFFF",
         },
 
-        /* ── Semantic text colors (WCAG AA on white) ──
-           text-content           → primary  (#0B1F1F · 16.5:1 · AAA)
-           text-content-secondary → support  (#41514E · 7.4:1  · AAA)
-           text-muted             → muted    (#5C6B6B · 4.9:1  · AA)
-           text-disabled          → disabled-only states */
+        /* ── Semantic text colors (mirror of ink.*) ── */
         content: {
-          DEFAULT: "#0B1F1F",
-          secondary: "#41514E",
-          muted: "#5C6B6B",
-          disabled: "#97A4A4",
-          inverse: "#FFFFFF",
+          DEFAULT: "#14120F",
+          secondary: "#47423A",
+          muted: "#6E6860",
+          disabled: "#9C968C",
+          inverse: "#FAF9F6",
         },
-        muted: "#5C6B6B",
-        disabled: "#97A4A4",
+        muted: "#6E6860",
+        disabled: "#9C968C",
+
+        /* ── CRM semantic tokens (theme-flipping via CSS vars) ──
+           Used ONLY by the dashboard/CRM. Values resolve to light or dark
+           in styles/globals.css (:root / .dark). The rgb(var / <alpha-value>)
+           form keeps opacity utilities (bg-panel/60, …) working in both. */
+        page: "rgb(var(--c-page) / <alpha-value>)",
+        panel: "rgb(var(--c-panel) / <alpha-value>)",
+        elevated: "rgb(var(--c-elevated) / <alpha-value>)",
+        line: "rgb(var(--c-line) / <alpha-value>)",
+        "line-strong": "rgb(var(--c-line-strong) / <alpha-value>)",
+        overlay: "rgb(var(--c-overlay) / <alpha-value>)",
+        fg: "rgb(var(--c-fg) / <alpha-value>)",
+        "fg-muted": "rgb(var(--c-fg-muted) / <alpha-value>)",
+        "fg-subtle": "rgb(var(--c-fg-subtle) / <alpha-value>)",
+        primary: "rgb(var(--c-brand) / <alpha-value>)",
+        accent: "rgb(var(--c-accent) / <alpha-value>)",
       },
 
-      /* ── Solid brand fills (NO gradients) ──────── */
+      /* ── No gradients in the brand system ── */
       backgroundImage: {
         none: "none",
       },
 
-      /* ── Spacing / Sizing ──────────────────────── */
       spacing: {
         navbar: "72px",
         "18": "72px",
         "22": "88px",
-        section: "96px",
+        section: "112px",
       },
 
-      /* ── Border Radius ─────────────────────────── */
+      /* ── Border Radius — softer, more generous ── */
       borderRadius: {
         xl2: "20px",
         "2xl": "24px",
-        "3xl": "32px",
-        "4xl": "40px",
+        "3xl": "28px",
+        "4xl": "36px",
       },
 
-      /* ── Box Shadows ───────────────────────────── */
+      /* ── Box Shadows — warm-tinted, low and wide (no coloured glow) ── */
       boxShadow: {
-        card: "0 2px 12px rgba(0,0,0,.06), 0 1px 3px rgba(0,0,0,.04)",
-        "card-hover": "0 8px 32px rgba(0,128,128,.14), 0 2px 8px rgba(0,0,0,.06)",
-        brand: "0 8px 32px rgba(0,128,128,.25)",
-        "brand-lg": "0 16px 48px rgba(0,128,128,.35)",
-        float: "0 20px 60px rgba(0,0,0,.12)",
-        "inner-teal": "inset 0 0 0 2px rgba(0,128,128,.2)",
+        card: "0 1px 2px rgba(20,18,15,.04), 0 8px 24px -14px rgba(20,18,15,.14)",
+        "card-hover":
+          "0 2px 4px rgba(20,18,15,.05), 0 18px 44px -20px rgba(20,18,15,.22)",
+        brand: "0 8px 28px -12px rgba(20,18,15,.24)",
+        "brand-lg": "0 20px 56px -24px rgba(20,18,15,.32)",
+        float: "0 28px 70px -30px rgba(20,18,15,.35)",
+        "inner-hairline": "inset 0 0 0 1px rgba(20,18,15,.06)",
       },
 
-      /* ── Animations ────────────────────────────── */
       animation: {
         "fade-in": "fadeIn .5s ease-out both",
         "slide-up": "slideUp .55s ease-out both",
         "slide-down": "slideDown .3s ease-out both",
         "scale-in": "scaleIn .3s ease-out both",
+        /* Radix defers unmounting until the exit animation ends — without
+           a closed-state animation the dropdown would vanish instantly. */
+        "scale-out": "scaleOut .14s ease-in both",
         float: "float 5s ease-in-out infinite",
         shimmer: "shimmer 2.5s linear infinite",
         "accordion-down": "accordion-down .25s ease-out",
@@ -148,6 +237,10 @@ const config: Config = {
           "0%": { opacity: "0", transform: "scale(.94)" },
           "100%": { opacity: "1", transform: "scale(1)" },
         },
+        scaleOut: {
+          "0%": { opacity: "1", transform: "scale(1)" },
+          "100%": { opacity: "0", transform: "scale(.96)" },
+        },
         float: {
           "0%,100%": { transform: "translateY(0)" },
           "50%": { transform: "translateY(-10px)" },
@@ -170,16 +263,14 @@ const config: Config = {
         },
       },
 
-      /* ── Transition timing ─────────────────────── */
       transitionTimingFunction: {
         premium: "cubic-bezier(.4,0,.2,1)",
         spring: "cubic-bezier(.34,1.56,.64,1)",
       },
 
-      /* ── Container ─────────────────────────────── */
       maxWidth: {
         site: "1200px",
-        prose: "72ch",
+        prose: "68ch",
         form: "640px",
       },
     },

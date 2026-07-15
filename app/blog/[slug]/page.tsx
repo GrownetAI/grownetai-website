@@ -65,7 +65,7 @@ export default async function BlogPostPage({ params }: Props) {
 
           <p className="text-brand-slate-gray text-lg leading-relaxed">{post.excerpt}</p>
 
-          <div className="mt-12 pt-8 border-t border-gray-100 text-center">
+          <div className="mt-12 pt-8 border-t border-hairline text-center">
             <p className="text-brand-slate-gray mb-4">Ready to grow your business?</p>
             <Link href="/contact" className="btn btn-primary inline-flex">
               Get a Free Consultation

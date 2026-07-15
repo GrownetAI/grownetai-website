@@ -34,13 +34,13 @@ export default function BlogPage() {
           }}
         />
         <div className="container-site relative z-10 text-center">
-          <span className="section-label bg-white/20 text-white border-white/30 mb-4">
+          <span className="section-label mb-4">
             Blog & Insights
           </span>
-          <h1 className="font-heading font-bold text-white text-5xl md:text-6xl mt-4 mb-4">
-            Marketing <span className="text-brand-green">Tips & Insights</span>
+          <h1 className="font-display text-ink text-5xl md:text-6xl mt-4 mb-4">
+            Marketing <em className="italic text-moss-600">Tips & Insights</em>
           </h1>
-          <p className="text-white/80 text-xl max-w-xl mx-auto">
+          <p className="text-ink-body text-xl max-w-xl mx-auto">
             AI-powered strategies, industry trends, and actionable growth
             tactics for your business.
           </p>
@@ -49,7 +49,7 @@ export default function BlogPage() {
 
       {/* Featured Post */}
       {featuredPost && (
-        <section className="section-padding bg-white">
+        <section className="section-padding bg-paper">
           <div className="container-site">
             <FadeIn>
               <Link href={`/blog/${featuredPost.slug}`} className="group block">
@@ -107,67 +107,67 @@ export default function BlogPage() {
       )}
 
       {/* Posts Grid */}
-      <section className="section-padding bg-brand-cloud-white">
+      <section className="section-padding bg-sand">
         <div className="container-site">
           <div className="flex flex-wrap gap-2 mb-10 justify-center">
             {CATEGORIES.map((cat) => (
               <button
                 key={cat}
                 onClick={() => setActiveCategory(cat)}
-                className={`px-5 py-2 rounded-full font-semibold text-sm transition-all ${activeCategory === cat ? "bg-brand-teal text-white shadow-sm" : "bg-white text-brand-slate-gray border border-gray-200 hover:border-brand-teal hover:text-brand-teal"}`}
+                className={`px-5 py-2 rounded-full font-semibold text-sm transition-all ${activeCategory === cat ? "bg-ink text-paper" : "bg-paper-raised text-ink-body border border-hairline hover:border-ink hover:text-ink"}`}
               >
                 {cat}
               </button>
             ))}
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filtered.map((post, i) => (
-              <FadeIn key={post.id} delay={i * 0.06}>
-                <Link
-                  href={`/blog/${post.slug}`}
-                  className="group block h-full"
-                >
-                  <div className="card card-hover h-full flex flex-col overflow-hidden">
-                    {/* <div className="bg-brand-teal-mist h-44 flex items-center justify-center">
-                      <BookOpen className="w-10 h-10 text-brand-teal/30" />
-                    </div> */}
-                    <div className="relative h-44 overflow-hidden">
-                      {post.image ? (
-                        <Image
-                          src={post.image}
-                          alt={post.title}
-                          fill
-                          className="object-cover"
-                        />
-                      ) : (
-                        <div className="bg-brand-teal-mist h-full w-full flex items-center justify-center">
-                          <BookOpen className="w-10 h-10 text-brand-teal/30" />
-                        </div>
-                      )}
-                    </div>
-                    <div className="p-6 flex flex-col flex-1">
-                      <span className="badge-teal self-start mb-3">
-                        {post.category}
-                      </span>
-                      <h3 className="font-heading font-bold text-brand-charcoal text-lg mb-2 group-hover:text-brand-teal transition-colors flex-1">
-                        {post.title}
-                      </h3>
-                      <p className="text-brand-slate-gray text-sm leading-relaxed mb-4">
-                        {post.excerpt}
-                      </p>
-                      <div className="flex items-center gap-3 text-xs text-brand-slate-gray border-t border-gray-100 pt-4">
-                        <span className="flex items-center gap-1">
-                          <User className="w-3.5 h-3.5" /> {post.author}
-                        </span>
-                        <span className="flex items-center gap-1 ml-auto">
-                          <Clock className="w-3.5 h-3.5" /> {post.readTime}
-                        </span>
+          {/* Bento: the latest post leads as a wide feature; dense flow keeps the
+              mixed spans gapless. */}
+          <div className="grid grid-flow-row-dense grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+            {filtered.map((post, i) => {
+              const feature = i === 0;
+              return (
+                <FadeIn key={post.id} delay={Math.min(i * 0.06, 0.3)} className={feature ? "md:col-span-2" : ""}>
+                  <Link href={`/blog/${post.slug}`} className="group block h-full">
+                    <article className="group flex h-full flex-col overflow-hidden rounded-2xl border border-hairline bg-paper-raised shadow-card transition-[transform,box-shadow,border-color] duration-300 hover:-translate-y-1 hover:border-moss-300 hover:shadow-brand">
+                      <div className={`relative overflow-hidden ${feature ? "h-56 sm:h-72" : "h-44"}`}>
+                        {post.image ? (
+                          <Image
+                            src={post.image}
+                            alt={post.title}
+                            fill
+                            sizes={feature ? "(max-width:768px) 100vw, 66vw" : "(max-width:768px) 100vw, 33vw"}
+                            className="object-cover transition-transform duration-500 group-hover:scale-105"
+                          />
+                        ) : (
+                          <div className="flex h-full w-full items-center justify-center bg-moss-50">
+                            <BookOpen className="h-10 w-10 text-moss-300" />
+                          </div>
+                        )}
                       </div>
-                    </div>
-                  </div>
-                </Link>
-              </FadeIn>
-            ))}
+                      <div className="flex flex-1 flex-col p-6">
+                        <span className="mb-3 self-start rounded-full bg-moss-100 px-3 py-1 text-[11px] font-bold uppercase tracking-wide text-moss-700">
+                          {post.category}
+                        </span>
+                        <h3 className={`mb-2 flex-1 font-heading font-bold text-ink transition-colors group-hover:text-moss-600 ${feature ? "text-xl sm:text-2xl" : "text-lg"}`}>
+                          {post.title}
+                        </h3>
+                        <p className="mb-4 text-sm leading-relaxed text-ink-muted">
+                          {post.excerpt}
+                        </p>
+                        <div className="flex items-center gap-3 border-t border-hairline pt-4 text-xs text-ink-muted">
+                          <span className="flex items-center gap-1">
+                            <User className="h-3.5 w-3.5" /> {post.author}
+                          </span>
+                          <span className="ml-auto flex items-center gap-1">
+                            <Clock className="h-3.5 w-3.5" /> {post.readTime}
+                          </span>
+                        </div>
+                      </div>
+                    </article>
+                  </Link>
+                </FadeIn>
+              );
+            })}
           </div>
           {filtered.length === 0 && (
             <p className="text-center text-brand-slate-gray mt-10">
@@ -178,18 +178,15 @@ export default function BlogPage() {
       </section>
 
       {/* CTA */}
-      <section className="section-padding bg-brand-teal text-white text-center">
+      <section className="section-padding bg-forest text-paper text-center">
         <div className="container-site max-w-xl mx-auto">
-          <h2 className="font-heading font-bold text-3xl md:text-4xl mb-4 text-white">
+          <h2 className="display-lg text-paper mb-5">
             Want us to grow your business too?
           </h2>
-          <p className="text-white/80 mb-8">
+          <p className="text-paper/80 mb-9">
             Join 150+ businesses already growing with GrownetAI.
           </p>
-          <Link
-            href="/contact"
-            className="btn btn-lg bg-white text-brand-teal font-bold hover:bg-white/90"
-          >
+          <Link href="/contact" className="btn btn-accent btn-lg">
             Get Free Consultation
           </Link>
         </div>

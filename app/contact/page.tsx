@@ -13,9 +13,36 @@ import {
   MapPin,
   Send,
   ArrowRight,
+  Linkedin,
+  Instagram,
+  Zap,
+  Users,
+  ShieldCheck,
+  Globe,
+  Sparkles,
+  Layers,
+  Plus,
+  Minus,
 } from "lucide-react";
 import { SITE_CONFIG, SERVICES } from "@/lib/constants";
-import { whatsappUrl } from "@/lib/utils";
+import { whatsappUrl, cn } from "@/lib/utils";
+
+const WHY_CONTACT = [
+  { icon: Zap, title: "Fast response", desc: "We reply within a few hours on business days — no black holes." },
+  { icon: Users, title: "Dedicated team", desc: "A named point of contact from day one, not a rotating queue." },
+  { icon: ShieldCheck, title: "Transparent pricing", desc: "Clear, fixed-scope quotes — no surprises on the invoice." },
+  { icon: Globe, title: "Global support", desc: "Serving clients across eight markets, in your timezone." },
+  { icon: Sparkles, title: "AI expertise", desc: "AI woven through strategy, build, and growth — not bolted on." },
+  { icon: Layers, title: "End-to-end", desc: "Brand, site, apps, marketing, and automation under one roof." },
+];
+
+const CONTACT_FAQS = [
+  { q: "How quickly will I hear back?", a: "We reply to every enquiry within a few hours on business days, and always within 24 hours." },
+  { q: "What happens after I submit the form?", a: "A dedicated strategist reviews your details, then reaches out to book a free 30-minute discovery call — no obligation." },
+  { q: "Do you work with businesses outside India?", a: "Yes. We serve clients across eight markets with local pricing and context, and work in your timezone." },
+  { q: "How is pricing decided?", a: "Every project is quoted to scope with a clear, fixed price. You'll see the full breakdown before anything begins." },
+  { q: "What information should I share?", a: "Your goals, rough budget, timeline, and the service you're interested in help us come prepared — but a short note is enough to start." },
+];
 
 // ─── Country Data ───────────────────────────────────────────────────────
 const COUNTRIES = [
@@ -199,8 +226,10 @@ const contactSchema = z.object({
       message: "Phone number must contain only digits",
     }),
 
+  company: z.string().optional(),
   service: z.string().optional(),
   budget: z.string().optional(),
+  timeline: z.string().optional(),
 
   message: z
     .string()
@@ -235,6 +264,30 @@ const CONTACT_CARDS = [
       "Hi GrownetAI! I'd like to discuss a project.",
     ),
     cta: "Open Chat",
+    external: true,
+  },
+  {
+    icon: Linkedin,
+    title: "LinkedIn",
+    value: "Follow our journey",
+    href: SITE_CONFIG.social.linkedin,
+    cta: "Connect",
+    external: true,
+  },
+  {
+    icon: Instagram,
+    title: "Instagram",
+    value: "See the work in motion",
+    href: SITE_CONFIG.social.instagram,
+    cta: "Follow",
+    external: true,
+  },
+  {
+    icon: MapPin,
+    title: "Office",
+    value: SITE_CONFIG.address,
+    href: "https://maps.google.com/?q=New+Delhi",
+    cta: "Get directions",
     external: true,
   },
 ];
@@ -315,18 +368,18 @@ export default function ContactPage() {
           className="absolute inset-0 opacity-10"
           style={{
             backgroundImage:
-              "radial-gradient(circle at 2px 2px, white 1px, transparent 0)",
+              "radial-gradient(circle at 2px 2px, #14120F 1px, transparent 0)",
             backgroundSize: "40px 40px",
           }}
         />
         <div className="container-site relative z-10 text-center">
-          <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-sm font-semibold bg-white/20 text-white border border-white/30 mb-6">
+          <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-sm font-semibold bg-paper-raised text-moss-600 border border-hairline mb-6">
             📬 Let&apos;s Connect
           </span>
-          <h1 className="font-heading font-bold text-white text-5xl md:text-6xl mb-4">
+          <h1 className="font-display text-ink text-5xl md:text-6xl mb-4">
             Let&apos;s Talk
           </h1>
-          <p className="text-white/80 text-xl max-w-xl mx-auto">
+          <p className="text-ink-body text-xl max-w-xl mx-auto">
             Tell us about your business and we&apos;ll put together a custom
             growth strategy — completely free.
           </p>
@@ -334,27 +387,32 @@ export default function ContactPage() {
       </section>
 
       {/* Contact Cards */}
-      <section className="section-padding-sm bg-brand-cloud-white">
+      <section className="section-padding-sm bg-sand">
         <div className="container-site">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {CONTACT_CARDS.map((card) => (
-              <div key={card.title} className="card-hover p-6 text-center">
-                <div className="w-12 h-12 rounded-xl bg-brand-teal-mist flex items-center justify-center text-brand-teal mx-auto mb-4">
-                  <card.icon className="w-6 h-6" />
-                </div>
-                <h3 className="font-heading font-semibold text-brand-charcoal mb-1">
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+            {CONTACT_CARDS.map((card, i) => (
+              <div
+                key={card.title}
+                className={`group flex flex-col items-center rounded-3xl border p-7 text-center shadow-card transition-[transform,box-shadow,border-color] duration-300 hover:-translate-y-1 hover:shadow-brand ${
+                  i === 0
+                    ? "border-moss-200 bg-moss-50 hover:border-moss-300"
+                    : "border-hairline bg-paper-raised hover:border-moss-300"
+                }`}
+              >
+                <span className="mb-4 grid h-12 w-12 place-items-center rounded-2xl bg-moss-100 text-moss-700">
+                  <card.icon className="h-6 w-6" />
+                </span>
+                <h3 className="font-heading text-base font-semibold text-ink">
                   {card.title}
                 </h3>
-                <p className="text-brand-slate-gray text-sm mb-4">
-                  {card.value}
-                </p>
+                <p className="mb-4 mt-1 text-sm text-ink-muted">{card.value}</p>
                 <a
                   href={card.href}
                   target={card.external ? "_blank" : undefined}
                   rel={card.external ? "noopener noreferrer" : undefined}
-                  className="btn-secondary btn-sm inline-flex"
+                  className="btn btn-secondary btn-sm mt-auto"
                 >
-                  {card.cta} <ArrowRight className="w-4 h-4" />
+                  {card.cta} <ArrowRight className="h-4 w-4" />
                 </a>
               </div>
             ))}
@@ -363,7 +421,7 @@ export default function ContactPage() {
       </section>
 
       {/* Contact Form */}
-      <section className="section-padding bg-white">
+      <section className="section-padding bg-paper">
         <div className="container-site max-w-2xl">
           <div className="text-center mb-12">
             <span className="section-label">Free Consultation</span>
@@ -436,7 +494,7 @@ export default function ContactPage() {
                   Phone Number
                 </label>
                 <div
-                  className={`flex rounded-lg border bg-white overflow-hidden focus-within:ring-2 focus-within:ring-brand-teal/30 focus-within:border-brand-teal transition-all ${phoneError ? "border-red-400 focus-within:ring-red-200 focus-within:border-red-500" : "border-brand-light-gray"}`}
+                  className={`flex rounded-lg border bg-paper-raised overflow-hidden focus-within:ring-2 focus-within:ring-moss-400/40 focus-within:border-moss-500 transition-all ${phoneError ? "border-red-400 focus-within:ring-red-200 focus-within:border-red-500" : "border-hairline-strong"}`}
                 >
                   {/* Country Selector */}
                   <div className="relative">
@@ -452,7 +510,7 @@ export default function ContactPage() {
                           setValue("phone", ""); // reset phone on country change
                         }
                       }}
-                      className="h-full pl-2 pr-6 text-sm bg-brand-cloud-white border-r border-brand-light-gray text-brand-charcoal appearance-none cursor-pointer focus:outline-none"
+                      className="h-full pl-2 pr-6 text-sm bg-brand-cloud-white border-r border-hairline-strong text-brand-charcoal appearance-none cursor-pointer focus:outline-none"
                       style={{ minWidth: "80px" }}
                       title="Select country"
                     >
@@ -490,7 +548,7 @@ export default function ContactPage() {
                         e.preventDefault();
                       }
                     }}
-                    className="flex-1 px-3 py-2.5 text-sm text-brand-charcoal placeholder:text-brand-light-gray focus:outline-none bg-transparent"
+                    className="flex-1 px-3 py-2.5 text-sm text-brand-charcoal placeholder:text-ink-muted focus:outline-none bg-transparent"
                   />
                 </div>
                 {phoneError && (
@@ -508,7 +566,7 @@ export default function ContactPage() {
                 <label className="text-sm font-semibold text-brand-charcoal font-heading">
                   Service Interested In
                 </label>
-                <select {...register("service")} className="input bg-white">
+                <select {...register("service")} className="input bg-paper-raised">
                   <option value="">Select a service</option>
                   {SERVICES.map((s) => (
                     <option key={s.id} value={s.id}>
@@ -524,7 +582,7 @@ export default function ContactPage() {
               <label className="text-sm font-semibold text-brand-charcoal font-heading">
                 Monthly Budget
               </label>
-              <select {...register("budget")} className="input bg-white">
+              <select {...register("budget")} className="input bg-paper-raised">
                 <option value="">Select budget range</option>
                 {BUDGET_OPTIONS.map((b) => (
                   <option key={b} value={b}>
@@ -532,6 +590,32 @@ export default function ContactPage() {
                   </option>
                 ))}
               </select>
+            </div>
+
+            {/* Company + Timeline */}
+            <div className="grid gap-4 sm:grid-cols-2">
+              <div className="flex flex-col gap-1.5">
+                <label className="text-sm font-semibold text-brand-charcoal font-heading">
+                  Company Name
+                </label>
+                <input
+                  {...register("company")}
+                  placeholder="Optional"
+                  className="input bg-paper-raised"
+                />
+              </div>
+              <div className="flex flex-col gap-1.5">
+                <label className="text-sm font-semibold text-brand-charcoal font-heading">
+                  Project Timeline
+                </label>
+                <select {...register("timeline")} className="input bg-paper-raised">
+                  <option value="">Select timeline</option>
+                  <option>ASAP</option>
+                  <option>1–3 months</option>
+                  <option>3–6 months</option>
+                  <option>Just exploring</option>
+                </select>
+              </div>
             </div>
 
             {/* Message */}
@@ -553,7 +637,7 @@ export default function ContactPage() {
                 ) : (
                   <span />
                 )}
-                <p className="text-xs text-brand-light-gray ml-auto">
+                <p className="text-xs text-ink-muted ml-auto">
                   {watch("message")?.length ?? 0}/1000
                 </p>
               </div>
@@ -574,7 +658,7 @@ export default function ContactPage() {
               )}
             </button>
 
-            <p className="text-center text-brand-light-gray text-xs">
+            <p className="text-center text-ink-muted text-xs">
               By submitting, you agree to our{" "}
               <Link href="/privacy" className="text-brand-teal hover:underline">
                 Privacy Policy
@@ -585,21 +669,73 @@ export default function ContactPage() {
         </div>
       </section>
 
+      {/* Why contact us (bento) */}
+      <section className="section-padding-sm bg-sand">
+        <div className="container-site">
+          <div className="mx-auto mb-10 max-w-2xl text-center">
+            <span className="eyebrow">Why contact us</span>
+            <h2 className="heading-section mt-3">Reasons to reach out.</h2>
+          </div>
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {WHY_CONTACT.map((w, i) => (
+              <div
+                key={w.title}
+                className={cn(
+                  "group rounded-3xl border p-6 shadow-card transition-[transform,box-shadow,border-color] duration-300 hover:-translate-y-1 hover:shadow-brand",
+                  i === 0 ? "border-moss-200 bg-moss-50 hover:border-moss-300" : "border-hairline bg-paper-raised hover:border-moss-300",
+                )}
+              >
+                <span className="grid h-11 w-11 place-items-center rounded-xl bg-moss-100 text-moss-700">
+                  <w.icon className="h-5 w-5" />
+                </span>
+                <h3 className="mt-4 font-heading text-base font-semibold text-ink">{w.title}</h3>
+                <p className="mt-1.5 text-sm leading-relaxed text-ink-muted">{w.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ */}
+      <section className="section-padding-sm bg-paper">
+        <div className="container-site mx-auto max-w-3xl">
+          <div className="mb-10 text-center">
+            <span className="eyebrow">FAQ</span>
+            <h2 className="heading-section mt-3">Answers before you ask.</h2>
+          </div>
+          <div className="space-y-3">
+            {CONTACT_FAQS.map((f) => (
+              <details
+                key={f.q}
+                className="group rounded-2xl border border-hairline bg-paper-raised p-5 shadow-card open:border-moss-200"
+              >
+                <summary className="flex cursor-pointer list-none items-center justify-between gap-3 font-heading font-semibold text-ink [&::-webkit-details-marker]:hidden">
+                  {f.q}
+                  <Plus className="h-4 w-4 flex-shrink-0 text-moss-600 group-open:hidden" />
+                  <Minus className="hidden h-4 w-4 flex-shrink-0 text-moss-600 group-open:block" />
+                </summary>
+                <p className="mt-3 text-sm leading-relaxed text-ink-muted">{f.a}</p>
+              </details>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Address + Social */}
-      <section className="section-padding-sm bg-brand-cloud-white">
+      <section className="section-padding-sm bg-sand">
         <div className="container-site text-center">
-          <div className="flex items-center justify-center gap-2 text-brand-slate-gray mb-6">
-            <MapPin className="w-5 h-5 text-brand-teal" />
+          <div className="mb-6 flex items-center justify-center gap-2 text-ink-body">
+            <MapPin className="h-5 w-5 text-moss-600" />
             <span className="font-semibold">{SITE_CONFIG.address}</span>
           </div>
-          <div className="flex items-center justify-center gap-6 flex-wrap">
+          <div className="flex flex-wrap items-center justify-center gap-6">
             {Object.entries(SITE_CONFIG.social).map(([key, url]) => (
               <a
                 key={key}
                 href={url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-brand-slate-gray hover:text-brand-teal text-sm font-semibold capitalize transition-colors"
+                className="text-sm font-semibold capitalize text-ink-muted transition-colors hover:text-moss-600"
               >
                 {key}
               </a>

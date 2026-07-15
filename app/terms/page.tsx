@@ -13,11 +13,11 @@ export default function TermsPage() {
     <main className="pt-[var(--navbar-height)]">
       <section className="bg-gradient-hero py-16 text-center">
         <div className="container-site">
-          <h1 className="font-heading font-bold text-white text-4xl md:text-5xl">Terms &amp; Conditions</h1>
-          <p className="text-white/70 mt-3 text-lg">Last updated: January 2025</p>
+          <h1 className="font-display text-ink text-4xl md:text-5xl">Terms &amp; Conditions</h1>
+          <p className="text-ink-muted mt-3 text-lg">Last updated: January 2025</p>
         </div>
       </section>
-      <section className="section-padding bg-white">
+      <section className="section-padding bg-paper">
         <div className="container-site max-w-3xl mx-auto space-y-8 text-brand-slate-gray">
           {[
             { title: "1. Acceptance of Terms", body: `By accessing and using the ${SITE_CONFIG.name} website or engaging our services, you agree to these terms. If you do not agree, please discontinue use immediately.` },

@@ -14,8 +14,9 @@ import {
 } from "lucide-react";
 import { register, apiErrorMessage } from "@/lib/api";
 
-const TEAL = "#008080";
-const AQUA = "#00E5E5";
+const FOREST = "#0E2A24";
+const TEAL = "#0C6B58";
+const AQUA = "#1CA88C";
 
 export default function RegisterPage() {
   const router = useRouter();
@@ -46,7 +47,7 @@ export default function RegisterPage() {
 {/* Left brand panel */}
 <div
   className="relative hidden lg:flex overflow-hidden"
-  style={{ background: TEAL }}
+  style={{ background: FOREST }}
 >
   {/* Ambient layers */}
   <div className="absolute inset-0 bg-[radial-gradient(circle_at_15%_15%,rgba(255,255,255,0.08),transparent_30%)]" />
@@ -54,7 +55,7 @@ export default function RegisterPage() {
   <div
     className="absolute -right-32 top-1/2 -translate-y-1/2 h-[500px] w-[500px] rounded-full blur-[120px]"
     style={{
-      background: "rgba(0,229,229,0.18)",
+      background: "rgba(28,168,140,0.18)",
     }}
   />
 
@@ -90,8 +91,8 @@ export default function RegisterPage() {
           mb-8
         "
       >
-        <div className="h-2 w-2 rounded-full bg-cyan-300" />
-        <span className="text-[11px] tracking-[0.18em] uppercase text-white/60">
+        <div className="h-2 w-2 rounded-full bg-moss-400" />
+        <span className="text-[11px] tracking-[0.18em] uppercase text-paper/70">
           Growth Intelligence Platform
         </span>
       </div>
@@ -99,8 +100,7 @@ export default function RegisterPage() {
       <h1
         className="
           font-display
-          font-bold
-          text-white
+          text-paper
           tracking-[-0.06em]
           leading-[0.92]
         "
@@ -108,26 +108,26 @@ export default function RegisterPage() {
           fontSize: "clamp(3.75rem,5vw,5.5rem)",
         }}
       >
-        Congratulations, for becoming a <span style={{ color: AQUA }}>Brand!</span>
+        Congratulations, for becoming a <span className="text-moss-300">Brand!</span>
         <br />
         Let's Start
       </h1>
 
-      <p className="mt-7 max-w-[420px] text-base leading-relaxed text-white/65">
+      <p className="mt-7 max-w-[420px] text-base leading-relaxed text-paper/70">
         Track visibility, measure growth, and turn attention
         into measurable business outcomes.
       </p>
     </div>
 
     {/* Footer */}
-    <div className="text-xs text-white/35">
+    <div className="text-xs text-paper/70">
       © {new Date().getFullYear()} GrownetAI
     </div>
   </div>
 </div>
 
       {/* Right form */}
-      <div className="flex items-center justify-center p-6 sm:p-12 bg-white">
+      <div className="flex items-center justify-center p-6 sm:p-12 bg-paper">
         <div className="w-full max-w-md">
           <Link
             href="/"
@@ -137,7 +137,7 @@ export default function RegisterPage() {
           </Link>
 
           <div className="lg:hidden mb-8 text-center">
-            <span className="font-display font-black text-2xl" style={{ color: TEAL }}>
+            <span className="font-display text-2xl" style={{ color: TEAL }}>
               Grownet<span style={{ color: AQUA }}>AI</span>
             </span>
           </div>
@@ -157,7 +157,7 @@ export default function RegisterPage() {
                 Full name
               </label>
               <div className="relative">
-                <User className="w-4 h-4 absolute left-4 top-1/2 -translate-y-1/2 text-brand-light-gray" />
+                <User className="w-4 h-4 absolute left-4 top-1/2 -translate-y-1/2 text-ink-muted" />
                 <input
                   required
                   value={name}
@@ -171,10 +171,10 @@ export default function RegisterPage() {
             <div>
               <label className="block text-sm font-semibold text-brand-charcoal mb-1.5">
                 Company / shop{" "}
-                <span className="text-brand-light-gray font-normal">(optional)</span>
+                <span className="text-ink-muted font-normal">(optional)</span>
               </label>
               <div className="relative">
-                <Building2 className="w-4 h-4 absolute left-4 top-1/2 -translate-y-1/2 text-brand-light-gray" />
+                <Building2 className="w-4 h-4 absolute left-4 top-1/2 -translate-y-1/2 text-ink-muted" />
                 <input
                   value={shop}
                   onChange={(e) => setShop(e.target.value)}
@@ -189,7 +189,7 @@ export default function RegisterPage() {
                 Email
               </label>
               <div className="relative">
-                <Mail className="w-4 h-4 absolute left-4 top-1/2 -translate-y-1/2 text-brand-light-gray" />
+                <Mail className="w-4 h-4 absolute left-4 top-1/2 -translate-y-1/2 text-ink-muted" />
                 <input
                   type="email"
                   required
@@ -204,12 +204,12 @@ export default function RegisterPage() {
             <div>
               <label className="block text-sm font-semibold text-brand-charcoal mb-1.5">
                 Password{" "}
-                <span className="text-brand-light-gray font-normal">
+                <span className="text-ink-muted font-normal">
                   (min 8 characters)
                 </span>
               </label>
               <div className="relative">
-                <Lock className="w-4 h-4 absolute left-4 top-1/2 -translate-y-1/2 text-brand-light-gray" />
+                <Lock className="w-4 h-4 absolute left-4 top-1/2 -translate-y-1/2 text-ink-muted" />
                 <input
                   type="password"
                   required

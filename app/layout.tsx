@@ -1,17 +1,29 @@
 import type { Metadata, Viewport } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Inter_Tight } from "next/font/google";
 import { Toaster } from "react-hot-toast";
 import "../styles/globals.css";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 
 // ─── Font Configuration ────────────────────────────────────────────────
-// Single primary typeface (Inter). Weights are limited to 400/500/600/700
-// (+800 for marketing display) to keep the system consistent.
+// Two typefaces, one family. Inter carries all UI and body copy; Inter Tight
+// carries every display headline. Inter Tight is Inter's purpose-built display
+// cut — tighter sidebearings and a real weight range up to 800 — so headlines
+// can be genuinely heavy instead of a light editorial serif that could never
+// bold (Instrument Serif shipped a single 400 weight).
+//
+// Both are self-hosted by next/font at build time: no runtime call to Google.
 const inter = Inter({
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800"],
+  weight: ["400", "500", "600", "700"],
   variable: "--font-inter",
+  display: "swap",
+});
+
+const interTight = Inter_Tight({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700", "800"],
+  variable: "--font-display",
   display: "swap",
 });
 
@@ -92,8 +104,8 @@ export const viewport: Viewport = {
   initialScale: 1,
   maximumScale: 5,
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#008080" },
-    { media: "(prefers-color-scheme: dark)", color: "#006666" },
+    { media: "(prefers-color-scheme: light)", color: "#FAF9F6" },
+    { media: "(prefers-color-scheme: dark)", color: "#0E2A24" },
   ],
 };
 
@@ -137,10 +149,27 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.variable} font-sans`}
+      className={`${inter.variable} ${interTight.variable} font-sans`}
       suppressHydrationWarning
     >
       <head>
+        {/* Pre-paint theme. Server-rendered into <head> so it runs during HTML
+            parse — the old version lived inside the CRM shell and keyed off
+            `document.currentScript`, which is null for React-inserted scripts,
+            so it silently no-opped on every client-side navigation.
+            Path-scoped: the marketing site has no dark mode, and must never
+            inherit `color-scheme: dark`. */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{
+var p=location.pathname;
+if(p.indexOf('/dashboard')!==0&&p.indexOf('/admin')!==0)return;
+var s=localStorage.getItem('crm-theme');
+var t=(s==='dark'||s==='light')?s:(window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');
+if(t==='dark')document.documentElement.classList.add('dark');
+}catch(e){}})();`,
+          }}
+        />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -155,7 +184,7 @@ export default function RootLayout({
           crossOrigin="anonymous"
         />
       </head>
-      <body className="font-sans antialiased bg-white text-brand-slate-gray">
+      <body className="font-sans antialiased bg-paper text-ink-body dark:bg-page dark:text-fg">
         {/* Toast Notifications */}
         <Toaster
           position="top-right"
@@ -163,25 +192,33 @@ export default function RootLayout({
             duration: 4000,
             style: {
               fontFamily: "var(--font-inter)",
-              borderRadius: "12px",
+              borderRadius: "999px",
               fontSize: "14px",
+              padding: "10px 16px",
             },
+            /* Driven by CSS vars (see globals.css) rather than literal hexes,
+               because these land as INLINE styles that Tailwind cannot override
+               — every toast used to render light inside the dark CRM. */
             success: {
               style: {
-                background: "#E6FBFB",
-                color: "#006666",
-                border: "1px solid #00E5E5",
+                background: "var(--toast-ok-bg)",
+                color: "var(--toast-ok-fg)",
+                border: "1px solid var(--toast-ok-border)",
               },
               iconTheme: {
-                primary: "#00B3B3",
-                secondary: "#fff",
+                primary: "var(--toast-ok-fg)",
+                secondary: "var(--toast-ok-bg)",
               },
             },
             error: {
               style: {
-                background: "#FEF2F2",
-                color: "#DC2626",
-                border: "1px solid #FCA5A5",
+                background: "var(--toast-err-bg)",
+                color: "var(--toast-err-fg)",
+                border: "1px solid var(--toast-err-border)",
+              },
+              iconTheme: {
+                primary: "var(--toast-err-fg)",
+                secondary: "var(--toast-err-bg)",
               },
             },
           }}

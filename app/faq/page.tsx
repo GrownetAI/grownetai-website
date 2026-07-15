@@ -21,18 +21,18 @@ export default function FaqPage() {
       {/* Hero */}
       <section className="bg-gradient-hero py-20 text-center">
         <div className="container-site">
-          <span className="section-label bg-white/20 text-white border-white/30 mb-4">FAQ</span>
-          <h1 className="font-heading font-bold text-white text-5xl md:text-6xl mt-4 mb-4">
-            Frequently Asked <span className="text-brand-green">Questions</span>
+          <span className="section-label mb-4">FAQ</span>
+          <h1 className="font-display text-ink text-5xl md:text-6xl mt-4 mb-4">
+            Frequently Asked <em className="italic text-moss-600">Questions</em>
           </h1>
-          <p className="text-white/80 text-xl max-w-xl mx-auto">
+          <p className="text-ink-body text-xl max-w-xl mx-auto">
             Everything you need to know before getting started with GrownetAI.
           </p>
         </div>
       </section>
 
       {/* FAQ List */}
-      <section className="section-padding bg-white">
+      <section className="section-padding bg-paper">
         <div className="container-site max-w-3xl mx-auto">
           <Accordion.Root type="single" collapsible className="space-y-3">
             {FAQS.map((faq, i) => (

@@ -46,6 +46,34 @@ export const NAV_LINKS = [
   { label: "Contact", href: "/contact" },
 ];
 
+// ─── Navbar presentation ───────────────────────────────────────────────
+// The same eight destinations as NAV_LINKS, regrouped: four stay visible,
+// four collapse into one dropdown. No href changes — this is presentation
+// only, and NAV_LINKS above stays the canonical list of routes.
+export const PRIMARY_NAV = [
+  { label: "Home", href: "/" },
+  { label: "About", href: "/about" },
+  {
+    label: "Services",
+    href: "/services",
+    // "All Services" first, because the trigger itself is a menu button and
+    // cannot navigate — without this, /services has no route into it from the
+    // navbar at all. (The old navbar had the same dead end.)
+    children: [
+      { label: "All Services", href: "/services" },
+      ...NAV_LINKS.find((l) => l.href === "/services")!.children!,
+    ],
+  },
+  { label: "Portfolio", href: "/portfolio" },
+  { label: "Contact", href: "/contact" },
+];
+
+export const MORE_NAV = [
+  { label: "Pricing", href: "/pricing" },
+  { label: "Blog", href: "/blog" },
+  { label: "Careers", href: "/careers" },
+];
+
 // ─── Services ──────────────────────────────────────────────────────────
 export const SERVICES = [
   {
@@ -263,6 +291,7 @@ export const TESTIMONIALS = [
     rating: 5,
     text: "GrownetAI completely transformed our online presence. Our organic traffic increased by 340% in just 4 months, and our Google Ads ROI went from 1.8x to 4.2x. Their team is incredibly professional and results-driven.",
     service: "SEO + Google Ads",
+    serviceIds: ["seo", "ads"],
     result: "340% traffic increase",
   },
   {
@@ -273,6 +302,7 @@ export const TESTIMONIALS = [
     rating: 5,
     text: "The Instagram reels they create for us consistently go viral. We gained 50K followers in 3 months and our sales from social media tripled. Best investment we made for our fashion brand.",
     service: "Instagram Ads + Reels",
+    serviceIds: ["ads", "smm"],
     result: "50K followers in 3 months",
   },
   {
@@ -283,6 +313,7 @@ export const TESTIMONIALS = [
     rating: 5,
     text: "Their website development team built us a stunning e-commerce site that loads in under 2 seconds. Conversion rate jumped from 1.2% to 3.8% immediately. Outstanding work and amazing support.",
     service: "Website Development",
+    serviceIds: ["web-dev"],
     result: "3x conversion improvement",
   },
   {
@@ -293,6 +324,7 @@ export const TESTIMONIALS = [
     rating: 5,
     text: "GrownetAI handled our entire digital marketing — SEO, Google Ads, and social media. Our student enrollments doubled within 6 months. Their AI-powered approach is truly different from other agencies.",
     service: "Full Digital Marketing",
+    serviceIds: ["seo", "ads", "smm"],
     result: "2x enrollment in 6 months",
   },
   {
@@ -303,6 +335,7 @@ export const TESTIMONIALS = [
     rating: 5,
     text: "Local SEO and Google Ads from GrownetAI brought in 60% more footfall to our restaurant. The team is responsive, creative, and truly cares about your success. Highly recommended!",
     service: "Local SEO + Google Ads",
+    serviceIds: ["seo", "ads"],
     result: "60% increase in footfall",
   },
   {
@@ -313,6 +346,7 @@ export const TESTIMONIALS = [
     rating: 5,
     text: "The brand identity and website they created for us perfectly captures our wellness brand ethos. Social media has been phenomenal — our community grew from 0 to 25K in just 2 months.",
     service: "Branding + Social Media",
+    serviceIds: ["design", "smm", "smo", "web-dev"],
     result: "25K followers from scratch",
   },
 ];
@@ -545,6 +579,7 @@ export const PORTFOLIO_ITEMS = [
       { metric: "Keyword Rankings", value: "#1 for 45 terms" },
       { metric: "Lead Generation", value: "+180%" },
     ],
+    serviceIds: ["seo", "web-dev"],
     tags: ["SEO", "Next.js", "Content Marketing"],
   },
   {
@@ -560,6 +595,7 @@ export const PORTFOLIO_ITEMS = [
       { metric: "Sales Revenue", value: "+200%" },
       { metric: "ROAS", value: "5.8x" },
     ],
+    serviceIds: ["ads", "smm"],
     tags: ["Instagram Ads", "Reels", "Social Media"],
   },
   {
@@ -575,6 +611,7 @@ export const PORTFOLIO_ITEMS = [
       { metric: "Google Ads ROAS", value: "6.2x" },
       { metric: "Monthly Revenue", value: "+₹12L" },
     ],
+    serviceIds: ["web-dev", "ads"],
     tags: ["Website Dev", "Google Ads", "E-commerce"],
   },
   {
@@ -590,6 +627,7 @@ export const PORTFOLIO_ITEMS = [
       { metric: "Cost per Lead", value: "-45%" },
       { metric: "Brand Awareness", value: "+280%" },
     ],
+    serviceIds: ["seo", "ads", "smm"],
     tags: ["SEO", "Google Ads", "Meta Ads"],
   },
 ];
@@ -687,3 +725,263 @@ export const TECH_STACK = {
     { name: "GA4", color: "#E37400" },
   ],
 };
+
+// ─── Homepage portfolio previews ───────────────────────────────────────
+// Lifted out of app/page.tsx so the What-We-Do grid and the PROOF section
+// can share one source. `tag` is the client's industry; `serviceIds` are the
+// services we actually delivered, which is what the section filters on.
+export const PORTFOLIO_PROJECTS = [
+  {
+    id: 1,
+    name: "FreshBite Restaurant",
+    tag: "Food & Hospitality",
+    emoji: "🍽️",
+    navItems: ["Menu", "Reservations", "About"],
+    tagline: "Fresh. Local. Delicious.",
+    sub: "Farm-to-table dining in the heart of the city",
+    cta: "Reserve a Table",
+    results: ["340% orders", "2.1L reach", "4.8★ rating"],
+    serviceIds: ["web-dev", "smm", "ads"],
+    previewImg: "/images/portfolio/freshbite.jpg",
+  },
+  {
+    id: 2,
+    name: "GlowSkin Clinic",
+    tag: "Beauty & Wellness",
+    emoji: "✨",
+    navItems: ["Services", "Treatments", "Book"],
+    tagline: "Your skin. Our passion.",
+    sub: "Certified dermatologists & aesthetic experts",
+    cta: "Book Appointment",
+    results: ["6.4× ROAS", "800+ bookings", "₹42L revenue"],
+    serviceIds: ["ads", "seo", "web-dev"],
+    previewImg: "/images/portfolio/glowskin.jpg",
+  },
+  {
+    id: 3,
+    name: "BuildNest Real Estate",
+    tag: "Real Estate",
+    emoji: "🏠",
+    navItems: ["Buy", "Rent", "Sell"],
+    tagline: "Find Your Dream Home",
+    sub: "Premium properties across India's top cities",
+    cta: "Explore Properties",
+    results: ["₹2.4Cr sales", "284% traffic", "120+ inquiries"],
+    serviceIds: ["seo", "web-dev", "ads"],
+    previewImg: "/images/portfolio/buildnest.jpg",
+  },
+  {
+    id: 4,
+    name: "EduReach Academy",
+    tag: "EdTech",
+    emoji: "🎓",
+    navItems: ["Courses", "Mentors", "Enroll"],
+    tagline: "Learn Without Limits",
+    sub: "Live & recorded courses for working professionals",
+    cta: "Start Learning",
+    results: ["12k+ students", "4.9★ rating", "₹3.2Cr GMV"],
+    serviceIds: ["seo", "ads", "smm", "app-dev"],
+    previewImg: "/images/portfolio/edureach.jpg",
+  },
+];
+
+// ─── Case studies — THE single portfolio source ────────────────────────
+// Replaces three competing shapes: PORTFOLIO_PROJECTS (4, homepage),
+// PORTFOLIO_ITEMS (4, all four `image` paths 404'd), and a separate 6-item
+// array that lived inside app/portfolio/page.tsx and shadowed the export.
+//
+// Every surface reads THIS: the homepage case-study showcase, /portfolio, and
+// the What-We-Do results grid. `serviceIds` match lib/pricing-data.ts, so a
+// service chip can filter the work we actually did for that service.
+export interface CaseStudy {
+  id: number;
+  slug: string;
+  client: string;
+  industry: string;
+  /** The headline outcome — this is what the card leads with, not the client name. */
+  title: string;
+  /** The story, in three beats. */
+  challenge: string;
+  solution: string;
+  outcome: string;
+  services: string[];
+  serviceIds: string[];
+  tech: string[];
+  results: { metric: string; value: string }[];
+  image: string;
+  duration: string;
+}
+
+export const CASE_STUDIES: CaseStudy[] = [
+  {
+    id: 1,
+    slug: "freshbite",
+    client: "FreshBite Restaurant",
+    industry: "Food & Hospitality",
+    title: "Empty tables on a Tuesday to a two-week waitlist",
+    challenge:
+      "A farm-to-table restaurant with genuinely great food and almost no online presence. Walk-ins were unpredictable, weeknights were dead, and delivery aggregators were taking a third of every order.",
+    solution:
+      "We rebuilt the site around one job — get the table booked — then ran Reels and local Google Ads against the dishes people were already photographing. Bookings moved on-platform, off the aggregators.",
+    outcome:
+      "Online orders more than tripled and the kitchen now runs a waitlist on weeknights.",
+    services: ["Logo & Brand Identity", "Website Development", "Social Media", "Google & Meta Ads"],
+    serviceIds: ["design", "web-dev", "smm", "ads"],
+    tech: ["Next.js", "Meta Ads", "Google Ads"],
+    results: [
+      { metric: "Online orders", value: "+340%" },
+      { metric: "Monthly reach", value: "2.1L" },
+      { metric: "Maps rating", value: "4.8★" },
+    ],
+    image: "/images/portfolio/freshbite.jpg",
+    duration: "8 months",
+  },
+  {
+    id: 2,
+    slug: "glowskin",
+    client: "GlowSkin Derma Clinic",
+    industry: "Healthcare & Wellness",
+    title: "Ad spend that finally paid for itself, 6× over",
+    challenge:
+      "A premium dermatology clinic was buying clicks that never became consultations. The landing page asked for eleven fields before it offered a single reason to trust them.",
+    solution:
+      "We rewrote the funnel around intent: high-intent search terms, a landing page that leads with credentials and outcomes, and a two-field booking form. Then we let the data prune the keywords.",
+    outcome:
+      "Return on ad spend went from break-even to 6.4×, and the calendar stays full.",
+    services: ["Ads Management", "SEO & Performance", "Website Development"],
+    serviceIds: ["ads", "seo", "web-dev"],
+    tech: ["Google Ads", "Meta Ads", "Next.js"],
+    results: [
+      { metric: "ROAS", value: "6.4×" },
+      { metric: "Bookings", value: "800+" },
+      { metric: "Revenue", value: "₹42L" },
+    ],
+    image: "/images/portfolio/glowskin.jpg",
+    duration: "6 months",
+  },
+  {
+    id: 3,
+    slug: "buildnest",
+    client: "BuildNest Real Estate",
+    industry: "Real Estate",
+    title: "₹2.4Cr in sales from search traffic that didn't exist",
+    challenge:
+      "Beautiful properties, invisible listings. They ranked for their own brand name and nothing else, so every lead had to be bought.",
+    solution:
+      "A technical SEO rebuild, city-and-budget landing pages for how people actually search, and a paid layer only where organic could not reach.",
+    outcome:
+      "Organic traffic nearly tripled and now carries the pipeline that paid ads used to rent.",
+    services: ["SEO & Performance", "Website Development", "Ads Management"],
+    serviceIds: ["seo", "web-dev", "ads"],
+    tech: ["Next.js", "Schema.org", "Google Ads"],
+    results: [
+      { metric: "Sales closed", value: "₹2.4Cr" },
+      { metric: "Organic traffic", value: "+284%" },
+      { metric: "Inquiries", value: "120+" },
+    ],
+    image: "/images/portfolio/buildnest.jpg",
+    duration: "10 months",
+  },
+  {
+    id: 4,
+    slug: "fitlife",
+    client: "FitLife Gym Chain",
+    industry: "Health & Fitness",
+    title: "Five locations, one funnel, half the cost per join",
+    challenge:
+      "Five gyms competing with each other for the same ads, in the same city, on the same keywords — and paying twice for it.",
+    solution:
+      "We split the map: per-location landing pages, geo-fenced campaigns that stop bidding against each other, and Reels shot in the rooms people would actually train in.",
+    outcome: "Cost per membership halved while joins climbed.",
+    services: ["SEO & Performance", "Ads Management", "Social Media"],
+    serviceIds: ["seo", "ads", "smm"],
+    tech: ["Google Ads", "Meta Ads", "Local SEO"],
+    results: [
+      { metric: "New members", value: "+215%" },
+      { metric: "Cost per join", value: "−52%" },
+      { metric: "Locations", value: "5" },
+    ],
+    image: "/images/portfolio/fitlife.jpg",
+    duration: "7 months",
+  },
+  {
+    id: 5,
+    slug: "lawpoint",
+    client: "LawPoint Advocates",
+    industry: "Professional Services",
+    title: "A practice that looked its age, now booked out",
+    challenge:
+      "Thirty years of expertise behind a website that undermined it. Referrals were strong; anyone who searched first went elsewhere.",
+    solution:
+      "A brand and site rebuild that leads with track record, plus tightly-scoped search campaigns on the practice areas that actually convert.",
+    outcome:
+      "Consultations up almost fourfold, and the enquiries arrive pre-qualified.",
+    services: ["Brand Identity", "Website Development", "SEO & Performance", "Ads Management"],
+    serviceIds: ["design", "web-dev", "seo", "ads"],
+    tech: ["Next.js", "Google Ads", "SEO"],
+    results: [
+      { metric: "Consultations", value: "+380%" },
+      { metric: "Qualified leads", value: "90+" },
+      { metric: "Search rank", value: "#1" },
+    ],
+    image: "/images/portfolio/lawpoint.jpg",
+    duration: "5 months",
+  },
+  {
+    id: 6,
+    slug: "edureach",
+    client: "EduReach Academy",
+    industry: "Education & EdTech",
+    title: "12,000 students, and an app that keeps them",
+    challenge:
+      "Great courses, brutal drop-off. Acquisition worked; retention didn't, and every cohort had to be bought again from scratch.",
+    solution:
+      "A mobile app for the learning itself, lifecycle campaigns that bring people back to the lesson they abandoned, and search built around the outcomes students want.",
+    outcome:
+      "Enrolments doubled and the cohort that stays is now the one that funds growth.",
+    services: [
+      "Application Development",
+      "SEO & Performance",
+      "Ads Management",
+      "Social Media",
+    ],
+    serviceIds: ["app-dev", "seo", "ads", "smm"],
+    tech: ["React Native", "Next.js", "Meta Ads"],
+    results: [
+      { metric: "Students", value: "12k+" },
+      { metric: "Rating", value: "4.9★" },
+      { metric: "GMV", value: "₹3.2Cr" },
+    ],
+    image: "/images/portfolio/edureach.jpg",
+    duration: "12 months",
+  },
+  {
+    id: 7,
+    slug: "nova",
+    client: "Nova Logistics",
+    industry: "SaaS & Technology",
+    title: "An AI assistant that closed a 40-hour-a-week support gap",
+    challenge:
+      "A fast-growing logistics platform was drowning in repetitive support tickets — shipment status, ETAs, paperwork — and every one pulled an ops person off real work.",
+    solution:
+      "We built an AI assistant wired into their shipment data and docs: it answers status questions instantly, drafts the paperwork, and hands the genuinely tricky cases to a human with the context already gathered.",
+    outcome:
+      "Two-thirds of tickets now resolve without a human, and the ops team spends its week on exceptions, not lookups.",
+    services: ["AI Assistant", "Workflow Automation", "AI Integration"],
+    serviceIds: ["ai"],
+    tech: ["Python", "RAG", "Next.js"],
+    results: [
+      { metric: "Tickets auto-resolved", value: "68%" },
+      { metric: "Hours saved / week", value: "40+" },
+      { metric: "First response", value: "Instant" },
+    ],
+    image: "/images/portfolio/nova.jpg",
+    duration: "4 months",
+  },
+];
+
+/** The filter set, derived from the data — never hand-maintained again. */
+export const CASE_STUDY_INDUSTRIES = [
+  "All",
+  ...Array.from(new Set(CASE_STUDIES.map((c) => c.industry))),
+];
