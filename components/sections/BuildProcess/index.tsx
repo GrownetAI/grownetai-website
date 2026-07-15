@@ -55,9 +55,8 @@ export default function BuildProcess() {
       <div className="container-site relative z-10">
         {/* Header */}
         <div className="mx-auto mb-12 max-w-2xl text-center lg:mb-14">
-          <span className="eyebrow">How we build</span>
           <h2 className="heading-section mt-3">
-            We don&rsquo;t just build websites. We build businesses.
+            How we build your Business
           </h2>
           <p className="text-body-lg mx-auto mt-5 max-w-xl">
             One end-to-end system — identity, protection, product, growth and the

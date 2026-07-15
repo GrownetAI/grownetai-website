@@ -38,7 +38,7 @@ export default function WhatWeDo() {
         >
           <span className="eyebrow">What we do</span>
           <h2 className="heading-section mt-3 max-w-[20ch]">
-            Tell us what you need. We&rsquo;ll recommend the rest.
+            Tell us what you need, We&rsquo;ll recommend the rest
           </h2>
         </motion.div>
 

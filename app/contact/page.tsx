@@ -374,10 +374,10 @@ export default function ContactPage() {
         />
         <div className="container-site relative z-10 text-center">
           <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-sm font-semibold bg-paper-raised text-moss-600 border border-hairline mb-6">
-            📬 Let&apos;s Connect
+            Let&apos;s Connect
           </span>
           <h1 className="font-display text-ink text-5xl md:text-6xl mb-4">
-            Let&apos;s Talk
+            Let&apos;s start building your <span className="text-gradient">dream business</span>
           </h1>
           <p className="text-ink-body text-xl max-w-xl mx-auto">
             Tell us about your business and we&apos;ll put together a custom

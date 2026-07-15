@@ -136,10 +136,12 @@ export default function RegisterPage() {
             <ArrowLeft className="w-4 h-4" /> Back to home
           </Link>
 
-          <div className="lg:hidden mb-8 text-center">
-            <span className="font-display text-2xl" style={{ color: TEAL }}>
-              Grownet<span style={{ color: AQUA }}>AI</span>
-            </span>
+          <div className="lg:hidden mb-8 flex items-center justify-center gap-2 border border-white/90 bg-white px-3 py-1.5 rounded-lg w-full backdrop-blur-md">
+            <img
+              src="/images/logo.png"
+              alt="GrownetAI"
+              className="h-10 w-auto"
+            />
           </div>
 
           <h1 className="heading-section mb-2">Create account</h1>

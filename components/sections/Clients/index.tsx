@@ -108,12 +108,10 @@ function ClientTile({
         <Image
           src={client.logo}
           alt={client.name}
-          width={140}
-          height={44}
+          width={200}
+          height={200}
           className={cn(
-            "max-h-9 w-auto object-contain opacity-60 transition-all duration-300",
-            // Normalise dark logos to white on the forest surface; colour in on hover.
-            "brightness-0 invert group-hover:opacity-100 group-hover:brightness-100 group-hover:invert-0",
+            "max-h-44 w-auto object-cover opacity-100 transition-all duration-300 pb-12",
           )}
         />
       ) : (

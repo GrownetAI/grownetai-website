@@ -16,17 +16,7 @@ export interface Client {
 }
 
 export const CLIENTS: Client[] = [
-  { name: "FreshBite" },
-  { name: "GlowSkin" },
-  { name: "BuildNest" },
-  { name: "TechVista" },
-  { name: "FitLife" },
-  { name: "Bloom Fashion" },
-  { name: "LawPoint" },
-  { name: "Nova Logistics" },
-  { name: "EduReach" },
-  { name: "FoodieHub" },
-  { name: "WellNest" },
-  { name: "SpiceBox" },
-  { name: "EduSpark" },
+  { name: "FreshBite", logo: "/images/clientsLogo/DRIVMAN LOGO 1080X1080.png" },
+  { name: "Rangriti" },
+  { name: "More Coming Soon...", },
 ];

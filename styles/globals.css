@@ -225,16 +225,16 @@
   }
 
   .section-padding {
-    padding-top: 112px;
-    padding-bottom: 112px;
+    padding-top: 70px;
+    padding-bottom: 70px;
   }
   .section-padding-sm {
-    padding-top: 64px;
-    padding-bottom: 64px;
+    padding-top: 44px;
+    padding-bottom: 44px;
   }
   .section-padding-xs {
-    padding-top: 32px;
-    padding-bottom: 32px;
+    padding-top: 24px;
+    padding-bottom: 24px;
   }
 
   /* ── 4. TYPOGRAPHY SYSTEM ─────────────────────────── */

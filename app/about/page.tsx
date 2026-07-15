@@ -93,10 +93,8 @@ export default function AboutPage() {
                 <span className="text-gradient">grow faster</span> online.
               </h1>
               <p className="text-body-lg mt-5 max-w-xl">
-                An AI-powered digital agency built for measurable outcomes — not
-                vanity metrics. Based in Mumbai, serving clients across India and
-                globally since {SITE_CONFIG.founded}.
-              </p>
+  We build brands from the ground up—combining strategy, design, technology, AI, and marketing to transform ideas into scalable businesses with measurable growth.
+</p>
               <div className="mt-8 flex flex-wrap gap-3">
                 <Link href="/contact" className="btn btn-primary">
                   Work with us <ArrowRight className="h-4 w-4" />
@@ -125,42 +123,52 @@ export default function AboutPage() {
       </section>
 
       {/* ══════════════ OUR STORY (bento) ══════════════ */}
-      <section className="section-padding-sm bg-sand">
-        <div className="container-site grid gap-4 lg:grid-cols-3">
-          <FadeIn direction="up" className="lg:col-span-2">
-            <div className="h-full rounded-3xl border border-hairline bg-paper-raised p-8 shadow-card">
-              <span className="eyebrow">Our story</span>
-              <h2 className="heading-section mt-3">Why we exist.</h2>
-              <div className="mt-5 space-y-4 text-ink-body">
-                <p>
-                  Most digital agencies sell effort — long hours, big decks,
-                  weekly calls. We sell outcomes. Every decision is anchored to
-                  one question: does this move the revenue needle?
-                </p>
-                <p>
-                  We founded GrownetAI after watching too many businesses burn
-                  budgets on agencies that couldn&rsquo;t explain their own
-                  results — so we built a process that combines AI-driven
-                  audience intelligence, transparent tracking, and senior human
-                  expertise.
-                </p>
-              </div>
-            </div>
-          </FadeIn>
-          <FadeIn direction="up" delay={0.1}>
-            <figure className="flex h-full flex-col justify-between rounded-3xl bg-forest p-8 text-paper shadow-brand">
-              <Sparkles className="h-8 w-8 text-moss-300" />
-              <blockquote className="mt-6 font-display text-xl font-medium leading-relaxed">
-                &ldquo;The benchmark isn&rsquo;t last month. It&rsquo;s
-                what&rsquo;s possible when every decision is data-informed.&rdquo;
-              </blockquote>
-              <figcaption className="mt-6 text-sm text-paper/70">
-                — The GrownetAI principle
-              </figcaption>
-            </figure>
-          </FadeIn>
+<section className="section-padding-sm bg-sand">
+  <div className="container-site grid gap-4 lg:grid-cols-3">
+    <FadeIn direction="up" className="lg:col-span-2">
+      <div className="h-full rounded-3xl border border-hairline bg-paper-raised p-8 shadow-card">
+        <span className="eyebrow">Our story</span>
+
+        <h2 className="heading-section mt-3">
+          We don't build websites. We build businesses.
+        </h2>
+
+        <div className="mt-5 space-y-4 text-ink-body">
+          <p>
+            <span className="font-bold text-emerald-800">GrownetAI</span> was
+            founded to help entrepreneurs turn ideas into profitable companies.
+            From defining your brand identity and designing exceptional digital
+            experiences to building AI-powered software, launching marketing
+            campaigns, generating leads, and optimizing operations—we become
+            your long-term growth partner.
+          </p>
+
+          <p>
+            Whether you're starting from nothing or scaling an existing
+            business, we create the complete foundation required to take you
+            from <span className="font-semibold">Zero → One</span>, and from
+            <span className="font-semibold"> One → Scale</span>.
+          </p>
         </div>
-      </section>
+      </div>
+    </FadeIn>
+
+    <FadeIn direction="up" delay={0.1}>
+      <figure className="flex h-full flex-col justify-between rounded-3xl bg-forest p-8 text-paper shadow-brand">
+        <Sparkles className="h-8 w-8 text-moss-300" />
+
+        <blockquote className="mt-6 font-display text-xl font-medium leading-relaxed">
+          &ldquo;We don't measure success by projects delivered. We measure it
+          by businesses launched, brands remembered, and revenue created.&rdquo;
+        </blockquote>
+
+        <figcaption className="mt-6 text-sm text-paper/70">
+          — The GrownetAI Principle
+        </figcaption>
+      </figure>
+    </FadeIn>
+  </div>
+</section>
 
       {/* ══════════════ MISSION & VISION (bento) ══════════════ */}
       <section className="section-padding-sm bg-paper">
@@ -269,37 +277,6 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* ══════════════ OUR PROCESS (bento) ══════════════ */}
-      <section className="section-padding-sm bg-sand">
-        <div className="container-site">
-          <FadeIn direction="up" className="mx-auto mb-10 max-w-2xl text-center">
-            <span className="eyebrow">How we work</span>
-            <h2 className="heading-section mt-3">A process built to compound.</h2>
-          </FadeIn>
-          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
-            {PROCESS.map((p, i) => (
-              <FadeIn key={p.n} direction="up" delay={Math.min(i * 0.06, 0.3)}>
-                <div className={CELL + " h-full"}>
-                  <div className="flex items-center justify-between">
-                    <span className="grid h-12 w-12 place-items-center overflow-hidden rounded-xl border border-hairline bg-sand">
-                      <p.art className="h-full w-full" />
-                    </span>
-                    <span className="font-mono text-xs font-semibold text-ink-muted">
-                      0{p.n}
-                    </span>
-                  </div>
-                  <h3 className="mt-4 font-heading text-base font-semibold text-ink">
-                    {p.title}
-                  </h3>
-                  <p className="mt-1.5 text-sm leading-relaxed text-ink-muted">
-                    {p.desc}
-                  </p>
-                </div>
-              </FadeIn>
-            ))}
-          </div>
-        </div>
-      </section>
 
       {/* ══════════════ TECHNOLOGIES (bento) ══════════════ */}
       <section className="section-padding-sm bg-paper">
@@ -361,7 +338,7 @@ export default function AboutPage() {
                 <span className="text-xs font-bold uppercase tracking-widest text-moss-300">
                   Team philosophy
                 </span>
-                <h2 className="mt-3 font-display text-2xl font-bold sm:text-3xl">
+                <h2 className="mt-3 font-display text-2xl font-bold sm:text-3xl text-white">
                   Senior people, aligned incentives.
                 </h2>
                 <p className="mt-4 text-paper/75">
@@ -406,7 +383,7 @@ export default function AboutPage() {
               Rooted in India, built for the world.
             </h2>
             <p className="text-body mt-4 max-w-lg">
-              From Mumbai we serve businesses across eight markets — with local
+              From New Delhi we serve businesses across eight markets — with local
               pricing, local context, and a standard of work that travels.
             </p>
             <div className="mt-6 flex items-center gap-3 text-ink-body">

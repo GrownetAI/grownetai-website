@@ -268,57 +268,6 @@ export default function HomePage() {
       {/* ══════════════ PRICING PREVIEW ══════════════ */}
       <PricingPreview />
 
-      {/* ══════════════════ PROBLEM ══════════════════ */}
-      <section className="section-padding bg-paper">
-        <div className="container-site">
-          <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-start">
-            {/* left — framing */}
-            <div className="lg:sticky lg:top-28">
-              <span className="eyebrow">The problem</span>
-              <h2 className="heading-section mt-3 mb-5">
-                If this sounds familiar, you are not the problem.
-              </h2>
-              <p className="text-body-lg mb-6">
-                You are not lazy and your business is not broken. You are just
-                missing a system that turns effort into customers.
-              </p>
-              <p
-                className="font-heading font-semibold text-lg"
-                style={{ color: INK }}
-              >
-                It is not an effort problem. It is a{" "}
-                <span style={{ color: MOSS_DEEP }}>system</span> problem — and
-                that is fixable.
-              </p>
-            </div>
-
-            {/* right — pain bento */}
-            <div className="grid gap-3 sm:grid-cols-2">
-              {PAINS.map((pain, i) => {
-                const Icon = pain.icon;
-                return (
-                  <motion.div
-                    key={pain.quote}
-                    initial={{ opacity: 0, y: 16 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: Math.min(i * 0.06, 0.24), duration: 0.45 }}
-                    className="flex h-full flex-col rounded-2xl border border-hairline bg-paper-raised p-5 shadow-card transition-[transform,box-shadow,border-color] duration-300 hover:-translate-y-1 hover:border-moss-300 hover:shadow-brand"
-                  >
-                    <span className="grid h-11 w-11 place-items-center rounded-xl bg-moss-100 text-moss-700">
-                      <Icon className="h-5 w-5" />
-                    </span>
-                    <p className="mt-4 font-display text-lg leading-snug text-ink">
-                      &ldquo;{pain.quote}&rdquo;
-                    </p>
-                    <p className="text-body mt-1.5 text-sm">{pain.sub}</p>
-                  </motion.div>
-                );
-              })}
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* ══════════════════ STORY ══════════════════ */}
       <section className="section-padding bg-sand">
@@ -394,7 +343,7 @@ export default function HomePage() {
         <div className="container-site">
           <div className="text-center max-w-2xl mx-auto mb-14">
             <span className="eyebrow">The proof</span>
-            <h2 className="heading-section mt-3 mb-4">Receipts beat promises.</h2>
+            <h2 className="heading-section mt-3 mb-4">What we've accomplished</h2>
             <p className="text-body-lg">
               Real numbers, real client websites, and real words from the people
               we have helped grow.
@@ -468,65 +417,7 @@ export default function HomePage() {
 
       </section>
 
-      {/* ══════════════════ FEATURES ══════════════════ */}
-      <section className="section-padding bg-sand">
-        <div className="container-site">
-          <div className="text-center max-w-2xl mx-auto mb-14">
-            <span className="eyebrow">What is inside</span>
-            <h2 className="heading-section mt-3 mb-4">
-              One team. Your whole growth stack.
-            </h2>
-            <p className="text-body-lg">
-              Everything that brings customers in, under one roof — so nothing
-              falls through the cracks.
-            </p>
-          </div>
-
-          {/* Bento: the first service leads as a wide feature; dense flow keeps
-              the mixed spans gapless. */}
-          <div className="grid grid-flow-row-dense grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {SERVICES.map((service, i) => {
-              const Icon = SERVICE_ICONS[service.icon];
-              const feature = i === 0;
-              // First and last widen to 2 cols so 10 tiles fill the 4-col grid.
-              const wide = i === 0 || i === SERVICES.length - 1;
-              return (
-                <motion.div
-                  key={service.id}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: Math.min(i * 0.05, 0.3), duration: 0.45 }}
-                  className={wide ? "sm:col-span-2" : ""}
-                >
-                  <Link
-                    href={`/services#${service.id}`}
-                    className={cn(
-                      "group flex h-full flex-col rounded-2xl border p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-brand",
-                      feature
-                        ? "border-moss-200 bg-moss-50 hover:border-moss-300 sm:p-8"
-                        : "border-hairline bg-paper-raised hover:border-moss-300",
-                    )}
-                  >
-                    <span className="mb-5 grid h-11 w-11 place-items-center rounded-xl bg-moss-100 text-moss-700">
-                      {Icon && <Icon className="h-5 w-5" />}
-                    </span>
-                    <h3 className={cn("heading-card mb-2", feature && "sm:text-xl")}>
-                      {service.title}
-                    </h3>
-                    <p className="text-body mb-5 flex-1 text-sm leading-relaxed">
-                      {feature ? service.description : service.shortDesc}
-                    </p>
-                    <span className="inline-flex items-center gap-1 text-sm font-semibold text-moss-600 transition-all group-hover:gap-2">
-                      What you get <ArrowRight className="h-4 w-4" />
-                    </span>
-                  </Link>
-                </motion.div>
-              );
-            })}
-          </div>
-        </div>
-      </section>
+ 
 
       {/* ══════════════════ CTA ══════════════════ */}
       <section

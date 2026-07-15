@@ -78,7 +78,7 @@ export default function PortfolioPage() {
           >
             <span className="eyebrow">Our work</span>
             <h1 className="heading-display mt-4">
-              Proof, not <span className="text-gradient">promises.</span>
+             Clients we <span className="text-gradient">Served.</span>
             </h1>
             <p className="text-body-lg mx-auto mt-5 max-w-xl">
               Real businesses, real outcomes. Every project below opens into the
