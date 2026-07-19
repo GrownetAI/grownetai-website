@@ -515,18 +515,18 @@ export const PROCESS_STEPS = [
 // ─── Team ──────────────────────────────────────────────────────────────
 export const TEAM = [
   {
-    name: "Rahul Ratnani",
+    name: "Jay Taneja",
     role: "Co-Founder & Software Engineer",
     bio: "Software strategist with 8+ years of experience scaling D2C and B2B brands through AI-powered marketing.",
-    avatar: "/images/team/rahul.jpg",
+    avatar: "/images/team/jay.jpg",
     linkedin: "#",
     twitter: "#",
   },
   {
-    name: "Ansh Singh",
+    name: "Ridhyansh Singh",
     role: "Co-Founder & Business Manager",
     bio: "Business manager specializing in technical optimization and AI-powered content strategies that rank.",
-    avatar: "/images/team/ansh.jpg",
+    avatar: "/images/team/Ridhyansh.jpg",
     linkedin: "#",
     twitter: "#",
   },
@@ -536,7 +536,7 @@ export const TEAM = [
     bio: " Business analyst and sales specialist with a knack for identifying growth opportunities and optimizing conversion funnels.",
     avatar: "/images/team/srishti.jpg",
     linkedin: "#",
-    twitter: "#",
+    twitter: "#"
   },
   {
     name: "Bhawna Singh",
