@@ -138,13 +138,6 @@ function PortfolioContent() {
             <p className="flex flex-wrap items-center justify-center gap-x-2 gap-y-1 text-sm font-medium text-ink-muted">
               Curated by
               <span className="inline-flex items-center gap-1.5 font-semibold text-ink">
-                <Image
-                  src="/images/g_logo.png"
-                  alt="GrownetAI logo"
-                  width={28}
-                  height={28}
-                  className="h-7 w-7 rounded-full border border-hairline object-cover"
-                />
                 GrownetAI
               </span>
             </p>
