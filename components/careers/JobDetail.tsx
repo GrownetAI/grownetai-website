@@ -97,7 +97,6 @@ export default function JobDetail({
     <main className="bg-paper pt-[var(--navbar-height)]">
       {/* Hero */}
       <section className="relative overflow-hidden py-14 lg:py-16">
-        <div aria-hidden className="absolute inset-0 dot-grid opacity-30" />
         <div aria-hidden className="hero-glow left-1/2 -top-20 h-[300px] w-[620px] max-w-[130vw] -translate-x-1/2 bg-moss-400/[0.08]" />
         <div className="container-site relative z-10">
           <Link href="/careers" className="inline-flex items-center gap-1.5 text-sm font-medium text-ink-muted transition-colors hover:text-ink">

@@ -32,7 +32,7 @@ import { Play } from "lucide-react";
 export default function HeroScrollVideo({
   src,
   poster,
-  eyebrow = "In motion",
+  eyebrow = "Coming Soon",
   title = "We don't just build websites. We build businesses.",
 }: {
   src?: string;
@@ -50,11 +50,27 @@ export default function HeroScrollVideo({
   });
 
   // Fade/scale/blur in on entry → hold while pinned → out on exit.
-  const opacity = useTransform(scrollYProgress, [0.05, 0.3, 0.7, 0.95], [0, 1, 1, 0]);
-  const scale = useTransform(scrollYProgress, [0.1, 0.35, 0.65, 0.95], [0.9, 1, 1, 1.05]);
-  const blurPx = useTransform(scrollYProgress, [0.05, 0.3, 0.7, 0.95], [16, 0, 0, 12]);
+  const opacity = useTransform(
+    scrollYProgress,
+    [0.05, 0.3, 0.7, 0.95],
+    [0, 1, 1, 0],
+  );
+  const scale = useTransform(
+    scrollYProgress,
+    [0.1, 0.35, 0.65, 0.95],
+    [0.9, 1, 1, 1.05],
+  );
+  const blurPx = useTransform(
+    scrollYProgress,
+    [0.05, 0.3, 0.7, 0.95],
+    [16, 0, 0, 12],
+  );
   const filter = useMotionTemplate`blur(${blurPx}px)`;
-  const radius = useTransform(scrollYProgress, [0.05, 0.35, 0.7, 0.95], [40, 22, 22, 40]);
+  const radius = useTransform(
+    scrollYProgress,
+    [0.05, 0.35, 0.7, 0.95],
+    [40, 22, 22, 40],
+  );
 
   // Lazy, courteous playback: only play while the stage is on screen.
   useEffect(() => {
@@ -87,9 +103,18 @@ export default function HeroScrollVideo({
           <source src={src} type="video/mp4" />
         </video>
       ) : poster ? (
-        <Image src={poster} alt="" fill className="object-cover" sizes="100vw" />
+        <Image
+          src={poster}
+          alt=""
+          fill
+          className="object-cover"
+          sizes="100vw"
+        />
       ) : (
-        <div aria-hidden className="absolute inset-0 dot-grid dot-grid-invert opacity-40" />
+        <div
+          aria-hidden
+          className="absolute inset-0 dot-grid dot-grid-invert opacity-40"
+        />
       )}
 
       {/* Cinematic scrim (permitted as an image scrim). */}
@@ -120,7 +145,10 @@ export default function HeroScrollVideo({
   // Reduced motion (or no JS scroll): a calm, static framed stage.
   if (reduce) {
     return (
-      <section aria-label="GrownetAI in motion" className="section-padding-sm bg-paper">
+      <section
+        aria-label="GrownetAI in motion"
+        className="section-padding-sm bg-paper"
+      >
         <div className="container-site">
           <div className="relative aspect-[16/9] overflow-hidden rounded-[28px] shadow-float">
             {Stage}
@@ -139,7 +167,7 @@ export default function HeroScrollVideo({
       <div className="sticky top-0 flex h-screen items-center justify-center overflow-hidden px-4 sm:px-6">
         <motion.div
           style={{ opacity, scale, filter, borderRadius: radius }}
-          className="relative h-[78vh] w-full max-w-[1360px] overflow-hidden shadow-float will-change-transform"
+          className="relative h-[78vh] w-full  overflow-hidden shadow-float will-change-transform"
         >
           {Stage}
         </motion.div>

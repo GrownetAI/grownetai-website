@@ -51,13 +51,13 @@ export default function LoginPage() {
   style={{ background: FOREST }}
 >
   {/* Ambient layers */}
-  <div className="absolute inset-0 bg-[radial-gradient(circle_at_15%_15%,rgba(255,255,255,0.08),transparent_30%)]" />
+  <div className="absolute inset-0" />
 
   <div
-    className="absolute -right-32 top-1/2 -translate-y-1/2 h-[500px] w-[500px] rounded-full blur-[120px]"
-    style={{
-      background: "rgba(28,168,140,0.18)",
-    }}
+    className="absolute -right-32 top-1/2 -translate-y-1/2 h-[500px] w-[500px] rounded-full"
+    // style={{
+    //   background: "rgba(28,168,140,0.18)",
+    // }}
   />
 
   <div className="absolute inset-0 bg-gradient-to-br from-transparent via-transparent to-black/15" />
@@ -66,16 +66,16 @@ export default function LoginPage() {
   <div className="relative z-20 flex h-full w-full flex-col justify-between px-14 py-14">
     
     {/* Logo */}
-    <div className="flex items-center gap-2 border border-white/90 bg-white px-3 py-1.5 rounded-lg w-max backdrop-blur-md">
+    <div className="flex items-center gap-2 border border-white/90 bg-sand px-3 py-1.5 rounded-full w-max backdrop-blur-md">
       <img
-        src="/images/logo.png"
+        src="/images/g_logo2.png"
         alt="GrownetAI"
         className="h-10 w-auto"
       />
     </div>
 
     {/* Hero */}
-    <div className="max-w-[520px]">
+    <div className="max-w-max mx-auto">
       
       <div
         className="
@@ -101,12 +101,13 @@ export default function LoginPage() {
       <h1
         className="
           font-display
-          text-paper
-          tracking-[-0.06em]
-          leading-[0.92]
+          text-sand
+          leading-[1]
+          max-w-max
+          mx-auto
         "
         style={{
-          fontSize: "clamp(3.75rem,5vw,5.5rem)",
+          fontSize: "clamp(2.3rem,7vw,4.5rem)",
         }}
       >
         Hey, Brand
@@ -130,6 +131,14 @@ export default function LoginPage() {
       {/* Right form */}
       <div className="flex items-center justify-center p-6 sm:p-12 bg-paper">
         <div className="w-full max-w-md">
+           <div className="lg:hidden mb-8 flex items-center justify-center gap-2 px-3 py-1.5 w-full">
+            <img
+              src="/images/g_logo2.png"
+              alt="GrownetAI"
+              className="h-14 w-auto"
+            />
+          </div>
+
           <Link
             href="/"
             className="inline-flex items-center gap-1.5 text-sm font-medium text-muted hover:text-brand-teal transition-colors mb-8"
@@ -137,13 +146,7 @@ export default function LoginPage() {
             <ArrowLeft className="w-4 h-4" /> Back to home
           </Link>
 
-          <div className="lg:hidden mb-8 flex items-center justify-center gap-2 border border-white/90 bg-white px-3 py-1.5 rounded-lg w-full backdrop-blur-md">
-            <img
-              src="/images/logo.png"
-              alt="GrownetAI"
-              className="h-10 w-auto"
-            />
-          </div>
+         
 
           <h1 className="heading-section mb-2">Sign in</h1>
           <p className="text-body mb-8">
@@ -206,13 +209,13 @@ export default function LoginPage() {
             </button>
           </form>
 
-          <button
+          {/* <button
             onClick={fillDemo}
             className="mt-3 w-full text-sm font-semibold py-2 rounded-full transition-colors"
             style={{ color: TEAL, background: "rgba(28,168,140,0.08)" }}
           >
             Use demo credentials
-          </button>
+          </button> */}
 
           <p className="mt-8 text-center text-sm text-brand-slate-gray">
             Don&apos;t have an account?{" "}

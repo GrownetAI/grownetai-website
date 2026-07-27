@@ -17,7 +17,7 @@ import { cn } from "@/lib/utils";
    MockScreen used in the grid, so there are no separate assets to load.
 ════════════════════════════════════════════════════════════════ */
 
-type Item = { label: string; kind: GalleryKind };
+type Item = { label: string; kind: GalleryKind; src?: string };
 
 export default function Lightbox({
   items,

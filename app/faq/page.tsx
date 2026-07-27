@@ -33,8 +33,8 @@ export default function FaqPage() {
 
       {/* FAQ List */}
       <section className="section-padding bg-paper">
-        <div className="container-site max-w-3xl mx-auto">
-          <Accordion.Root type="single" collapsible className="space-y-3">
+        <div className="container-site">
+          <Accordion.Root type="single" collapsible className="max-w-3xl mx-auto space-y-3">
             {FAQS.map((faq, i) => (
               <Accordion.Item key={i} value={String(i)} className="card overflow-hidden">
                 <Accordion.Trigger className="w-full flex items-center justify-between p-6 text-left font-heading font-semibold text-brand-charcoal hover:text-brand-teal transition-colors group">
@@ -52,10 +52,12 @@ export default function FaqPage() {
 
       {/* CTA */}
       <section className="section-padding bg-brand-cloud-white text-center">
-        <div className="container-site max-w-xl mx-auto">
-          <h2 className="font-heading font-bold text-3xl text-brand-charcoal mb-4">Still have questions?</h2>
-          <p className="text-brand-slate-gray mb-8">Our team is happy to answer anything else on your mind.</p>
-          <Link href="/contact" className="btn btn-primary btn-lg">Contact Us</Link>
+        <div className="container-site">
+          <div className="max-w-xl mx-auto">
+            <h2 className="font-heading font-bold text-3xl text-brand-charcoal mb-4">Still have questions?</h2>
+            <p className="text-brand-slate-gray mb-8">Our team is happy to answer anything else on your mind.</p>
+            <Link href="/contact" className="btn btn-primary btn-lg">Contact Us</Link>
+          </div>
         </div>
       </section>
     </main>

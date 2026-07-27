@@ -26,10 +26,15 @@ import type { CaseStudyDetail } from "@/lib/case-study-details";
    the long page keeps rhythm. Every reveal is Y-only and reduced-motion gated.
 ════════════════════════════════════════════════════════════════ */
 
+/* Top margin is huge on purpose: after an anchor jump (e.g. #gallery), the
+   sections ABOVE the viewport never intersected, so with a tight margin they
+   stayed invisible until scrolled back up to. Extending the observation root
+   far upward marks them revealed immediately; the bottom extension starts the
+   reveal ~200px before a section scrolls in, so content never appears late. */
 const reveal = (reduce: boolean, delay = 0) => ({
   initial: reduce ? { opacity: 1, y: 0 } : { opacity: 0, y: 22 },
   whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true, margin: "-60px" },
+  viewport: { once: true, margin: "4000px 0px 200px 0px" },
   transition: { duration: reduce ? 0 : 0.5, delay: reduce ? 0 : delay, ease: [0.22, 1, 0.36, 1] as const },
 });
 
@@ -47,7 +52,6 @@ export default function ProjectDetail({
     <main className="bg-paper pt-[var(--navbar-height)]">
       {/* ── Hero ── */}
       <section className="relative overflow-hidden py-14 lg:py-20">
-        <div aria-hidden className="absolute inset-0 dot-grid opacity-30" />
         <div
           aria-hidden
           className="hero-glow left-1/2 -top-24 h-[320px] w-[680px] max-w-[130vw] -translate-x-1/2 bg-moss-400/[0.08]"
@@ -193,9 +197,14 @@ export default function ProjectDetail({
       {/* ── Our solution + key features ── */}
       <section className="section-padding-sm bg-paper">
         <div className="container-site">
-          <motion.div {...reveal(reduce)} className="max-w-2xl">
+          <motion.div {...reveal(reduce)} className="max-w-3xl">
             <span className="eyebrow">Our solution</span>
-            <h2 className="heading-section mt-3">{study.solution}</h2>
+            {/* The solution is a full paragraph — display type is for short
+                headlines, so it gets a headline of its own and body text. */}
+            <h2 className="heading-section mt-3">What we built.</h2>
+            <p className="text-body-lg mt-4 leading-relaxed">
+              {study.solution}
+            </p>
           </motion.div>
 
           <motion.div {...reveal(reduce, 0.05)} className="mt-6 flex flex-wrap gap-2">
@@ -346,9 +355,9 @@ export default function ProjectDetail({
                 <Link href="/contact" className="btn btn-accent btn-lg">
                   Book a consultation <ArrowRight className="h-4 w-4" />
                 </Link>
-                <Link href="/pricing" className="btn btn-on-dark btn-lg">
+                {/* <Link href="/pricing" className="btn btn-on-dark btn-lg">
                   Get a quote
-                </Link>
+                </Link> */}
               </div>
             </div>
           </div>

@@ -18,7 +18,8 @@ export default function TermsPage() {
         </div>
       </section>
       <section className="section-padding bg-paper">
-        <div className="container-site max-w-3xl mx-auto space-y-8 text-brand-slate-gray">
+        <div className="container-site">
+          <div className="max-w-3xl mx-auto space-y-8 text-brand-slate-gray">
           {[
             { title: "1. Acceptance of Terms", body: `By accessing and using the ${SITE_CONFIG.name} website or engaging our services, you agree to these terms. If you do not agree, please discontinue use immediately.` },
             { title: "2. Services", body: `${SITE_CONFIG.name} provides digital marketing and web development services as described on our website. All services are subject to a separate service agreement signed by both parties.` },
@@ -33,6 +34,7 @@ export default function TermsPage() {
               <p className="leading-relaxed">{sec.body}</p>
             </div>
           ))}
+          </div>
         </div>
       </section>
     </main>

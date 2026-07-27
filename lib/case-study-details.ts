@@ -28,259 +28,248 @@ export interface CaseStudyDetail {
   /** Additional to the three headline results on the CaseStudy. */
   extraImpact: { metric: string; value: string }[];
   timeline: { phase: string; detail: string }[];
-  gallery: { label: string; kind: GalleryKind }[];
+  /** `src` = a real screenshot we own; without it the tile renders the
+      on-brand MockScreen for its `kind`. */
+  gallery: { label: string; kind: GalleryKind; src?: string }[];
 }
 
 export const CASE_STUDY_DETAILS: Record<string, CaseStudyDetail> = {
-  "freshbite": {
-    "slug": "freshbite",
-    "clientType": "Independent farm-to-table restaurant",
-    "liveDomain": "freshbite.in",
-    "overview": "FreshBite cooked the kind of food people photograph before they eat, but almost none of that ever reached a screen. Walk-ins were unpredictable, weeknights sat half-empty, and delivery aggregators skimmed close to a third off every order. We rebuilt the digital presence around a single job: get the table booked directly, and move demand off the aggregators and onto FreshBite's own platform.",
+  "drivman": {
+    "slug": "drivman",
+    "clientType": "Premium automotive accessories brand",
+    "liveDomain": "drivman.com",
+    "overview": "DRIVMAN makes premium, vehicle-specific car and bike accessories — verified-fit gear engineered for exact models, not one-size-fits-all. The problem was the shelf it sat on: universal-fit marketplace listings where buyers can never be sure a part will fit, and where the platform owns the customer. We built drivman.com as the brand's own storefront, engineered around one promise — find parts that fit, exactly — and wrapped it in an identity that earns the premium: two-year warranty on every part, most orders dispatched within 24 hours.",
     "requirements": [
-      "A booking-first website that loads fast on mobile",
-      "A recognisable brand identity and logo",
-      "Direct orders that skip aggregator commissions",
-      "Steady weeknight footfall, not just weekend spikes",
-      "Local reach through Reels and Google Ads"
+      "An owned e-commerce storefront, off the marketplaces",
+      "Exact-fit discovery by brand, model and generation",
+      "A premium identity that justifies premium pricing",
+      "Trust signals up front: warranty, dispatch, installation",
+      "A content and social engine for the builds community"
     ],
     "challenges": [
       {
-        "title": "Great food, invisible online",
-        "body": "The kitchen had a loyal following and dishes worth sharing, but no owned presence to capture it. Search turned up an aggregator listing, not FreshBite."
+        "title": "Universal-fit noise, exact-fit product",
+        "body": "Marketplaces flatten every accessory into the same listing format. A precision-cut dash mat for one model generation looked identical to a ₹300 universal one — the fit story never survived the shelf."
       },
       {
-        "title": "A third of every order lost to aggregators",
-        "body": "Delivery platforms took close to a third in commission on every order and owned the customer relationship. FreshBite was paying to rent demand it should have owned."
+        "title": "No owned storefront, no owned customer",
+        "body": "Selling through platforms meant renting demand: no brand surface, no customer relationship, and margin lost to fees on every order."
       },
       {
-        "title": "Weeknights ran dead",
-        "body": "Revenue leaned hard on Friday and Saturday. Tuesday through Thursday the dining room sat half-empty while fixed costs stayed the same."
+        "title": "Fitment anxiety kills conversion",
+        "body": "The single biggest reason accessory carts get abandoned is doubt: will this actually fit my car? Answering that had to be the storefront's first job, not a footnote."
       },
       {
-        "title": "Unpredictable walk-ins, no way to plan",
-        "body": "With no booking data, the kitchen prepped blind. Some nights over-ordered produce, others turned guests away at the door."
+        "title": "Premium claim, unproven brand",
+        "body": "\"Premium isn't a price tag. It's a standard\" only works if the site looks and behaves like it — warranty, dispatch speed and installation support had to be visible before the price was."
       }
     ],
     "solutionPoints": [
-      "Rebuilt the site around one job: book the table",
-      "Built a brand identity that matched the plating",
-      "Ran Reels against the dishes guests already photographed",
-      "Local Google Ads on nearby high-intent searches",
-      "Moved orders on-platform, off the aggregators"
+      "Built the storefront around a brand → model → generation fitment selector",
+      "Product pages lead with verified fitment, warranty and dispatch",
+      "Brand identity tuned to the 'built different' positioning",
+      "Launch campaigns on Google and Meta against model-specific searches",
+      "A journal and social rhythm around real customer builds"
     ],
     "keyFeatures": [
       {
-        "title": "One-tap table booking",
-        "body": "A Next.js site built around a single primary action. Date, party size, and slot in three taps, with instant confirmation and no app download."
+        "title": "Exact-fit vehicle selector",
+        "body": "Pick your brand, model and generation once — the whole catalogue filters to parts verified to fit. 'Find parts that fit — exactly' became the interface, not just the tagline."
       },
       {
-        "title": "Direct-order flow",
-        "body": "On-platform ordering that keeps every ₹ in-house instead of handing close to a third to the aggregators on each sale."
+        "title": "Conversion-first product pages",
+        "body": "Fitment confirmation, two-year warranty and 24-hour dispatch sit above the fold, so the premium price arrives after the trust, not before it."
       },
       {
-        "title": "Brand identity and logo",
-        "body": "A logo, colour system, and menu typography that carry from the plate to the packaging to the profile grid."
+        "title": "Premium brand system",
+        "body": "A logo, palette and product-photography style that carry 'Engineered for the drive that matters' from the storefront to the packaging."
       },
       {
-        "title": "Reels engine for signature dishes",
-        "body": "A repeatable shoot-and-post rhythm built around the plates guests were already filming, tuned for local discovery."
+        "title": "Launch offers engine",
+        "body": "Limited-time drops with live countdowns and a best-sellers rail — urgency mechanics that fit the brand instead of cheapening it."
       },
       {
-        "title": "Local Google & Meta Ads",
-        "body": "Geo-fenced campaigns against nearby high-intent searches and interest audiences, pointed straight at the booking page."
+        "title": "Installer & support network",
+        "body": "Installation guidance and a partner-installer network built into the post-purchase flow, closing the loop that marketplaces leave open."
       },
       {
-        "title": "Google Business Profile tune-up",
-        "body": "An optimised Maps listing with fresh photos and review prompts that lifted the rating and made FreshBite the obvious local pick."
+        "title": "Builds community loop",
+        "body": "'Tag us. We repost the best builds' — a social rhythm that turns customer cars into the brand's content engine, feeding Reels and the journal."
       }
     ],
     "extraImpact": [
       {
-        "metric": "Commission saved per direct order",
-        "value": "~30%"
+        "metric": "Warranty on every part",
+        "value": "2 years"
       },
       {
-        "metric": "Weeknight waitlist",
-        "value": "2 weeks"
+        "metric": "Orders dispatched",
+        "value": "< 24 hrs"
       }
     ],
     "timeline": [
       {
         "phase": "Discovery",
-        "detail": "Audited walk-in patterns, aggregator costs, and what guests were already posting."
+        "detail": "Mapped the catalogue to vehicle data and audited how buyers search for exact-fit parts."
       },
       {
         "phase": "Brand & Identity",
-        "detail": "Built the logo, colour system, and menu type that anchor the new look."
+        "detail": "Built the DRIVMAN identity — logo, palette and the premium product-page language."
       },
       {
-        "phase": "Website Build",
-        "detail": "Shipped a fast Next.js site engineered around direct booking."
+        "phase": "Storefront Build",
+        "detail": "Shipped the e-commerce build around the brand/model/generation fitment selector."
       },
       {
         "phase": "Content & Social",
-        "detail": "Started the Reels rhythm around signature dishes and local hashtags."
+        "detail": "Launched the journal and the builds-repost rhythm across Instagram and Reels."
       },
       {
         "phase": "Paid Launch",
-        "detail": "Turned on geo-targeted Google and Meta Ads into the booking flow."
+        "detail": "Turned on Google and Meta campaigns against model-specific accessory searches."
       },
       {
         "phase": "Optimise & Scale",
-        "detail": "Tuned campaigns and the Maps profile until weeknights filled."
+        "detail": "Tuned drops, best-sellers and campaigns on live conversion data."
       }
     ],
     "gallery": [
       {
-        "label": "Homepage & menu",
-        "kind": "desktop"
+        "label": "Storefront home & fitment selector",
+        "kind": "desktop",
+        "src": "/images/driv1.webp"
       },
       {
-        "label": "Bookings dashboard",
-        "kind": "dashboard"
+        "label": "Shop — verified-fit catalogue",
+        "kind": "desktop",
+        "src": "/images/driv2.webp"
       },
       {
-        "label": "Ads performance",
-        "kind": "analytics"
+        "label": "Cart & checkout",
+        "kind": "desktop",
+        "src": "/images/driv3.webp"
       },
       {
-        "label": "Signature-dish Reels",
-        "kind": "feature"
-      },
-      {
-        "label": "Brand & logo system",
-        "kind": "feature"
-      },
-      {
-        "label": "Booking flow",
-        "kind": "mobile"
+        "label": "Footer & brand system",
+        "kind": "desktop",
+        "src": "/images/driv4.webp"
       }
     ]
   },
-  "glowskin": {
-    "slug": "glowskin",
-    "clientType": "Premium dermatology and skin clinic",
-    "liveDomain": "glowskin.in",
-    "overview": "GlowSkin Derma Clinic was paying premium search prices for traffic that stalled the moment it landed. An eleven-field form and a page that opened with the pitch instead of the proof meant clicks rarely became booked consultations, and ad spend was returning roughly a rupee for every rupee in. We rebuilt the funnel end to end, from keyword intent through to a two-field booking form, then tuned it on live conversion data until spend returned 6.4× and the calendar stayed full.",
+  "batra-cloth-house": {
+    "slug": "batra-cloth-house",
+    "clientType": "Heritage ethnic-wear e-commerce house",
+    "liveDomain": "batraclothhouse.com",
+    "overview": "Batra Cloth House had what most fashion brands spend fortunes chasing: decades of trust, master-weaver relationships, and India's finest handwoven sarees, silk lehengas and artisan ethnic wear. What it didn't have was a storefront that reached beyond its own doorstep. We built the BCH online store around the way women actually shop ethnic wear — by occasion, fabric and style — wrapped it in the 'Ethnic · Elegance · Heritage' identity, and turned festive and bridal seasons into launch events. Today the house sells 2,000+ authentic handwoven styles to shoppers across India.",
     "requirements": [
-      "Turn paid clicks into booked consultations",
-      "Make ad spend measurably profitable",
-      "Cut friction out of the booking flow",
-      "Lead with clinical credibility, not discounts",
-      "Keep the consultation calendar consistently full"
+      "A full e-commerce store for sarees, suits and lehengas",
+      "Discovery by occasion, fabric and style — the way buyers think",
+      "Bridal and festive collections told as editorial stories",
+      "An offers engine for festive drops and first-order codes",
+      "WhatsApp woven into the buying and support journey"
     ],
     "challenges": [
       {
-        "title": "A form that asked before it earned",
-        "body": "The landing page demanded eleven fields before offering a single reason to trust the clinic. Most visitors left before the first input."
+        "title": "A heritage brand locked in one store",
+        "body": "Fifty thousand happy customers had walked through the doors over the years — but every new one still had to. The finest pieces sold only to whoever happened to see them."
       },
       {
-        "title": "Spend stuck at break-even",
-        "body": "Every rupee in Google and Meta Ads was coming back as roughly a rupee. The account was busy, but it was not profitable."
+        "title": "Ethnic wear is shopped by occasion, not category",
+        "body": "A bride searching 'Banarasi bridal' and a shopper browsing daily cotton sarees need entirely different journeys. A flat product grid serves neither."
       },
       {
-        "title": "Broad keywords, thin intent",
-        "body": "Budget was spread across generic skincare terms that pulled browsers instead of patients ready to book a consultation."
+        "title": "Festive demand, compressed into weeks",
+        "body": "Wedding and festive seasons carry the year. Without launch moments, drops and offers, that surge had nowhere to land online."
       },
       {
-        "title": "Proof buried below the pitch",
-        "body": "Doctor credentials and real treatment outcomes sat far down the page, past the point most visitors ever scrolled."
+        "title": "Handwoven authenticity is the premium — and invisible online",
+        "body": "Pure silk, real zari and master-weaver provenance justify the price. A thumbnail can't carry that story without the brand around it."
       }
     ],
     "solutionPoints": [
-      "Rebuilt targeting around high-intent search terms",
-      "Landing page that opens with credentials and outcomes",
-      "Two-field booking form: name and phone",
-      "Weekly keyword pruning on live conversion data",
-      "Unified Google and Meta Ads tracking"
+      "Built the BCH store with discovery by occasion, fabric and style",
+      "Bridal 2025 Edit and festive collections as editorial stories",
+      "Offers engine: WELCOME10, FESTIVE40 and free-shipping thresholds",
+      "WhatsApp built into the journey for queries and order support",
+      "The 'Ethnic · Elegance · Heritage' identity across every touchpoint"
     ],
     "keyFeatures": [
       {
-        "title": "Intent-first keyword strategy",
-        "body": "Rebuilt the Google Ads account around high-intent treatment and consultation searches, cutting spend on browse-level queries that never converted."
+        "title": "Occasion-first discovery",
+        "body": "Wedding, bridal, festive, party and daily wear as first-class journeys — plus fabric (Banarasi, Kanjivaram, Chanderi) and style (zari, embroidered, handloom) axes for the connoisseur."
       },
       {
-        "title": "Credibility-led landing page",
-        "body": "A Next.js page that leads with doctor credentials, real outcomes, and treatment proof before it makes any ask of the visitor."
+        "title": "Editorial collection storytelling",
+        "body": "The Banarasi Bridal Collection and festive edits presented as stories — 'handwoven with pure gold zari, for the bride who deserves nothing less' — not just filtered grids."
       },
       {
-        "title": "Two-field booking form",
-        "body": "Replaced the eleven-field form with name and phone, collapsing the booking barrier to a single fast step."
+        "title": "Festive offers engine",
+        "body": "First-order codes, festive sale campaigns with countdowns, and free-delivery thresholds — urgency mechanics that fit a heritage brand."
       },
       {
-        "title": "End-to-end conversion tracking",
-        "body": "Wired tracking across Google and Meta Ads so every booking traced back to the exact keyword and creative that produced it."
+        "title": "WhatsApp commerce layer",
+        "body": "One tap from any page to a human who knows the inventory — the trust of the shop counter, carried into the online store."
       },
       {
-        "title": "Data-driven keyword pruning",
-        "body": "A weekly review that let conversion data cut non-performing keywords and move budget toward the terms that booked consultations."
+        "title": "Authenticity as a brand system",
+        "body": "100% handwoven provenance, weaver stories and the gold-monogram BCH identity presented so the premium is understood before the price is seen."
       },
       {
-        "title": "Meta retargeting for warm visitors",
-        "body": "Retargeting sequences that brought back people who viewed treatments but left before booking, at a lower cost per consultation."
+        "title": "Newsletter and drops list",
+        "body": "New arrivals, festive collections and secret sales delivered to the inbox — an owned audience the house controls, off the marketplaces."
       }
     ],
     "extraImpact": [
       {
-        "metric": "Cost per booking",
-        "value": "-68%"
+        "metric": "Styles available online",
+        "value": "2,000+"
       },
       {
-        "metric": "Form completion",
-        "value": "3.4×"
+        "metric": "Free delivery threshold",
+        "value": "₹2,999+"
       }
     ],
     "timeline": [
       {
         "phase": "Discovery",
-        "detail": "Audited the ad accounts and funnel and found spend leaking at a break-even landing page."
+        "detail": "Mapped the catalogue, the occasions it serves, and how buyers actually search for ethnic wear."
       },
       {
-        "phase": "Strategy",
-        "detail": "Mapped high-intent keywords and rewrote the funnel around booking, not browsing."
+        "phase": "Brand & Identity",
+        "detail": "Built the BCH monogram, palette and 'Ethnic · Elegance · Heritage' brand language."
       },
       {
-        "phase": "Build",
-        "detail": "Developed the Next.js landing page, leading with credentials and a two-field form."
+        "phase": "Store Build",
+        "detail": "Shipped the e-commerce store with occasion, fabric and style discovery."
       },
       {
-        "phase": "Launch",
-        "detail": "Went live across Google and Meta Ads with full conversion tracking in place."
+        "phase": "Collections & Content",
+        "detail": "Launched the Bridal Edit and festive collections as editorial stories."
       },
       {
-        "phase": "Optimize",
-        "detail": "Pruned keywords weekly and shifted budget toward booking-ready terms."
+        "phase": "Offers & CRM",
+        "detail": "Turned on the offers engine, WhatsApp support and the newsletter list."
       },
       {
-        "phase": "Scale",
-        "detail": "Held ROAS at 6.4× while keeping the consultation calendar full."
+        "phase": "Optimise & Scale",
+        "detail": "Tuned drops and campaigns around the festive calendar."
       }
     ],
     "gallery": [
       {
-        "label": "Credibility-led landing page",
-        "kind": "desktop"
+        "label": "Storefront — Where Tradition Meets Elegance",
+        "kind": "desktop",
+        "src": "/images/bch1.webp"
       },
       {
-        "label": "Google Ads campaign structure",
-        "kind": "dashboard"
+        "label": "Bridal collection & festive sale",
+        "kind": "desktop",
+        "src": "/images/bch2.webp"
       },
       {
-        "label": "ROAS and booking analytics",
-        "kind": "analytics"
-      },
-      {
-        "label": "Keyword pruning workflow",
-        "kind": "feature"
-      },
-      {
-        "label": "Two-field booking form",
-        "kind": "mobile"
-      },
-      {
-        "label": "Meta retargeting creative",
-        "kind": "mobile"
+        "label": "Occasion, fabric & style discovery",
+        "kind": "desktop",
+        "src": "/images/bch3.webp"
       }
     ]
   },
@@ -536,129 +525,125 @@ export const CASE_STUDY_DETAILS: Record<string, CaseStudyDetail> = {
       }
     ]
   },
-  "lawpoint": {
-    "slug": "lawpoint",
-    "clientType": "Established multi-practice advocacy firm (30 years)",
-    "liveDomain": "lawpointadvocates.in",
-    "overview": "LawPoint Advocates had thirty years of case history and a client roster built almost entirely on referral. The problem showed up the moment anyone checked them out online: a dated website that read as smaller and less serious than the practice actually was, so first-time searchers quietly chose a competitor. We rebuilt the brand and site to lead with track record, then ran narrow search campaigns only on the practice areas that turn a click into a paying matter.",
+  "foodies": {
+    "slug": "foodies",
+    "clientType": "Fresh-food kitchen — online ordering & function catering",
+    "liveDomain": "foodies.com",
+    "overview": "Foodies made everything by hand with the best ingredients — and sold almost all of it through phone calls and commission-hungry aggregator apps. Regulars had no menu to browse, and the most valuable enquiries of all — catering for weddings, corporate events and big family functions — arrived as missed calls and notebook entries. We built the Foodies website around its two real jobs: order food now, and book the big function. A live menu with prices and prep times feeds one-tap ordering, and a function-booking flow turns catering enquiries into confirmed consultation appointments with the date, guest count and menu already captured.",
     "requirements": [
-      "A brand and site that match a thirty-year reputation",
-      "Rank on high-value practice areas, not vanity terms",
-      "Enquiries that arrive qualified, not merely curious",
-      "A clear path from search to booked consultation",
-      "Proof of track record visible without scrolling"
+      "A live menu with prices, prep times and photos",
+      "Direct online ordering, off the aggregator commissions",
+      "An appointment flow for big-function and event catering",
+      "Offers and a newsletter that bring regulars back",
+      "Reviews and the kitchen's handmade story up front"
     ],
     "challenges": [
       {
-        "title": "The site contradicted the CV",
-        "body": "Three decades of wins sat behind a template that looked a decade past its prime. Referred clients trusted it anyway; strangers read the design as the verdict and left before the first paragraph."
+        "title": "A menu nobody could see",
+        "body": "The kitchen's range lived on paper and in the owner's memory. Every order started with 'what do you have?' — a call the staff answered dozens of times a day."
       },
       {
-        "title": "Strong on referral, invisible on search",
-        "body": "Word of mouth kept the calendar ticking, but anyone who Googled a legal problem first never found LawPoint. The pipeline had no top of funnel it didn't already know personally."
+        "title": "Aggregators owned the customer",
+        "body": "App orders came with steep commissions and no customer relationship. Foodies was paying rent on demand its own food had earned."
       },
       {
-        "title": "Curious clicks, not qualified callers",
-        "body": "The few enquiries that did come in were scattered across matters the firm doesn't take. Partners were spending billable time triaging leads that were never going to convert."
+        "title": "Function catering ran on missed calls",
+        "body": "Wedding and corporate catering — the highest-value orders of the year — depended on someone catching the phone. Details lived in a notebook; follow-ups slipped."
       },
       {
-        "title": "Track record buried",
-        "body": "The one thing that closes a legal client, a credible history of outcomes, was three clicks deep. Nothing above the fold told a visitor why this firm over the next one."
+        "title": "No reason to come back directly",
+        "body": "With no offers, no newsletter and no direct channel, even loyal customers defaulted to whichever app pinged them last."
       }
     ],
     "solutionPoints": [
-      "Rebrand that leads with standing and outcomes, not stock imagery",
-      "Next.js site structured around distinct practice areas",
-      "Credentials, years and case history placed above the fold",
-      "Google Ads scoped only to practice areas that convert",
-      "Two-step intake that qualifies before it books"
+      "Built the site around two jobs: order now, book the function",
+      "Live menu with prices, prep times and one-tap ordering",
+      "Function booking as a structured appointment flow",
+      "Offers engine and newsletter for repeat orders",
+      "Reviews and the handmade-kitchen story front and centre"
     ],
     "keyFeatures": [
       {
-        "title": "Practice-area landing pages",
-        "body": "A dedicated, indexable page for each area the firm wants to grow, written the way clients describe their problem rather than the way statutes name it. These pages carry both the rankings and the ad traffic."
+        "title": "Live menu & one-tap ordering",
+        "body": "Every dish with its photo, price, serving size and prep time — order in a tap, no phone call, no aggregator commission on the kitchen's own demand."
       },
       {
-        "title": "Track-record module",
-        "body": "A credibility block at the top of every key page: years in practice, matters handled and representative outcomes. It gives a first-time visitor the same confidence a referral would."
+        "title": "Big-function booking flow",
+        "body": "Weddings, corporate events and parties book as appointments: date, guest count, cuisine preferences and budget captured up front, with a confirmed consultation slot instead of a call-back promise."
       },
       {
-        "title": "Qualifying consultation intake",
-        "body": "A short two-step form that captures matter type and urgency before it offers a slot. Off-scope enquiries are routed politely elsewhere, so partners only see consultations worth their time."
+        "title": "Handmade-kitchen storytelling",
+        "body": "'We make everything by hand with the best possible ingredients' — the sourcing and kitchen story presented with the food photography that earns the claim."
       },
       {
-        "title": "Brand identity system",
-        "body": "A restrained wordmark, typography and colour system that reads as senior and trustworthy. Applied across the site, email signatures and consultation collateral for one consistent impression."
+        "title": "Offers & newsletter engine",
+        "body": "First-order discounts and subscriber-only offers build a direct list, so the kitchen can fill quiet days without renting reach from the apps."
       },
       {
-        "title": "Technical SEO on Next.js",
-        "body": "Fast, server-rendered pages with clean structure and legal-service schema, so each practice area could climb the rankings on its own merit rather than paid rent."
+        "title": "Reviews as social proof",
+        "body": "Real customer reviews surfaced beside the menu and the function-booking flow — the word of mouth that fills weddings, working online."
       },
       {
-        "title": "Scoped search campaigns",
-        "body": "Tightly-themed Google Ads groups mapped one-to-one with practice areas, negative-keyword lists to block off-scope terms, and weekly pruning against which clicks actually became consultations."
+        "title": "Click-to-call and WhatsApp",
+        "body": "For the customers who still want a human, one tap rings the kitchen — and function enquiries land with their details already structured."
       }
     ],
     "extraImpact": [
       {
-        "metric": "Cost per qualified enquiry",
-        "value": "−43%"
+        "metric": "Commission saved per direct order",
+        "value": "~30%"
       },
       {
-        "metric": "Consultation show-rate",
-        "value": "84%"
+        "metric": "Function details captured up front",
+        "value": "100%"
       }
     ],
     "timeline": [
       {
         "phase": "Discovery",
-        "detail": "Audited the old site, interviewed partners and mapped which practice areas earn the firm its living."
+        "detail": "Mapped the menu, the order flow and how function enquiries actually arrived."
       },
       {
-        "phase": "Brand",
-        "detail": "Built an identity system that reads as senior, credible and unmistakably established."
+        "phase": "Brand & Identity",
+        "detail": "Sharpened the Foodies identity and the handmade-kitchen story."
       },
       {
         "phase": "Build",
-        "detail": "Shipped a Next.js site around practice-area pages, with track record and intake at its centre."
+        "detail": "Shipped the site around the live menu, ordering and the function-booking flow."
       },
       {
-        "phase": "SEO",
-        "detail": "Technical and on-page work plus legal schema to earn the top spot organically."
+        "phase": "Content & Photography",
+        "detail": "Menu photography and the kitchen story, shot to earn the handmade claim."
       },
       {
-        "phase": "Ads",
-        "detail": "Launched scoped Google Ads on converting practice areas, with negatives blocking off-scope terms."
+        "phase": "Offers & CRM",
+        "detail": "Turned on first-order codes, the newsletter and review collection."
       },
       {
         "phase": "Launch & optimise",
-        "detail": "Went live, then pruned keywords weekly against consultations booked, not clicks bought."
+        "detail": "Went live and tuned the menu, offers and booking flow on real order data."
       }
     ],
     "gallery": [
       {
-        "label": "Homepage, rebuilt",
-        "kind": "desktop"
+        "label": "Storefront — order in a tap",
+        "kind": "desktop",
+        "src": "/images/food1.webp"
       },
       {
-        "label": "Practice-area page",
-        "kind": "desktop"
+        "label": "The handmade kitchen story",
+        "kind": "desktop",
+        "src": "/images/food2.webp"
       },
       {
-        "label": "Search campaign console",
-        "kind": "dashboard"
+        "label": "Live menu with prices & prep times",
+        "kind": "desktop",
+        "src": "/images/food3.webp"
       },
       {
-        "label": "Rankings & enquiries",
-        "kind": "analytics"
-      },
-      {
-        "label": "Track-record module",
-        "kind": "feature"
-      },
-      {
-        "label": "Consultation intake",
-        "kind": "mobile"
+        "label": "Offers & newsletter",
+        "kind": "desktop",
+        "src": "/images/food4.webp"
       }
     ]
   },
@@ -788,129 +773,135 @@ export const CASE_STUDY_DETAILS: Record<string, CaseStudyDetail> = {
       }
     ]
   },
-  "nova": {
-    "slug": "nova",
-    "clientType": "Growing logistics SaaS platform",
-    "liveDomain": "novalogistics.in",
-    "overview": "Nova Logistics runs a shipment platform used by a growing roster of shippers, and its ops team was fielding the same questions every day: where is my shipment, when does it arrive, where is the paperwork. We connected an AI assistant directly to their live shipment data and document store so those answers land instantly, and the paperwork drafts itself. What is left for the ops team is the small share of cases that actually need judgment, handed over with the context already gathered.",
+  "lc-luxe-interiors": {
+    "slug": "lc-luxe-interiors",
+    "clientType": "Luxury interior design & build studio",
+    "liveDomain": "lcluxe.in",
+    "overview": "LC Luxe Interiors crafts luxury living spaces — residential interiors, commercial fit-outs, bespoke villas and turnkey builds — and its whole catalogue lived where luxury usually does: in showrooms and PDFs. A homeowner couldn't browse wall panels against wallpapers, compare flooring finishes, or shortlist anything for their own rooms without booking a visit first. We built the LC Luxe platform around the act of choosing: eight product categories with search, Enquire and Quote on every product, the services laid out from a single room to a full villa, and consultation booking that turns a shortlist into a site visit.",
     "requirements": [
-      "Deflect repetitive status, ETA, and paperwork tickets",
-      "Answer from live shipment data, not stale copies",
-      "Auto-draft shipping documents for review",
-      "Hand complex cases to ops with full context",
-      "Fit inside the existing support workflow"
+      "A browsable catalogue across every product category",
+      "Let homeowners shortlist finishes for their own home",
+      "Enquire and Quote actions on every single product",
+      "Showcase services from one room to turnkey villas",
+      "Consultation booking with the choices attached"
     ],
     "challenges": [
       {
-        "title": "Support scaling faster than the team",
-        "body": "Ticket volume climbed with the platform, and nearly every status or ETA request pulled an ops person off real work. Roughly 40 hours a week went to questions that only needed a lookup."
+        "title": "A catalogue locked in showrooms",
+        "body": "Wall panels, flooring, wallpapers, soft furnishings — hundreds of finishes, none of them browsable. Every choice required a visit, so every project started slower than it needed to."
       },
       {
-        "title": "Answers had to be live",
-        "body": "A shipment's status changes by the hour. A generic bot reading static FAQs would quote wrong ETAs, so the assistant had to read the same real-time data the ops team relied on."
+        "title": "Homeowners choose by room, not by SKU",
+        "body": "People don't shop 'WPC 3D wall panels' — they shop 'something for the living-room wall'. The catalogue had to be organised the way homeowners actually decide."
       },
       {
-        "title": "Paperwork was manual and repetitive",
-        "body": "The team hand-drafted the same documents over and over from shipment details, a slow, error-prone step sitting on top of the ticket load."
+        "title": "Luxury has to look luxury online",
+        "body": "A premium studio can't present villa-grade work in a generic template. The platform had to carry the same restraint and finish as the interiors themselves."
       },
       {
-        "title": "Not everything should be automated",
-        "body": "The genuinely tricky cases still needed a human. Handing them over cold, without the shipment and conversation attached, would just move the work around instead of removing it."
+        "title": "Enquiries arrived without context",
+        "body": "Calls came in as 'I saw something in your showroom' — no product, no room, no budget. Every conversation restarted from zero."
       }
     ],
     "solutionPoints": [
-      "RAG over live shipment data and the document library",
-      "Instant answers on status, ETA, and paperwork",
-      "Auto-drafted documents ready for a quick human check",
-      "Context-rich escalation straight into the ops queue",
-      "Embedded in the existing support channels"
+      "Eight-category product explorer with search",
+      "Enquire & Quote on every product card",
+      "Services from residential rooms to turnkey villas",
+      "3D visualization and consultation booking",
+      "An identity that carries the luxury from screen to site"
     ],
     "keyFeatures": [
       {
-        "title": "Live shipment retrieval",
-        "body": "A Python service queries current shipment records, so every status and ETA answer reflects the platform's real-time state rather than a cached snapshot."
+        "title": "Category-first product explorer",
+        "body": "Wall panels, flooring, wallpapers, surfaces, outdoor, window and soft furnishings — searchable, filterable, and organised the way a homeowner walks through their own house."
       },
       {
-        "title": "RAG document engine",
-        "body": "A retrieval layer over Nova's paperwork templates and policy docs answers from their own source material and points back to what it used."
+        "title": "Enquire & Quote on every product",
+        "body": "Each finish carries its own one-tap Enquire and Quote actions — by form, email or WhatsApp — so interest lands with the exact product attached."
       },
       {
-        "title": "Paperwork drafting",
-        "body": "Generates shipping documents pre-filled from shipment data and formatted, so ops reviews a draft in seconds instead of writing one from scratch."
+        "title": "Services for every scale",
+        "body": "Residential, commercial, luxury villas, turnkey execution, renovation, space planning, custom furniture and 3D visualization — each presented as its own explorable service."
       },
       {
-        "title": "Smart escalation",
-        "body": "Flags cases outside its confidence and routes them to ops with the shipment, the full conversation, and the gathered context already attached."
+        "title": "3D visualization before commitment",
+        "body": "Photorealistic renders let clients see every detail of their space before a single panel is ordered — confidence that closes premium projects."
       },
       {
-        "title": "Ops handoff console",
-        "body": "A Next.js interface where the team picks up escalated tickets with everything assembled, so they act on exceptions instead of hunting for details."
+        "title": "Projects, gallery & testimonials",
+        "body": "Completed homes and commercial spaces presented as a browsable gallery with client words beside them — the showroom, carried online."
       },
       {
-        "title": "Resolution analytics",
-        "body": "A dashboard tracking auto-resolution rate, deflected volume, and hours saved, showing Nova exactly where the assistant is carrying load."
+        "title": "Consultation booking & WhatsApp",
+        "body": "Book a consultation with the shortlist attached, or tap straight into WhatsApp — the site's job is to start the project conversation, not just display it."
       }
     ],
     "extraImpact": [
       {
-        "metric": "Support cost saved / month",
-        "value": "₹1.5L"
+        "metric": "Product categories to explore",
+        "value": "8"
       },
       {
-        "metric": "Cases escalated with full context",
+        "metric": "Enquiries with product attached",
         "value": "100%"
       }
     ],
     "timeline": [
       {
         "phase": "Discovery",
-        "detail": "Audited three months of tickets and tagged the repeat questions worth automating."
+        "detail": "Mapped the catalogue, the services and how homeowners actually choose finishes."
       },
       {
-        "phase": "Data foundation",
-        "detail": "Wired the assistant into live shipment data and built the RAG layer over Nova's document library."
+        "phase": "Brand & Identity",
+        "detail": "Built the gold-on-ink LC Luxe identity and the editorial typography."
       },
       {
-        "phase": "Assistant build",
-        "detail": "Built the Python answer engine for status, ETA, and paperwork queries."
+        "phase": "Platform Build",
+        "detail": "Shipped the category explorer, product search and Enquire/Quote flows."
       },
       {
-        "phase": "Workflow & handoff",
-        "detail": "Added auto-drafting and context-rich escalation into the ops workflow."
+        "phase": "Services & Projects",
+        "detail": "Laid out the eight services and the projects gallery with testimonials."
       },
       {
-        "phase": "Pilot",
-        "detail": "Ran the assistant on a slice of live traffic with ops reviewing every handoff."
+        "phase": "Booking & CRM",
+        "detail": "Wired consultation booking, quote requests and WhatsApp into one funnel."
       },
       {
-        "phase": "Launch",
-        "detail": "Rolled out across all support channels and tuned confidence thresholds."
+        "phase": "SEO & Launch",
+        "detail": "Launched with search structure across categories, products and services."
       }
     ],
     "gallery": [
       {
-        "label": "AI support console",
-        "kind": "desktop"
+        "label": "Crafting luxury living spaces",
+        "kind": "desktop",
+        "src": "/images/inter1.webp"
       },
       {
-        "label": "Ops handoff queue",
-        "kind": "dashboard"
+        "label": "Premium services — room to villa",
+        "kind": "desktop",
+        "src": "/images/inter6.webp"
       },
       {
-        "label": "Resolution analytics",
-        "kind": "analytics"
+        "label": "Category-first product explorer",
+        "kind": "desktop",
+        "src": "/images/inter3.webp"
       },
       {
-        "label": "Shipment status & ETA lookup",
-        "kind": "feature"
+        "label": "Enquire & Quote on every product",
+        "kind": "desktop",
+        "src": "/images/inter4.webp"
       },
       {
-        "label": "Auto-drafted paperwork",
-        "kind": "feature"
+        "label": "The LC Luxe story",
+        "kind": "desktop",
+        "src": "/images/inter2.webp"
       },
       {
-        "label": "Mobile agent view",
-        "kind": "mobile"
+        "label": "Brand system & footer",
+        "kind": "desktop",
+        "src": "/images/inter5.webp"
       }
     ]
   }

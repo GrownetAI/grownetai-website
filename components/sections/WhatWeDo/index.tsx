@@ -28,8 +28,8 @@ export default function WhatWeDo() {
   const [requirement, setRequirement] = useState("");
 
   return (
-    <section className="section-padding-sm bg-paper">
-      <div className="container-site">
+    <section className="section-padding-sm bg-paper xl:px-8">
+      <div className="container-site max-w-full mx-0">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -37,7 +37,7 @@ export default function WhatWeDo() {
           transition={{ duration: 0.5 }}
         >
           <span className="eyebrow">What we do</span>
-          <h2 className="heading-section mt-3 max-w-[20ch]">
+          <h2 className="heading-section mt-3">
             Tell us what you need, We&rsquo;ll recommend the rest
           </h2>
         </motion.div>

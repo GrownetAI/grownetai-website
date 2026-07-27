@@ -17,8 +17,10 @@ const schema = z.object({
       (v) => !v || /^[+\d\s\-().]{7,20}$/.test(v),
       "Invalid phone number",
     ),
+  company: z.string().max(100).optional(),
   service: z.string().max(100).optional(),
   budget: z.string().max(100).optional(),
+  timeline: z.string().max(50).optional(),
   message: z
     .string()
     .min(10, "Message too short")
@@ -73,8 +75,10 @@ async function sendEmail(data: z.infer<typeof schema>) {
           <tr><td style="padding: 10px 0; border-bottom: 1px solid #e5e7eb; color: #6b7280; width: 140px; font-weight: 600;">Name</td><td style="padding: 10px 0; border-bottom: 1px solid #e5e7eb; color: #111827;">${sanitize(data.name)}</td></tr>
           <tr><td style="padding: 10px 0; border-bottom: 1px solid #e5e7eb; color: #6b7280; font-weight: 600;">Email</td><td style="padding: 10px 0; border-bottom: 1px solid #e5e7eb; color: #111827;"><a href="mailto:${sanitize(data.email)}" style="color: #008080;">${sanitize(data.email)}</a></td></tr>
           <tr><td style="padding: 10px 0; border-bottom: 1px solid #e5e7eb; color: #6b7280; font-weight: 600;">Phone</td><td style="padding: 10px 0; border-bottom: 1px solid #e5e7eb; color: #111827;">${data.phone ? sanitize(data.phone) : "—"}</td></tr>
+          <tr><td style="padding: 10px 0; border-bottom: 1px solid #e5e7eb; color: #6b7280; font-weight: 600;">Company</td><td style="padding: 10px 0; border-bottom: 1px solid #e5e7eb; color: #111827;">${data.company ? sanitize(data.company) : "—"}</td></tr>
           <tr><td style="padding: 10px 0; border-bottom: 1px solid #e5e7eb; color: #6b7280; font-weight: 600;">Service</td><td style="padding: 10px 0; border-bottom: 1px solid #e5e7eb; color: #111827;">${data.service ? sanitize(data.service) : "—"}</td></tr>
           <tr><td style="padding: 10px 0; border-bottom: 1px solid #e5e7eb; color: #6b7280; font-weight: 600;">Budget</td><td style="padding: 10px 0; border-bottom: 1px solid #e5e7eb; color: #111827;">${data.budget ? sanitize(data.budget) : "—"}</td></tr>
+          <tr><td style="padding: 10px 0; border-bottom: 1px solid #e5e7eb; color: #6b7280; font-weight: 600;">Timeline</td><td style="padding: 10px 0; border-bottom: 1px solid #e5e7eb; color: #111827;">${data.timeline ? sanitize(data.timeline) : "—"}</td></tr>
           <tr><td style="padding: 10px 0; color: #6b7280; font-weight: 600; vertical-align: top;">Message</td><td style="padding: 10px 0; color: #111827; white-space: pre-wrap;">${sanitize(data.message)}</td></tr>
         </table>
         <div style="margin-top: 24px; padding: 16px; background: #eff6ff; border-radius: 8px; border-left: 4px solid #008080;">

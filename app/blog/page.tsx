@@ -5,7 +5,7 @@ import { Clock, User, Calendar, ArrowRight, BookOpen } from "lucide-react";
 import { BLOG_POSTS } from "@/lib/constants";
 import { formatDate } from "@/lib/utils";
 import FadeIn from "@/components/animations/FadeIn";
-import Image from "next/image";
+import SmoothImage from "@/components/ui/SmoothImage";
 
 const CATEGORIES = [
   "All",
@@ -25,14 +25,6 @@ export default function BlogPage() {
     <main className="pt-[var(--navbar-height)]">
       {/* Hero */}
       <section className="relative bg-gradient-hero py-20 overflow-hidden">
-        <div
-          className="absolute inset-0 opacity-10"
-          style={{
-            backgroundImage:
-              "radial-gradient(circle at 2px 2px, white 1px, transparent 0)",
-            backgroundSize: "40px 40px",
-          }}
-        />
         <div className="container-site relative z-10 text-center">
           <span className="section-label mb-4">
             Blog & Insights
@@ -57,10 +49,9 @@ export default function BlogPage() {
                   <div className="grid grid-cols-1 lg:grid-cols-2">
                     <div className="relative h-64 lg:h-auto min-h-[260px] overflow-hidden">
                       {featuredPost.image ? (
-                        <Image
+                        <SmoothImage
                           src={featuredPost.image}
                           alt={featuredPost.title}
-                          fill
                           className="object-cover"
                         />
                       ) : (
@@ -131,10 +122,9 @@ export default function BlogPage() {
                     <article className="group flex h-full flex-col overflow-hidden rounded-2xl border border-hairline bg-paper-raised shadow-card transition-[transform,box-shadow,border-color] duration-300 hover:-translate-y-1 hover:border-moss-300 hover:shadow-brand">
                       <div className={`relative overflow-hidden ${feature ? "h-56 sm:h-72" : "h-44"}`}>
                         {post.image ? (
-                          <Image
+                          <SmoothImage
                             src={post.image}
                             alt={post.title}
-                            fill
                             sizes={feature ? "(max-width:768px) 100vw, 66vw" : "(max-width:768px) 100vw, 33vw"}
                             className="object-cover transition-transform duration-500 group-hover:scale-105"
                           />
@@ -179,16 +169,18 @@ export default function BlogPage() {
 
       {/* CTA */}
       <section className="section-padding bg-forest text-paper text-center">
-        <div className="container-site max-w-xl mx-auto">
-          <h2 className="display-lg text-paper mb-5">
-            Want us to grow your business too?
-          </h2>
-          <p className="text-paper/80 mb-9">
-            Join 150+ businesses already growing with GrownetAI.
-          </p>
-          <Link href="/contact" className="btn btn-accent btn-lg">
-            Get Free Consultation
-          </Link>
+        <div className="container-site">
+          <div className="max-w-xl mx-auto">
+            <h2 className="display-lg text-paper mb-5">
+              Want us to grow your business too?
+            </h2>
+            <p className="text-paper/80 mb-9">
+              Join 150+ businesses already growing with GrownetAI.
+            </p>
+            <Link href="/contact" className="btn btn-accent btn-lg">
+              Get Free Consultation
+            </Link>
+          </div>
         </div>
       </section>
     </main>

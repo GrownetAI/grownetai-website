@@ -13,7 +13,7 @@ import { cn } from "@/lib/utils";
    (spans two columns); the rest tile evenly. Every tile is keyboard-focusable
    and opens the viewer at its index. */
 
-type Item = { label: string; kind: GalleryKind };
+type Item = { label: string; kind: GalleryKind; src?: string };
 
 export default function ProjectGallery({
   study,

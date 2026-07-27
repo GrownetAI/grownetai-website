@@ -1,7 +1,7 @@
 "use client";
 
-import Image from "next/image";
 import { cn } from "@/lib/utils";
+import SmoothImage from "@/components/ui/SmoothImage";
 
 /* ════════════════════════════════════════════════════════════════
    BROWSER FRAME
@@ -52,10 +52,9 @@ export default function BrowserFrame({
 
       {/* Screenshot */}
       <div className="relative aspect-[16/10] overflow-hidden bg-sand">
-        <Image
+        <SmoothImage
           src={src}
           alt={alt}
-          fill
           priority={priority}
           sizes="(max-width: 1024px) 100vw, 620px"
           className={cn(

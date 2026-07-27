@@ -1,11 +1,11 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import { LayoutDashboard, LogOut, Settings, Shield } from "lucide-react";
-import { getMe, isAdmin, logout, type AuthUser } from "@/lib/api";
+import { isAdmin, logout } from "@/lib/api";
+import { useAuthUser, resetAuthUserCache } from "@/hooks/useAuthUser";
 import { cn } from "@/lib/utils";
 
 /* ════════════════════════════════════════════════════════════════
@@ -23,35 +23,30 @@ import { cn } from "@/lib/utils";
 
 export default function UserMenu() {
   const router = useRouter();
-  const [user, setUser] = useState<AuthUser | null>(null);
-  const [checked, setChecked] = useState(false);
+  const { user, checked } = useAuthUser();
 
-  useEffect(() => {
-    let alive = true;
-    // The cookie is httpOnly, so we cannot inspect it — ask the server instead.
-    // A 401 here simply means "signed out"; the interceptor ignores /auth/me.
-    getMe()
-      .then((me) => alive && setUser(me))
-      .catch(() => {
-        /* signed out */
-      })
-      .finally(() => alive && setChecked(true));
-    return () => {
-      alive = false;
-    };
-  }, []);
-
-  // Don't render either state until we know which one is true.
-  if (!checked) return <span className="hidden h-9 w-9 lg:block" aria-hidden />;
+  // Don't render either state until we know which one is true. Sized to
+  // the signed-out pair so the check doesn't jump the layout.
+  if (!checked)
+    return <span className="hidden h-9 w-[150px] xl:block" aria-hidden />;
 
   if (!user) {
+    // Quiet text pair; the mobile menu carries its own Log in / Sign up.
     return (
-      <Link
-        href="/login"
-        className="hidden rounded-full px-4 py-2 text-sm font-medium text-ink-muted transition-colors hover:bg-sand hover:text-ink lg:inline-flex"
-      >
-        Sign in
-      </Link>
+      <div className="hidden items-center gap-1 xl:flex">
+        <Link
+          href="/login"
+          className="whitespace-nowrap rounded-full px-3.5 py-2.5 text-sm font-medium text-ink-muted transition-colors hover:bg-sand hover:text-ink"
+        >
+          Log in
+        </Link>
+        <Link
+          href="/register"
+          className="whitespace-nowrap rounded-full px-3.5 py-2.5 text-sm font-medium text-ink-muted transition-colors hover:bg-sand hover:text-ink"
+        >
+          Sign up
+        </Link>
+      </div>
     );
   }
 
@@ -75,7 +70,11 @@ export default function UserMenu() {
             // Remote avatar host isn't in next.config remotePatterns, so a plain
             // <img> — next/image would throw at runtime.
             // eslint-disable-next-line @next/next/no-img-element
-            <img src={user.avatar} alt="" className="h-full w-full object-cover" />
+            <img
+              src={user.avatar}
+              alt=""
+              className="h-full w-full object-cover"
+            />
           ) : (
             initials
           )}
@@ -91,7 +90,9 @@ export default function UserMenu() {
                      data-[state=open]:animate-scale-in data-[state=closed]:animate-scale-out"
         >
           <div className="border-b border-hairline px-3 py-2.5">
-            <p className="truncate text-sm font-semibold text-ink">{user.name}</p>
+            <p className="truncate text-sm font-semibold text-ink">
+              {user.name}
+            </p>
             <p className="truncate text-xs text-ink-muted">{user.email}</p>
           </div>
 
@@ -108,6 +109,7 @@ export default function UserMenu() {
           <DropdownMenu.Item
             onSelect={async () => {
               await logout(); // only the server can expire an httpOnly cookie
+              resetAuthUserCache();
               router.push("/");
               router.refresh();
             }}

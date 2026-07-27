@@ -3,7 +3,7 @@
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import Link from "next/link";
 import {
@@ -30,9 +30,7 @@ import { whatsappUrl, cn } from "@/lib/utils";
 const WHY_CONTACT = [
   { icon: Zap, title: "Fast response", desc: "We reply within a few hours on business days — no black holes." },
   { icon: Users, title: "Dedicated team", desc: "A named point of contact from day one, not a rotating queue." },
-  { icon: ShieldCheck, title: "Transparent pricing", desc: "Clear, fixed-scope quotes — no surprises on the invoice." },
   { icon: Globe, title: "Global support", desc: "Serving clients across eight markets, in your timezone." },
-  { icon: Sparkles, title: "AI expertise", desc: "AI woven through strategy, build, and growth — not bolted on." },
   { icon: Layers, title: "End-to-end", desc: "Brand, site, apps, marketing, and automation under one roof." },
 ];
 
@@ -317,6 +315,22 @@ export default function ContactPage() {
     defaultValues: { countryCode: "IN" },
   });
 
+  // Prefill from /contact?service=...&message=... — window.location so the
+  // page needs no Suspense boundary. Runs once on mount, never clobbers input.
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const rawService = params.get("service");
+    if (rawService) {
+      const q = rawService.trim().toLowerCase();
+      const match = SERVICES.find(
+        (s) => s.title.toLowerCase() === q || s.id.toLowerCase() === q,
+      );
+      if (match) setValue("service", match.title);
+    }
+    const rawMessage = params.get("message");
+    if (rawMessage) setValue("message", rawMessage);
+  }, [setValue]);
+
   const phoneValue = watch("phone") ?? "";
 
   // Validate phone against selected country pattern
@@ -362,312 +376,272 @@ export default function ContactPage() {
 
   return (
     <main className="pt-[var(--navbar-height)]">
-      {/* Hero */}
-      <section className="py-20 bg-gradient-hero relative overflow-hidden">
-        <div
-          className="absolute inset-0 opacity-10"
-          style={{
-            backgroundImage:
-              "radial-gradient(circle at 2px 2px, #14120F 1px, transparent 0)",
-            backgroundSize: "40px 40px",
-          }}
-        />
-        <div className="container-site relative z-10 text-center">
-          <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-sm font-semibold bg-paper-raised text-moss-600 border border-hairline mb-6">
-            Let&apos;s Connect
-          </span>
-          <h1 className="font-display text-ink text-5xl md:text-6xl mb-4">
-            Let&apos;s start building your <span className="text-gradient">dream business</span>
-          </h1>
-          <p className="text-ink-body text-xl max-w-xl mx-auto">
-            Tell us about your business and we&apos;ll put together a custom
-            growth strategy — completely free.
-          </p>
-        </div>
-      </section>
 
-      {/* Contact Cards */}
-      <section className="section-padding-sm bg-sand">
-        <div className="container-site">
-          <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
-            {CONTACT_CARDS.map((card, i) => (
-              <div
-                key={card.title}
-                className={`group flex flex-col items-center rounded-3xl border p-7 text-center shadow-card transition-[transform,box-shadow,border-color] duration-300 hover:-translate-y-1 hover:shadow-brand ${
-                  i === 0
-                    ? "border-moss-200 bg-moss-50 hover:border-moss-300"
-                    : "border-hairline bg-paper-raised hover:border-moss-300"
-                }`}
-              >
-                <span className="mb-4 grid h-12 w-12 place-items-center rounded-2xl bg-moss-100 text-moss-700">
-                  <card.icon className="h-6 w-6" />
-                </span>
+<div className="flex md:flex-row flex-col items-start justify-center gap-0">
+
+  {/* Contact Cards — mobile: round icon row at top; desktop: full cards, second column */}
+  <section className="w-full order-1 md:order-2 md:section-padding bg-paper">
+    <div className="container-site">
+      <div className="md:mb-24 mb-10 text-center"> 
+      <span className="section-label">Contact</span>
+      <h2 className="heading-section mt-2 mb-5">Get in touch with us.</h2>
+    </div>
+      {/* Mobile: round icons in a single row */}
+      <div className="flex md:hidden overflow-x-auto pb-2">
+        <div className="mx-auto flex w-max items-center gap-4">
+          {CONTACT_CARDS.map((card) => (
+            <a
+              key={card.title}
+              href={card.href}
+              target={card.external ? "_blank" : undefined}
+              rel={card.external ? "noopener noreferrer" : undefined}
+              aria-label={card.title}
+              title={card.title}
+              className="flex flex-shrink-0 h-14 w-14 items-center justify-center rounded-full border border-hairline bg-paper-raised text-moss-700 shadow-card transition-transform duration-300 hover:-translate-y-1 hover:border-moss-300 hover:bg-moss-50"
+            >
+              <card.icon className="h-6 w-6" />
+            </a>
+          ))}
+        </div>
+      </div>
+
+      {/* Desktop / tablet: full cards */}
+      <div className="hidden md:grid grid-cols-1 gap-4 md:grid-cols-2">
+        {CONTACT_CARDS.map((card, i) => (
+          <div
+            key={card.title}
+            className={`group flex flex-col items-start rounded-3xl border p-7 text-center shadow-card transition-[transform,box-shadow,border-color] duration-300 hover:-translate-y-1 hover:shadow-brand ${
+              i === 1
+                ? "border-moss-200 bg-moss-50 hover:border-moss-300"
+                : "border-hairline bg-paper-raised hover:border-moss-300"
+            }`}
+          >
+            <div className="flex items-start justify-center gap-4">
+              <span className="grid h-12 w-12 place-items-center rounded-2xl bg-moss-100 text-moss-700">
+                <card.icon className="h-6 w-6" />
+              </span>
+              <div className="flex flex-col items-start">
                 <h3 className="font-heading text-base font-semibold text-ink">
                   {card.title}
                 </h3>
-                <p className="mb-4 mt-1 text-sm text-ink-muted">{card.value}</p>
-                <a
-                  href={card.href}
-                  target={card.external ? "_blank" : undefined}
-                  rel={card.external ? "noopener noreferrer" : undefined}
-                  className="btn btn-secondary btn-sm mt-auto"
-                >
-                  {card.cta} <ArrowRight className="h-4 w-4" />
-                </a>
+                <p className="text-sm text-ink-muted">{card.value}</p>
               </div>
-            ))}
+            </div>
+            <div className="w-full">
+              <a
+                href={card.href}
+                target={card.external ? "_blank" : undefined}
+                rel={card.external ? "noopener noreferrer" : undefined}
+                className="btn btn-secondary btn-sm mt-4 flex items-end gap-2 text-sm font-semibold transition-colors hover:bg-moss-600 hover:text-paper"
+              >
+                {card.cta} <ArrowRight className="h-4 w-4" />
+              </a>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  {/* Contact Form */}
+  <section className="order-2 md:order-1 md:section-padding bg-sand rounded-t-2xl w-full">
+    <div className="container-site max-w-2xl">
+        <div className="mb-12">            
+          <span className="section-label">Free Consultation</span>            
+          <h2 className="heading-section mt-2">Tell Us About Your Project</h2>            
+          <p className="text-body mt-3">Fill in the form and we&apos;ll reach out within 24 hours with a              tailored strategy.</p>          
+          </div>
+      <form onSubmit={handleSubmit(onSubmit)} className="grid gap-6" noValidate>
+        <div className="grid gap-6 md:grid-cols-2">
+          <div className="flex flex-col gap-1.5">
+            <label htmlFor="name" className="text-sm font-semibold text-brand-charcoal font-heading">
+              Name *
+            </label>
+            <input
+              id="name"
+              {...register("name")}
+              placeholder="Your name"
+              className={`input bg-paper-raised ${errors.name ? "border-red-400 focus:border-red-500 focus:ring-red-200" : ""}`}
+            />
+            {errors.name && <p className="text-xs text-red-500">{errors.name.message}</p>}
+          </div>
+
+          <div className="flex flex-col gap-1.5">
+            <label htmlFor="email" className="text-sm font-semibold text-brand-charcoal font-heading">
+              Email *
+            </label>
+            <input
+              id="email"
+              type="email"
+              {...register("email")}
+              placeholder="you@example.com"
+              className={`input bg-paper-raised ${errors.email ? "border-red-400 focus:border-red-500 focus:ring-red-200" : ""}`}
+            />
+            {errors.email && <p className="text-xs text-red-500">{errors.email.message}</p>}
           </div>
         </div>
-      </section>
 
-      {/* Contact Form */}
-      <section className="section-padding bg-paper">
-        <div className="container-site max-w-2xl">
-          <div className="text-center mb-12">
-            <span className="section-label">Free Consultation</span>
-            <h2 className="heading-section mt-2">Tell Us About Your Project</h2>
-            <p className="text-body mt-3">
-              Fill in the form and we&apos;ll reach out within 24 hours with a
-              tailored strategy.
-            </p>
-          </div>
-
-          <form
-            onSubmit={handleSubmit(onSubmit)}
-            className="card p-5 sm:p-8 flex flex-col gap-5"
-          >
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-              {/* Name */}
-              <div className="flex flex-col gap-1.5">
-                <label className="text-sm font-semibold text-brand-charcoal font-heading">
-                  Full Name *
-                </label>
-                <input
-                  {...register("name")}
-                  placeholder="Rahul Sharma"
-                  maxLength={50}
-                  onKeyDown={(e) => {
-                    // Block numbers and most special chars at keyboard level
-                    const allowed = /^[a-zA-Z\s'\-]$/;
-                    if (
-                      !allowed.test(e.key) &&
-                      ![
-                        "Backspace",
-                        "Delete",
-                        "ArrowLeft",
-                        "ArrowRight",
-                        "Tab",
-                      ].includes(e.key)
-                    ) {
-                      e.preventDefault();
-                    }
-                  }}
-                  className={`input ${errors.name ? "border-red-400 focus:border-red-500 focus:ring-red-200" : ""}`}
-                />
-                {errors.name && (
-                  <p className="text-xs text-red-500">{errors.name.message}</p>
-                )}
-              </div>
-
-              {/* Email */}
-              <div className="flex flex-col gap-1.5">
-                <label className="text-sm font-semibold text-brand-charcoal font-heading">
-                  Email Address *
-                </label>
-                <input
-                  {...register("email")}
-                  type="email"
-                  placeholder="rahul@company.com"
-                  autoComplete="email"
-                  className={`input ${errors.email ? "border-red-400 focus:border-red-500 focus:ring-red-200" : ""}`}
-                />
-                {errors.email && (
-                  <p className="text-xs text-red-500">{errors.email.message}</p>
-                )}
-              </div>
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-              {/* Phone with Country Picker */}
-              <div className="flex flex-col gap-1.5">
-                <label className="text-sm font-semibold text-brand-charcoal font-heading">
-                  Phone Number
-                </label>
-                <div
-                  className={`flex rounded-lg border bg-paper-raised overflow-hidden focus-within:ring-2 focus-within:ring-moss-400/40 focus-within:border-moss-500 transition-all ${phoneError ? "border-red-400 focus-within:ring-red-200 focus-within:border-red-500" : "border-hairline-strong"}`}
-                >
-                  {/* Country Selector */}
-                  <div className="relative">
-                    <select
-                      value={selectedCountry.code}
-                      onChange={(e) => {
-                        const country = COUNTRIES.find(
-                          (c) => c.code === e.target.value,
-                        );
-                        if (country) {
-                          setSelectedCountry(country);
-                          setValue("countryCode", country.code);
-                          setValue("phone", ""); // reset phone on country change
-                        }
-                      }}
-                      className="h-full pl-2 pr-6 text-sm bg-brand-cloud-white border-r border-hairline-strong text-brand-charcoal appearance-none cursor-pointer focus:outline-none"
-                      style={{ minWidth: "80px" }}
-                      title="Select country"
-                    >
-                      {COUNTRIES.map((c) => (
-                        <option key={c.code} value={c.code}>
-                          {c.flag} {c.dialCode}
-                        </option>
-                      ))}
-                    </select>
-                    {/* Dropdown arrow */}
-                    <span className="pointer-events-none absolute right-1 top-1/2 -translate-y-1/2 text-brand-slate-gray text-xs">
-                      ▾
-                    </span>
-                  </div>
-
-                  {/* Phone Input */}
-                  <input
-                    {...register("phone")}
-                    type="tel"
-                    inputMode="numeric"
-                    placeholder={selectedCountry.example}
-                    maxLength={selectedCountry.digits + 2}
-                    onKeyDown={(e) => {
-                      const allowed = /^[\d\s\-().]$/;
-                      if (
-                        !allowed.test(e.key) &&
-                        ![
-                          "Backspace",
-                          "Delete",
-                          "ArrowLeft",
-                          "ArrowRight",
-                          "Tab",
-                        ].includes(e.key)
-                      ) {
-                        e.preventDefault();
-                      }
-                    }}
-                    className="flex-1 px-3 py-2.5 text-sm text-brand-charcoal placeholder:text-ink-muted focus:outline-none bg-transparent"
-                  />
-                </div>
-                {phoneError && (
-                  <p className="text-xs text-red-500">{phoneError}</p>
-                )}
-                {!phoneError && phoneValue && (
-                  <p className="text-xs text-green-600">
-                    ✓ Valid {selectedCountry.name} number
-                  </p>
-                )}
-              </div>
-
-              {/* Service */}
-              <div className="flex flex-col gap-1.5">
-                <label className="text-sm font-semibold text-brand-charcoal font-heading">
-                  Service Interested In
-                </label>
-                <select {...register("service")} className="input bg-paper-raised">
-                  <option value="">Select a service</option>
-                  {SERVICES.map((s) => (
-                    <option key={s.id} value={s.id}>
-                      {s.title}
-                    </option>
-                  ))}
-                </select>
-              </div>
-            </div>
-
-            {/* Budget */}
-            <div className="flex flex-col gap-1.5">
-              <label className="text-sm font-semibold text-brand-charcoal font-heading">
-                Monthly Budget
-              </label>
-              <select {...register("budget")} className="input bg-paper-raised">
-                <option value="">Select budget range</option>
-                {BUDGET_OPTIONS.map((b) => (
-                  <option key={b} value={b}>
-                    {b}
-                  </option>
-                ))}
-              </select>
-            </div>
-
-            {/* Company + Timeline */}
-            <div className="grid gap-4 sm:grid-cols-2">
-              <div className="flex flex-col gap-1.5">
-                <label className="text-sm font-semibold text-brand-charcoal font-heading">
-                  Company Name
-                </label>
-                <input
-                  {...register("company")}
-                  placeholder="Optional"
-                  className="input bg-paper-raised"
-                />
-              </div>
-              <div className="flex flex-col gap-1.5">
-                <label className="text-sm font-semibold text-brand-charcoal font-heading">
-                  Project Timeline
-                </label>
-                <select {...register("timeline")} className="input bg-paper-raised">
-                  <option value="">Select timeline</option>
-                  <option>ASAP</option>
-                  <option>1–3 months</option>
-                  <option>3–6 months</option>
-                  <option>Just exploring</option>
-                </select>
-              </div>
-            </div>
-
-            {/* Message */}
-            <div className="flex flex-col gap-1.5">
-              <label className="text-sm font-semibold text-brand-charcoal font-heading">
-                Message *
-              </label>
-              <textarea
-                {...register("message")}
-                placeholder="Tell us about your business, goals, and what you're looking to achieve..."
-                maxLength={1000}
-                className={`textarea ${errors.message ? "border-red-400 focus:border-red-500 focus:ring-red-200" : ""}`}
-              />
-              <div className="flex justify-between items-center">
-                {errors.message ? (
-                  <p className="text-xs text-red-500">
-                    {errors.message.message}
-                  </p>
-                ) : (
-                  <span />
-                )}
-                <p className="text-xs text-ink-muted ml-auto">
-                  {watch("message")?.length ?? 0}/1000
-                </p>
-              </div>
-            </div>
-
-            <button
-              type="submit"
-              disabled={isSubmitting || !!phoneError}
-              className="btn-primary btn-lg flex items-center justify-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed"
+        <div className="grid gap-6 md:grid-cols-2">
+          <div className="flex flex-col gap-1.5">
+            <label htmlFor="countryCode" className="text-sm font-semibold text-brand-charcoal font-heading">
+              Country
+            </label>
+            <select
+              id="countryCode"
+              {...register("countryCode", {
+                onChange: (event) => {
+                  const selectedValue = event.target.value;
+                  setSelectedCountry(
+                    COUNTRIES.find((country) => country.code === selectedValue) ?? COUNTRIES[0],
+                  );
+                },
+              })}
+              className="input bg-paper-raised"
             >
-              {isSubmitting ? (
-                "Sending..."
-              ) : (
-                <>
-                  <span>Send Message</span>
-                  <Send className="w-5 h-5" />
-                </>
-              )}
-            </button>
+              {COUNTRIES.map((country) => (
+                <option key={country.code} value={country.code}>
+                  {country.flag} {country.name}
+                </option>
+              ))}
+            </select>
+          </div>
 
-            <p className="text-center text-ink-muted text-xs">
-              By submitting, you agree to our{" "}
-              <Link href="/privacy" className="text-brand-teal hover:underline">
-                Privacy Policy
-              </Link>
-              . We&apos;ll never spam you.
-            </p>
-          </form>
+          <div className="flex flex-col gap-1.5">
+            <label htmlFor="phone" className="text-sm font-semibold text-brand-charcoal font-heading">
+              Phone
+            </label>
+            <div className="relative">
+              <span className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3 text-ink-muted">
+                {selectedCountry.dialCode}
+              </span>
+              <input
+                id="phone"
+                type="tel"
+                {...register("phone")}
+                placeholder={selectedCountry.example}
+                className={`input bg-paper-raised pl-16 ${phoneError ? "border-red-400 focus:border-red-500 focus:ring-red-200" : ""}`}
+              />
+            </div>
+            {phoneError ? (
+              <p className="text-xs text-red-500">{phoneError}</p>
+            ) : errors.phone ? (
+              <p className="text-xs text-red-500">{errors.phone.message}</p>
+            ) : (
+              <span />
+            )}
+          </div>
         </div>
-      </section>
+
+        <div className="grid gap-6 md:grid-cols-2">
+          <div className="flex flex-col gap-1.5">
+            <label htmlFor="company" className="text-sm font-semibold text-brand-charcoal font-heading">
+              Company
+            </label>
+            <input
+              id="company"
+              {...register("company")}
+              placeholder="Optional"
+              className="input bg-paper-raised"
+            />
+          </div>
+
+          <div className="flex flex-col gap-1.5">
+            <label htmlFor="service" className="text-sm font-semibold text-brand-charcoal font-heading">
+              Service
+            </label>
+            <select
+              id="service"
+              {...register("service")}
+              className="input bg-paper-raised"
+            >
+              <option value="">Select service</option>
+              {SERVICES.map((service) => (
+                <option key={service.id} value={service.title}>
+                  {service.title}
+                </option>
+              ))}
+            </select>
+          </div>
+        </div>
+
+        <div className="grid gap-6 md:grid-cols-2">
+          <div className="flex flex-col gap-1.5">
+            <label htmlFor="budget" className="text-sm font-semibold text-brand-charcoal font-heading">
+              Budget
+            </label>
+            <select id="budget" {...register("budget")} className="input bg-paper-raised">
+              <option value="">Select budget</option>
+              {BUDGET_OPTIONS.map((option) => (
+                <option key={option} value={option}>
+                  {option}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <div className="flex flex-col gap-1.5">
+            <label htmlFor="timeline" className="text-sm font-semibold text-brand-charcoal font-heading">
+              Timeline
+            </label>
+            <select id="timeline" {...register("timeline")} className="input bg-paper-raised">
+              <option value="">Select timeline</option>
+              <option>ASAP</option>
+              <option>1–3 months</option>
+              <option>3–6 months</option>
+              <option>Just exploring</option>
+            </select>
+          </div>
+        </div>
+
+        <div className="flex flex-col gap-1.5">
+          <label htmlFor="message" className="text-sm font-semibold text-brand-charcoal font-heading">
+            Message *
+          </label>
+          <textarea
+            id="message"
+            {...register("message")}
+            placeholder="Tell us about your business, goals, and what you're looking to achieve..."
+            maxLength={1000}
+            className={`textarea ${errors.message ? "border-red-400 focus:border-red-500 focus:ring-red-200" : ""}`}
+          />
+          <div className="flex justify-between items-center">
+            {errors.message ? (
+              <p className="text-xs text-red-500">{errors.message.message}</p>
+            ) : (
+              <span />
+            )}
+            <p className="text-xs text-ink-muted ml-auto">{watch("message")?.length ?? 0}/1000</p>
+          </div>
+        </div>
+
+        <button
+          type="submit"
+          disabled={isSubmitting || !!phoneError}
+          className="btn btn-primary btn-lg flex items-center justify-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed"
+        >
+          {isSubmitting ? (
+            "Sending..."
+          ) : (
+            <>
+              <span>Send Message</span>
+              <Send className="w-5 h-5" />
+            </>
+          )}
+        </button>
+
+        <p className="text-center text-ink-muted text-xs">
+          By submitting, you agree to our{" "}
+          <Link href="/privacy" className="text-brand-teal hover:underline">
+            Privacy Policy
+          </Link>
+          . We&apos;ll never spam you.
+        </p>
+      </form>
+    </div>
+  </section>
+</div>
+
+
 
       {/* Why contact us (bento) */}
       <section className="section-padding-sm bg-sand">
@@ -676,7 +650,7 @@ export default function ContactPage() {
             <span className="eyebrow">Why contact us</span>
             <h2 className="heading-section mt-3">Reasons to reach out.</h2>
           </div>
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {WHY_CONTACT.map((w, i) => (
               <div
                 key={w.title}
@@ -685,11 +659,16 @@ export default function ContactPage() {
                   i === 0 ? "border-moss-200 bg-moss-50 hover:border-moss-300" : "border-hairline bg-paper-raised hover:border-moss-300",
                 )}
               >
+                <div className="flex gap-4 items-start justify-start">
                 <span className="grid h-11 w-11 place-items-center rounded-xl bg-moss-100 text-moss-700">
-                  <w.icon className="h-5 w-5" />
+                  <w.icon className="h-6 w-6" />
                 </span>
-                <h3 className="mt-4 font-heading text-base font-semibold text-ink">{w.title}</h3>
-                <p className="mt-1.5 text-sm leading-relaxed text-ink-muted">{w.desc}</p>
+                <div className="flex flex-col gap-1">
+                  <h3 className="font-heading text-base font-semibold text-ink">{w.title}</h3>
+                  <p className="text-sm leading-relaxed text-ink-muted">{w.desc}</p>
+                </div>
+                </div>
+                
               </div>
             ))}
           </div>
@@ -716,29 +695,6 @@ export default function ContactPage() {
                 </summary>
                 <p className="mt-3 text-sm leading-relaxed text-ink-muted">{f.a}</p>
               </details>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Address + Social */}
-      <section className="section-padding-sm bg-sand">
-        <div className="container-site text-center">
-          <div className="mb-6 flex items-center justify-center gap-2 text-ink-body">
-            <MapPin className="h-5 w-5 text-moss-600" />
-            <span className="font-semibold">{SITE_CONFIG.address}</span>
-          </div>
-          <div className="flex flex-wrap items-center justify-center gap-6">
-            {Object.entries(SITE_CONFIG.social).map(([key, url]) => (
-              <a
-                key={key}
-                href={url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-sm font-semibold capitalize text-ink-muted transition-colors hover:text-moss-600"
-              >
-                {key}
-              </a>
             ))}
           </div>
         </div>

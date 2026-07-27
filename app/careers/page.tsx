@@ -50,10 +50,9 @@ export default function CareersPage() {
     <main className="bg-paper pt-[var(--navbar-height)]">
       {/* ── Hero ── */}
       <section className="relative overflow-hidden py-20">
-        <div aria-hidden className="absolute inset-0 dot-grid opacity-40" />
         <div aria-hidden className="hero-glow left-1/2 -top-24 h-[360px] w-[680px] max-w-[130vw] -translate-x-1/2 bg-moss-400/10" />
-        <div className="container-site relative z-10 mx-auto max-w-3xl text-center">
-          <motion.div initial={reduce ? false : { opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: reduce ? 0 : 0.6, ease: [0.22, 1, 0.36, 1] }}>
+        <div className="container-site relative z-10">
+          <motion.div initial={reduce ? false : { opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: reduce ? 0 : 0.6, ease: [0.22, 1, 0.36, 1] }} className="mx-auto max-w-3xl text-center">
             <span className="eyebrow">{content.hero.eyebrow}</span>
             <h1 className="heading-display mt-4">{content.hero.title}</h1>
             <p className="text-body-lg mx-auto mt-5 max-w-xl">{content.hero.subtitle}</p>

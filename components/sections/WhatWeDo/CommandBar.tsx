@@ -5,14 +5,13 @@ import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import {
   Sparkles,
   ChevronDown,
-  Loader2,
   ArrowRight,
   Building2,
   Check,
 } from "lucide-react";
-import toast from "react-hot-toast";
 import { cn } from "@/lib/utils";
 import { TABS, BUSINESS_TYPES, type TabId } from "./data";
+import BriefModal from "./BriefModal";
 
 /* ════════════════════════════════════════════════════════════════
    COMMAND BAR
@@ -41,27 +40,23 @@ export default function CommandBar({
   requirement: string;
   onRequirementChange: (v: string) => void;
 }) {
-  const [isLoading, setIsLoading] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
 
-  /* No backend yet. The shape is deliberately the same as ContactForm's
-     submit — loading flag, toast, reset — so wiring this to the AI
-     assistant later is a matter of replacing the body, not the component. */
-  async function handleSubmit(e: React.FormEvent) {
+  function openModal() {
+    setModalOpen(true);
+  }
+
+  /* The bar collects nothing itself — every path (field, Enter, Submit)
+     opens the brief dialog, which owns the real form and POSTs it. */
+  function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    if (!requirement.trim()) {
-      toast.error("Tell us a little about your project first.");
-      return;
-    }
-    setIsLoading(true);
-    await new Promise((r) => setTimeout(r, 900));
-    setIsLoading(false);
-    toast.success("Thanks — we'll come back with a tailored recommendation.");
-    onRequirementChange("");
+    openModal();
   }
 
   const activeTab = TABS.find((t) => t.id === tab)!;
 
   return (
+    <>
     <form
       onSubmit={handleSubmit}
       className="flex items-center gap-2 sm:gap-3"
@@ -119,13 +114,25 @@ export default function CommandBar({
                    focus-within:border-moss-500 focus-within:shadow-card-hover"
       >
         <Sparkles className="h-4 w-4 flex-shrink-0 text-moss-600" />
+        {/* Read-only launcher — no inline typing, so no mobile keyboard.
+            Enter submits the form; Space is handled here since readOnly eats it. */}
         <input
           type="text"
           value={requirement}
-          onChange={(e) => onRequirementChange(e.target.value)}
+          readOnly
+          role="button"
+          aria-haspopup="dialog"
+          aria-expanded={modalOpen}
+          onClick={openModal}
+          onKeyDown={(e) => {
+            if (e.key === " ") {
+              e.preventDefault();
+              openModal();
+            }
+          }}
           placeholder="Tell us about your business or project…"
           aria-label="Your business or project requirements"
-          className="min-w-0 flex-1 bg-transparent text-sm text-ink outline-none placeholder:text-ink-faint"
+          className="min-w-0 flex-1 cursor-pointer bg-transparent text-sm text-ink outline-none placeholder:text-ink-faint"
         />
 
         <span aria-hidden className="hidden h-6 w-px flex-shrink-0 bg-hairline lg:block" />
@@ -196,22 +203,24 @@ export default function CommandBar({
       {/* ── Submit ── */}
       <button
         type="submit"
-        disabled={isLoading}
+        aria-haspopup="dialog"
         className="flex h-[52px] flex-shrink-0 items-center justify-center gap-2 rounded-full bg-ink
                    px-4 text-sm font-semibold text-paper transition-[background-color,transform]
-                   duration-200 hover:bg-ink-body active:scale-[0.98]
-                   disabled:cursor-not-allowed disabled:opacity-60 sm:px-5"
+                   duration-200 hover:bg-ink-body active:scale-[0.98] sm:px-5"
       >
-        {isLoading ? (
-          <Loader2 className="h-4 w-4 animate-spin" />
-        ) : (
-          <>
-            {/* Label on desktop; a send arrow alone where the bar is tight */}
-            <span className="hidden sm:inline">Submit</span>
-            <ArrowRight className="h-4 w-4" />
-          </>
-        )}
+        {/* Label on desktop; a send arrow alone where the bar is tight */}
+        <span className="hidden sm:inline">Submit</span>
+        <ArrowRight className="h-4 w-4" />
       </button>
     </form>
+
+    <BriefModal
+      open={modalOpen}
+      onOpenChange={setModalOpen}
+      initialMessage={requirement}
+      businessType={businessType}
+      onSubmitted={() => onRequirementChange("")}
+    />
+    </>
   );
 }

@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import SmoothImage from "@/components/ui/SmoothImage";
 import { SERVICE_SCENES } from "@/components/illustrations/scenes";
 import type { GalleryKind } from "@/lib/case-study-details";
 import type { CaseStudy } from "@/lib/constants";
@@ -24,10 +25,25 @@ export default function MockScreen({
   study,
   className,
 }: {
-  item: { label: string; kind: GalleryKind };
+  item: { label: string; kind: GalleryKind; src?: string };
   study: CaseStudy;
   className?: string;
 }) {
+  // A real screenshot we own beats any mockup — render it straight,
+  // with the shimmer treatment so big captures never pop in from blank.
+  if (item.src) {
+    return (
+      <div className={cn("relative h-full w-full overflow-hidden bg-sand", className)}>
+        <SmoothImage
+          src={item.src}
+          alt={item.label}
+          sizes="(max-width: 1024px) 100vw, 66vw"
+          className="object-cover object-top"
+        />
+      </div>
+    );
+  }
+
   return (
     <div className={cn("h-full w-full", className)}>
       {item.kind === "desktop" && <DesktopScreen study={study} label={item.label} />}

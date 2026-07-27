@@ -1,165 +1,55 @@
 "use client";
-
 import { useState, useEffect, useRef, useCallback } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
-import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
-import { Menu, X, ChevronDown, ArrowRight } from "lucide-react";
-import { PRIMARY_NAV, MORE_NAV } from "@/lib/constants";
+import { Menu, X, ChevronDown, ArrowRight, Search } from "lucide-react";
+import {
+  SERVICE_ROWS,
+  CATEGORY_ROWS,
+  TECH_ROWS,
+  type NavRow,
+  type RailId,
+} from "@/lib/navigation";
+import MegaPanel, { SearchResults } from "./MegaMenu";
 import UserMenu from "./UserMenu";
+import { isAdmin, logout } from "@/lib/api";
+import { useAuthUser, resetAuthUserCache } from "@/hooks/useAuthUser";
 import { cn } from "@/lib/utils";
 
-type NavChild = { label: string; href: string };
-
-/* ── Shared item styling, so desktop and mobile never drift apart ── */
+/* ── Shared item styling, so desktop states never drift apart ────── */
 const topItem =
-  "flex items-center gap-1 whitespace-nowrap rounded-full px-3.5 py-2 text-sm font-medium transition-colors duration-150";
-const topItemOn = "bg-sand font-semibold text-ink";
-const topItemOff = "text-ink-muted hover:bg-sand/70 hover:text-ink";
+  "flex items-center gap-1.5 whitespace-nowrap px-3 py-2 xl:px-5 xl:py-2.5 text-sm xl:text-base font-medium transition-colors duration-150";
+const topItemOn =
+  "font-semibold text-ink border-b-2 border-moss-600 shadow-none";
+const topItemOff =
+  "text-ink-muted hover:bg-moss-600/50 hover:text-ink rounded-full transition-all duration-150";
+/* Trigger whose panel is currently open — a filled pill, not the
+   page-active underline. */
+const topItemOpen = "rounded-full bg-sand font-semibold text-ink";
 
-/* ════════════════════════════════════════════════════════════════
-   DESKTOP DROPDOWN
+const SEARCH_PLACEHOLDER = "Search services, projects, technologies…";
 
-   Radix, not hand-rolled. The old menus could not be opened by keyboard
-   at all, never unmounted (so twenty invisible items sat in the tab
-   order), and had no Escape or outside-click. Radix gives all of that,
-   plus aria-expanded/haspopup and focus return, for free.
+type BrowseTrigger = "services" | "work";
 
-   Controlled open state layers hover-to-open on top — but only where a
-   real pointer exists, so a tap on touch does not fight the click.
-════════════════════════════════════════════════════════════════ */
-function NavDropdown({
+/* ── Mobile: one accordion group ─────────────────────────────────── */
+function MobileSection({
   label,
-  items,
-  active,
-  isChildActive,
+  children,
 }: {
   label: string;
-  items: readonly NavChild[];
-  active: boolean;
-  isChildActive: (href: string) => boolean;
-}) {
-  const [open, setOpen] = useState(false);
-  const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const hoverable = useRef(false);
-
-  useEffect(() => {
-    hoverable.current = window.matchMedia(
-      "(hover: hover) and (pointer: fine)",
-    ).matches;
-    return () => {
-      if (timer.current) clearTimeout(timer.current);
-    };
-  }, []);
-
-  const cancel = () => {
-    if (timer.current) {
-      clearTimeout(timer.current);
-      timer.current = null;
-    }
-  };
-  const hoverOpen = () => {
-    if (!hoverable.current) return;
-    cancel();
-    setOpen(true);
-  };
-  // A short grace period, so crossing the gap from trigger to panel
-  // does not snap the menu shut under the cursor.
-  const hoverClose = () => {
-    if (!hoverable.current) return;
-    cancel();
-    timer.current = setTimeout(() => setOpen(false), 130);
-  };
-
-  return (
-    <DropdownMenu.Root open={open} onOpenChange={setOpen} modal={false}>
-      <div
-        className="relative"
-        onPointerEnter={hoverOpen}
-        onPointerLeave={hoverClose}
-      >
-        <DropdownMenu.Trigger asChild>
-          <button className={cn(topItem, active ? topItemOn : topItemOff)}>
-            {label}
-            <ChevronDown
-              className={cn(
-                "h-3.5 w-3.5 transition-transform duration-200",
-                open && "rotate-180",
-              )}
-            />
-          </button>
-        </DropdownMenu.Trigger>
-
-        <DropdownMenu.Portal>
-          <DropdownMenu.Content
-            align="center"
-            sideOffset={12}
-            onPointerEnter={hoverOpen}
-            onPointerLeave={hoverClose}
-            className="z-[60] w-64 origin-[var(--radix-dropdown-menu-content-transform-origin)]
-                       rounded-2xl border border-hairline bg-paper-raised p-1.5 shadow-float
-                       data-[state=open]:animate-scale-in data-[state=closed]:animate-scale-out"
-          >
-            {items.map((child) => {
-              const on = isChildActive(child.href);
-              return (
-                <DropdownMenu.Item key={child.href} asChild>
-                  <Link
-                    href={child.href}
-                    className={cn(
-                      "flex cursor-pointer select-none items-center gap-2.5 rounded-xl px-3 py-2.5 text-sm font-medium outline-none transition-colors",
-                      on
-                        ? "bg-sand font-semibold text-ink"
-                        : "text-ink-body data-[highlighted]:bg-sand/60 data-[highlighted]:text-ink",
-                    )}
-                  >
-                    <span
-                      className={cn(
-                        "h-1.5 w-1.5 flex-shrink-0 rounded-full",
-                        on ? "bg-moss-400" : "bg-hairline-strong",
-                      )}
-                    />
-                    {child.label}
-                  </Link>
-                </DropdownMenu.Item>
-              );
-            })}
-          </DropdownMenu.Content>
-        </DropdownMenu.Portal>
-      </div>
-    </DropdownMenu.Root>
-  );
-}
-
-/* ── Mobile accordion group ─────────────────────────────────────── */
-function MobileGroup({
-  label,
-  items,
-  active,
-  isChildActive,
-  onNavigate,
-}: {
-  label: string;
-  items: readonly NavChild[];
-  active: boolean;
-  isChildActive: (href: string) => boolean;
-  onNavigate: () => void;
+  children: React.ReactNode;
 }) {
   const [open, setOpen] = useState(false);
 
   return (
     <div>
       <button
+        type="button"
         onClick={() => setOpen((v) => !v)}
         aria-expanded={open}
-        className={cn(
-          "flex w-full items-center justify-between rounded-2xl px-4 py-3.5 text-sm font-medium transition-colors",
-          active
-            ? "bg-sand font-semibold text-ink"
-            : "text-ink-body hover:bg-sand/60 hover:text-ink",
-        )}
+        className="flex w-full items-center justify-between rounded-2xl px-4 py-3.5 text-sm font-medium text-ink-body transition-colors hover:bg-sand/60 hover:text-ink"
       >
         <span>{label}</span>
         <ChevronDown
@@ -176,31 +66,8 @@ function MobileGroup({
             transition={{ duration: 0.22, ease: [0.4, 0, 0.2, 1] }}
             className="overflow-hidden"
           >
-            <div className="ml-3 mt-1 flex flex-col gap-0.5">
-              {items.map((child) => {
-                const on = isChildActive(child.href);
-                return (
-                  <Link
-                    key={child.href}
-                    href={child.href}
-                    onClick={onNavigate}
-                    className={cn(
-                      "flex items-center gap-2.5 rounded-2xl px-4 py-3 text-sm font-medium transition-colors",
-                      on
-                        ? "bg-sand font-semibold text-ink"
-                        : "text-ink-body hover:bg-sand/60 hover:text-ink",
-                    )}
-                  >
-                    <span
-                      className={cn(
-                        "h-1.5 w-1.5 flex-shrink-0 rounded-full",
-                        on ? "bg-moss-400" : "bg-hairline-strong",
-                      )}
-                    />
-                    {child.label}
-                  </Link>
-                );
-              })}
+            <div className="ml-3 mt-1 flex flex-col gap-0.5 pb-1">
+              {children}
             </div>
           </motion.div>
         )}
@@ -209,18 +76,58 @@ function MobileGroup({
   );
 }
 
+function MobileRow({ row, onNavigate }: { row: NavRow; onNavigate: () => void }) {
+  return (
+    <Link
+      href={row.href}
+      onClick={onNavigate}
+      className="flex items-center justify-between gap-3 rounded-2xl px-4 py-3 text-sm font-medium text-ink-body transition-colors hover:bg-sand/60 hover:text-ink"
+    >
+      <span className="min-w-0 truncate">{row.label}</span>
+      {row.count !== undefined && (
+        <span className="flex-shrink-0 text-xs tabular-nums text-ink-muted">
+          {row.count}
+        </span>
+      )}
+    </Link>
+  );
+}
+
 /* ════════════════════════════════════════════════════════════════ */
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [activeHash, setActiveHash] = useState("");
+  const [mobileQuery, setMobileQuery] = useState("");
   const pathname = usePathname();
+  const router = useRouter();
+  // Session state for the mobile panel; UserMenu shares the same
+  // cached check, so this never double-fetches.
+  const { user, checked } = useAuthUser();
+
+  /* Mega panel state. One panel serves three openers (two nav
+     triggers + the search field); openTrigger is the single source of
+     truth for open/mode, lastTrigger is where focus returns. */
+  const [openTrigger, setOpenTrigger] = useState<
+    BrowseTrigger | "search" | null
+  >(null);
+  const [rail, setRail] = useState<RailId>("services");
+  const [query, setQuery] = useState("");
+  const lastTrigger = useRef<HTMLElement | null>(null);
+
+  const megaOpen = openTrigger !== null;
+  const searching = openTrigger === "search";
+
+  const servicesBtnRef = useRef<HTMLButtonElement>(null);
+  const workBtnRef = useRef<HTMLButtonElement>(null);
+  const searchRef = useRef<HTMLInputElement>(null);
+  /* Programmatic re-focus of the search input must not re-open the
+     panel we just closed — this flag swallows exactly one focus. */
+  const ignoreFocus = useRef(false);
 
   const panelRef = useRef<HTMLDivElement>(null);
   const burgerRef = useRef<HTMLButtonElement>(null);
 
-  /* Elevation on scroll. This state existed before but was never read —
-     the listener ran on every scroll event and drove nothing. */
+  /* Elevation on scroll. */
   useEffect(() => {
     let frame = 0;
     const onScroll = () => {
@@ -238,37 +145,101 @@ export default function Navbar() {
     };
   }, []);
 
+  const closeMega = useCallback((focusBack: boolean) => {
+    setOpenTrigger(null);
+    if (focusBack && lastTrigger.current) {
+      if (
+        lastTrigger.current === searchRef.current &&
+        document.activeElement !== searchRef.current
+      ) {
+        ignoreFocus.current = true;
+      }
+      lastTrigger.current.focus();
+    }
+  }, []);
+
+  /* Route change closes everything (without yanking focus around). */
   useEffect(() => {
-    const syncHash = () => setActiveHash(window.location.hash);
-    syncHash();
-    window.addEventListener("hashchange", syncHash);
-    return () => window.removeEventListener("hashchange", syncHash);
+    setOpenTrigger(null);
+    setMobileOpen(false);
+    setQuery("");
+    setMobileQuery("");
   }, [pathname]);
 
-  useEffect(() => setMobileOpen(false), [pathname]);
-
+  /* One overlay at a time owns the page scroll. */
   useEffect(() => {
-    document.body.style.overflow = mobileOpen ? "hidden" : "";
+    document.body.style.overflow = mobileOpen || megaOpen ? "hidden" : "";
     return () => {
       document.body.style.overflow = "";
     };
-  }, [mobileOpen]);
+  }, [mobileOpen, megaOpen]);
+
+  /* Crossing the lg breakpoint closes the overlay that no longer
+     renders there, so the scroll lock and aria state can't go stale. */
+  useEffect(() => {
+    const mq = window.matchMedia("(min-width: 1024px)");
+    const onChange = (e: MediaQueryListEvent) => {
+      if (e.matches) setMobileOpen(false);
+      else setOpenTrigger(null);
+    };
+    mq.addEventListener("change", onChange);
+    return () => mq.removeEventListener("change", onChange);
+  }, []);
+
+  /* Escape closes the mega panel and hands focus back to its opener. */
+  useEffect(() => {
+    if (!megaOpen) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") closeMega(true);
+    };
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, [megaOpen, closeMega]);
+
+  const openSearchPanel = useCallback(() => {
+    lastTrigger.current = searchRef.current;
+    setOpenTrigger("search");
+  }, []);
+
+  const toggleBrowse = useCallback(
+    (which: BrowseTrigger, el: HTMLElement | null) => {
+      if (openTrigger === which) {
+        closeMega(true);
+        return;
+      }
+      lastTrigger.current = el;
+      setRail(which === "services" ? "services" : "category");
+      setOpenTrigger(which);
+    },
+    [openTrigger, closeMega],
+  );
+
+  /* Picking a rail entry always lands in browse mode — it is the way
+     back out of search results. */
+  const handleRail = useCallback((r: RailId) => {
+    setRail(r);
+    setOpenTrigger((t) =>
+      t === "search" ? (r === "services" ? "services" : "work") : t,
+    );
+  }, []);
 
   const closeMobile = useCallback(() => {
     setMobileOpen(false);
     burgerRef.current?.focus();
   }, []);
 
-  /* Escape closes, and Tab cycles inside the panel instead of walking
-     into the page behind it. */
+  /* Escape closes, and Tab cycles inside the mobile panel instead of
+     walking into the page behind it. */
   useEffect(() => {
     if (!mobileOpen) return;
     const panel = panelRef.current;
     if (!panel) return;
 
     const SEL =
-      'a[href],button:not([disabled]),[tabindex]:not([tabindex="-1"])';
-    panel.querySelector<HTMLElement>(SEL)?.focus();
+      'a[href],button:not([disabled]),input,[tabindex]:not([tabindex="-1"])';
+    // Focus the panel itself, not its first input — auto-focusing an
+    // input pops the soft keyboard on touch devices.
+    panel.focus();
 
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
@@ -276,13 +247,16 @@ export default function Navbar() {
         return;
       }
       if (e.key !== "Tab") return;
-      const items = Array.from(
-        panel.querySelectorAll<HTMLElement>(SEL),
-      ).filter((el) => el.offsetParent !== null);
+      const items = Array.from(panel.querySelectorAll<HTMLElement>(SEL)).filter(
+        (el) => el.offsetParent !== null,
+      );
       if (!items.length) return;
       const first = items[0];
       const last = items[items.length - 1];
-      if (e.shiftKey && document.activeElement === first) {
+      if (
+        e.shiftKey &&
+        (document.activeElement === first || document.activeElement === panel)
+      ) {
         e.preventDefault();
         last.focus();
       } else if (!e.shiftKey && document.activeElement === last) {
@@ -299,96 +273,162 @@ export default function Navbar() {
     return pathname === href || pathname.startsWith(href + "/");
   }
 
-  /* A child is active on an exact hash match, or — when it has no hash —
-     on a plain path match. The old version only ever checked the hash, so
-     landing on /services with no fragment highlighted nothing. */
-  function isChildActive(href: string) {
-    const [path, hash] = href.split("#");
-    const pathMatches = pathname === path || pathname === path + "/";
-    return hash ? pathMatches && activeHash === "#" + hash : pathMatches;
-  }
-
-  const moreActive = MORE_NAV.some((l) => isActive(l.href));
-
   // Hide the marketing navbar on the authenticated app routes.
+  // (/portfolio is a marketing page — the navbar shows there.)
   const APP_PREFIXES = ["/login", "/register", "/dashboard", "/admin"];
-  if (APP_PREFIXES.some((p) => pathname === p || pathname.startsWith(p + "/"))) {
+  if (
+    APP_PREFIXES.some((p) => pathname === p || pathname.startsWith(p + "/"))
+  ) {
     return null;
   }
 
+  const servicesOpen = openTrigger === "services";
+  const workOpen = openTrigger === "work";
+
   return (
     <header
-      className="fixed left-0 right-0 top-0 z-50 px-4 sm:px-6"
-      style={{ height: "var(--navbar-height)", paddingTop: 12, paddingBottom: 12 }}
+      className="fixed left-0 right-0 top-0 z-50 w-full"
+      style={{ height: "var(--navbar-height)", paddingBottom: 12 }}
     >
-      {/* ── Floating pill. It had no border-radius, no shadow and a
-             default-grey border — a "pill" in name only. ── */}
       <div
+        onClick={(e) => {
+          // Blank bar space is outside the menu too — close on it.
+          if (megaOpen && e.target === e.currentTarget) closeMega(false);
+        }}
         className={cn(
-          "mx-auto flex w-full max-w-[1240px] items-center rounded-full border px-3 py-2 sm:px-4",
-          "transition-[background-color,border-color,box-shadow] duration-300",
-          scrolled
-            ? "border-hairline bg-paper-raised/85 shadow-float backdrop-blur-xl backdrop-saturate-150"
-            : "border-hairline/60 bg-paper-raised/70 shadow-card backdrop-blur-md",
+          "mx-auto flex w-full items-center gap-2 border-b px-5 py-5 sm:px-4 outline-none",
+          "transition-[background-color,border-color,box-shadow] duration-300 bg-paper",
+          scrolled ? "border-hairline shadow-card" : "border-transparent",
         )}
       >
-        {/* Logo — flex-1 on both flanks is what keeps the nav truly centred,
-            rather than merely "centred if the two sides happen to match". */}
-        <div className="flex flex-1 justify-start">
-          <Link href="/" className="flex flex-shrink-0 items-center pl-1.5">
+        {/* flex-shrink-0: the logo paints ~256px wide; letting this wrapper
+            shrink slid the nav items underneath it at lg widths. */}
+        <div className="flex flex-shrink-0 items-center justify-start outline-none">
+          <Link href="/" className="flex-shrink-0 outline-none">
             <Image
-              src="/images/logo.png"
+              src="/images/g_logo2.png"
               alt="GrownetAI"
-              width={140}
-              height={36}
+              width={150}
+              height={8}
               priority
-              className="h-8 w-auto"
+              className="block w-full lg:h-full h-10 object-cover"
             />
           </Link>
         </div>
 
         {/* ── Desktop nav ── */}
         <nav className="hidden flex-none items-center gap-0.5 lg:flex">
-          {PRIMARY_NAV.map((link) =>
-            "children" in link && link.children ? (
-              <NavDropdown
-                key={link.label}
-                label={link.label}
-                items={link.children}
-                active={isActive(link.href)}
-                isChildActive={isChildActive}
-              />
-            ) : (
-              <Link
-                key={link.href}
-                href={link.href}
-                className={cn(
-                  topItem,
-                  isActive(link.href) ? topItemOn : topItemOff,
-                )}
-              >
-                {link.label}
-              </Link>
-            ),
-          )}
+          <button
+            ref={servicesBtnRef}
+            type="button"
+            onClick={() => toggleBrowse("services", servicesBtnRef.current)}
+            aria-expanded={servicesOpen}
+            aria-controls="mega-panel"
+            aria-haspopup="true"
+            className={cn(
+              topItem,
+              servicesOpen
+                ? topItemOpen
+                : isActive("/services")
+                  ? topItemOn
+                  : topItemOff,
+            )}
+          >
+            Explore Services
+            <ChevronDown
+              className={cn(
+                "h-3.5 w-3.5 transition-transform duration-200",
+                servicesOpen && "rotate-180",
+              )}
+            />
+          </button>
 
-          <NavDropdown
-            label="More"
-            items={MORE_NAV}
-            active={moreActive}
-            isChildActive={isChildActive}
-          />
+          <Link
+            href="/about"
+            className={cn(topItem, isActive("/about") ? topItemOn : topItemOff)}
+          >
+            About
+          </Link>
+
+          <button
+            ref={workBtnRef}
+            type="button"
+            onClick={() => toggleBrowse("work", workBtnRef.current)}
+            aria-expanded={workOpen}
+            aria-controls="mega-panel"
+            aria-haspopup="true"
+            className={cn(
+              topItem,
+              workOpen
+                ? topItemOpen
+                : isActive("/portfolio")
+                  ? topItemOn
+                  : topItemOff,
+            )}
+          >
+            Work
+            <ChevronDown
+              className={cn(
+                "h-3.5 w-3.5 transition-transform duration-200",
+                workOpen && "rotate-180",
+              )}
+            />
+          </button>
+
+          <Link
+            href="/contact"
+            className={cn(
+              topItem,
+              isActive("/contact") ? topItemOn : topItemOff,
+            )}
+          >
+            Hire Us
+          </Link>
         </nav>
 
-        {/* ── Right cluster: two actions, like the reference ── */}
-        <div className="flex flex-1 items-center justify-end gap-1">
-          {/* "Sign in" when signed out; the user's avatar when signed in. */}
+        {/* ── Search — the wide pill in the middle ── */}
+        <div className="relative mx-2 hidden min-w-[170px] flex-1 lg:mx-3 lg:block">
+          <Search className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-ink-faint" />
+          <input
+            ref={searchRef}
+            type="search"
+            value={query}
+            placeholder={SEARCH_PLACEHOLDER}
+            aria-label="Search the site"
+            aria-expanded={searching}
+            aria-controls="mega-panel"
+            onFocus={() => {
+              if (ignoreFocus.current) {
+                ignoreFocus.current = false;
+                return;
+              }
+              openSearchPanel();
+            }}
+            onClick={() => {
+              if (!searching) openSearchPanel();
+            }}
+            onChange={(e) => {
+              setQuery(e.target.value);
+              if (!searching) openSearchPanel();
+            }}
+            onKeyDown={(e) => {
+              // Close but keep typing position — Escape must not
+              // bounce focus (which would instantly re-open).
+              if (e.key === "Escape") closeMega(false);
+            }}
+            className="w-full rounded-full bg-sand py-3 pl-11 pr-4 text-sm text-ink outline-none transition-shadow placeholder:text-ink-faint focus:ring-2 focus:ring-moss-400/60"
+          />
+        </div>
+
+        {/* ── Right cluster ── */}
+        <div className="ml-auto flex flex-none items-center justify-end gap-3">
+          {/* Log in / Sign up when signed out; avatar menu when signed in. */}
           <UserMenu />
           <Link
             href="/dashboard"
-            className="group hidden items-center gap-1.5 whitespace-nowrap rounded-full bg-ink px-5 py-2.5 text-sm font-semibold text-paper transition-colors duration-200 hover:bg-gray-200 lg:inline-flex"
+            className="group hidden items-center gap-1.5 whitespace-nowrap rounded-full bg-ink px-4 py-4 text-sm font-semibold text-paper transition-colors duration-200 hover:bg-black/20   lg:inline-flex xl:px-5"
           >
-            See the Dashboard
+            See Growth
             <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5" />
           </Link>
 
@@ -408,12 +448,21 @@ export default function Navbar() {
         </div>
       </div>
 
+      {/* ── Desktop mega panel ── */}
+      <MegaPanel
+        open={megaOpen}
+        rail={rail}
+        searching={searching}
+        query={query}
+        onRail={handleRail}
+        onClose={() => closeMega(true)}
+        onNavigate={() => closeMega(false)}
+      />
+
       {/* ── Mobile menu ── */}
       <AnimatePresence>
         {mobileOpen && (
           <>
-            {/* The old menu had no backdrop at all, so a tap outside it did
-                nothing. */}
             <motion.div
               key="backdrop"
               initial={{ opacity: 0 }}
@@ -430,6 +479,7 @@ export default function Navbar() {
               role="dialog"
               aria-modal="true"
               aria-label="Menu"
+              tabIndex={-1}
               initial={{ opacity: 0, y: -8, scale: 0.98 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: -8, scale: 0.98 }}
@@ -440,58 +490,145 @@ export default function Navbar() {
               style={{ top: "var(--navbar-height)", left: 16, right: 16 }}
             >
               <div className="flex flex-col gap-1 p-3">
-                {PRIMARY_NAV.map((link) =>
-                  "children" in link && link.children ? (
-                    <MobileGroup
-                      key={link.label}
-                      label={link.label}
-                      items={link.children}
-                      active={isActive(link.href)}
-                      isChildActive={isChildActive}
-                      onNavigate={() => setMobileOpen(false)}
-                    />
-                  ) : (
-                    <Link
-                      key={link.href}
-                      href={link.href}
-                      onClick={() => setMobileOpen(false)}
-                      className={cn(
-                        "rounded-2xl px-4 py-3.5 text-sm font-medium transition-colors",
-                        isActive(link.href)
-                          ? "bg-sand font-semibold text-ink"
-                          : "text-ink-body hover:bg-sand/60 hover:text-ink",
-                      )}
-                    >
-                      {link.label}
-                    </Link>
-                  ),
-                )}
-
-                <MobileGroup
-                  label="More"
-                  items={MORE_NAV}
-                  active={moreActive}
-                  isChildActive={isChildActive}
-                  onNavigate={() => setMobileOpen(false)}
-                />
-
-                <div className="mt-2 flex flex-col gap-2 border-t border-hairline px-2 pb-1 pt-3">
-                  <Link
-                    href="/login"
-                    onClick={() => setMobileOpen(false)}
-                    className="rounded-full px-4 py-3 text-center text-sm font-medium text-ink-body transition-colors hover:bg-sand"
-                  >
-                    Sign in
-                  </Link>
-                  <Link
-                    href="/dashboard"
-                    onClick={() => setMobileOpen(false)}
-                    className="inline-flex items-center justify-center gap-1.5 rounded-full bg-ink px-4 py-3 text-center text-sm font-semibold text-paper transition-[background-color,transform] duration-200 hover:bg-ink-body active:scale-[0.98]"
-                  >
-                    See the Dashboard
-                    <ArrowRight className="h-4 w-4" />
-                  </Link>
+                <div className="relative mb-1">
+                  <Search className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-ink-faint" />
+                  <input
+                    type="search"
+                    value={mobileQuery}
+                    onChange={(e) => setMobileQuery(e.target.value)}
+                    placeholder={SEARCH_PLACEHOLDER}
+                    aria-label="Search the site"
+                    className="w-full rounded-full bg-sand py-3 pl-11 pr-4 text-sm text-ink outline-none transition-shadow placeholder:text-ink-faint focus:ring-2 focus:ring-moss-400/60"
+                  />
                 </div>
+
+                {mobileQuery.trim() ? (
+                  <SearchResults
+                    dense
+                    query={mobileQuery}
+                    onNavigate={() => setMobileOpen(false)}
+                  />
+                ) : (
+                  <>
+                    <MobileSection label="Explore Services">
+                      {SERVICE_ROWS.map((row) => (
+                        <MobileRow
+                          key={row.href}
+                          row={row}
+                          onNavigate={() => setMobileOpen(false)}
+                        />
+                      ))}
+                    </MobileSection>
+
+                    <MobileSection label="Work">
+                      <p className="eyebrow px-4 pb-1 pt-2">By Category</p>
+                      {CATEGORY_ROWS.map((row) => (
+                        <MobileRow
+                          key={row.href}
+                          row={row}
+                          onNavigate={() => setMobileOpen(false)}
+                        />
+                      ))}
+                      <p className="eyebrow px-4 pb-1 pt-3">By Technology</p>
+                      {TECH_ROWS.map((row) => (
+                        <MobileRow
+                          key={row.href}
+                          row={row}
+                          onNavigate={() => setMobileOpen(false)}
+                        />
+                      ))}
+                    </MobileSection>
+
+                    {[
+                      { label: "About", href: "/about" },
+                      { label: "Blog", href: "/blog" },
+                      { label: "Hire Us", href: "/contact" },
+                    ].map((link) => (
+                      <Link
+                        key={link.href}
+                        href={link.href}
+                        onClick={() => setMobileOpen(false)}
+                        className={cn(
+                          "rounded-2xl px-4 py-3.5 text-sm font-medium transition-colors",
+                          isActive(link.href)
+                            ? "bg-sand font-semibold text-ink"
+                            : "text-ink-body hover:bg-sand/60 hover:text-ink",
+                        )}
+                      >
+                        {link.label}
+                      </Link>
+                    ))}
+
+                    <div className="mt-2 flex flex-col gap-2 border-t border-hairline pt-3">
+                      {/* Session-aware rows; nothing until the check lands. */}
+                      {checked &&
+                        (user ? (
+                          <div className="flex flex-col gap-0.5">
+                            <div className="px-4 pb-1 pt-2">
+                              <p className="truncate text-sm font-semibold text-ink">
+                                {user.name}
+                              </p>
+                              <p className="truncate text-xs text-ink-muted">
+                                {user.email}
+                              </p>
+                            </div>
+                            <Link
+                              href={isAdmin(user) ? "/admin" : "/dashboard"}
+                              onClick={() => setMobileOpen(false)}
+                              className="rounded-2xl px-4 py-3.5 text-sm font-medium text-ink-body transition-colors hover:bg-sand/60 hover:text-ink"
+                            >
+                              {isAdmin(user) ? "Admin panel" : "My dashboard"}
+                            </Link>
+                            <Link
+                              href="/dashboard/settings"
+                              onClick={() => setMobileOpen(false)}
+                              className="rounded-2xl px-4 py-3.5 text-sm font-medium text-ink-body transition-colors hover:bg-sand/60 hover:text-ink"
+                            >
+                              Profile settings
+                            </Link>
+                            <button
+                              type="button"
+                              onClick={async () => {
+                                await logout();
+                                resetAuthUserCache();
+                                setMobileOpen(false);
+                                router.push("/");
+                                router.refresh();
+                              }}
+                              className="rounded-2xl px-4 py-3.5 text-left text-sm font-medium text-rose-700 transition-colors hover:bg-rose-500/10"
+                            >
+                              Sign out
+                            </button>
+                          </div>
+                        ) : (
+                          <div className="grid grid-cols-2 gap-2">
+                            <Link
+                              href="/login"
+                              onClick={() => setMobileOpen(false)}
+                              className="rounded-full border border-hairline px-4 py-3 text-center text-sm font-medium text-ink-body transition-colors hover:bg-sand"
+                            >
+                              Log in
+                            </Link>
+                            <Link
+                              href="/register"
+                              onClick={() => setMobileOpen(false)}
+                              className="rounded-full border border-hairline px-4 py-3 text-center text-sm font-medium text-ink-body transition-colors hover:bg-sand"
+                            >
+                              Sign up
+                            </Link>
+                          </div>
+                        ))}
+                      <Link
+                        href="/dashboard"
+                        onClick={() => setMobileOpen(false)}
+                        className="group inline-flex items-center justify-center gap-1.5 rounded-full bg-ink px-4 py-4 text-center text-base font-semibold text-paper transition-[background-color,transform] duration-200 hover:bg-forest-ink active:scale-[0.98]"
+                      >
+                        See Growth
+                        <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5" />
+                      </Link>
+                    </div>
+                  </>
+                )}
               </div>
             </motion.div>
           </>

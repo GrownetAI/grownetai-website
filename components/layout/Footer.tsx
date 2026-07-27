@@ -20,7 +20,7 @@ const COMPANY_LINKS = [
   { label: "About Us", href: "/about" },
   { label: "Portfolio", href: "/portfolio" },
   { label: "Blog", href: "/blog" },
-  { label: "Pricing", href: "/pricing" },
+  // { label: "Pricing", href: "/pricing" },
   { label: "FAQ", href: "/faq" },
   { label: "Contact", href: "/contact" },
 ];
@@ -54,23 +54,25 @@ export default function Footer() {
 
   // Hide the marketing footer on the authenticated app routes.
   const APP_PREFIXES = ["/login", "/register", "/dashboard", "/admin"];
-  if (APP_PREFIXES.some((p) => pathname === p || pathname.startsWith(p + "/"))) {
+  if (
+    APP_PREFIXES.some((p) => pathname === p || pathname.startsWith(p + "/"))
+  ) {
     return null;
   }
 
   return (
-    <footer className="aurora-footer text-paper">
-      <div className="container-site py-16 lg:py-20">
+    <footer className="aurora-footer text-paper xl:px-8">
+      <div className="container-site py-16 lg:py-20 max-w-full mx-0">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-12">
           {/* Col 1: Brand */}
           <div className="lg:col-span-1">
-            <Link href="/" className="inline-block mb-5">
+            <Link href="/" className="inline-block mb-5 px-4 py-3 bg-sand rounded-full">
               <Image
-                src="/images/logo.png"
+                src="/images/g_logo2.png"
                 alt="GrownetAI"
                 width={150}
                 height={42}
-                className="h-10 w-auto brightness-0 invert"
+                className="h-10 w-auto"
               />
             </Link>
             <p className="text-paper/70 text-sm leading-relaxed mb-6">

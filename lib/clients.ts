@@ -16,7 +16,7 @@ export interface Client {
 }
 
 export const CLIENTS: Client[] = [
-  { name: "FreshBite", logo: "/images/clientsLogo/DRIVMAN LOGO 1080X1080.png" },
+  { name: "DRIVMAN", logo: "/images/clientsLogo/drivmanlogo.png" },
   { name: "Rangriti" },
   { name: "More Coming Soon...", },
 ];

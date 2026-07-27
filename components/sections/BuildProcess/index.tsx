@@ -45,27 +45,26 @@ export default function BuildProcess() {
   const reduce = useReducedMotion();
 
   return (
-    <section className="section-padding relative overflow-hidden bg-sand">
+    <section className="section-padding relative overflow-hidden bg-sand w-full xl:px-8">
       <div aria-hidden className="absolute inset-0 dot-grid opacity-30" />
       <div
         aria-hidden
-        className="hero-glow left-1/2 top-24 h-[420px] w-[820px] max-w-[120vw] -translate-x-1/2 bg-moss-400/[0.06]"
+        className="hero-glow left-1/2 top-24 h-[420px] max-w-full w-full -translate-x-1/2 bg-moss-400/[0.06]"
       />
 
-      <div className="container-site relative z-10">
+      <div className="container-site relative z-10 max-w-full mx-0">
         {/* Header */}
-        <div className="mx-auto mb-12 max-w-2xl text-center lg:mb-14">
-          <h2 className="heading-section mt-3">
-            How we build your Business
-          </h2>
+        <div className="mx-auto mb-12 max-w-2xl text-center lg:mb-14 w-full">
+          <h2 className="heading-section mt-3">How we build your Business</h2>
           <p className="text-body-lg mx-auto mt-5 max-w-xl">
-            One end-to-end system — identity, protection, product, growth and the
-            automation that keeps it running. Nine stages, built to compound.
+            One end-to-end system — identity, protection, product, growth and
+            the automation that keeps it running. Nine stages, built to
+            compound.
           </p>
         </div>
 
         {/* Bento grid */}
-        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4 lg:auto-rows-[minmax(10rem,1fr)]">
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4 lg:auto-rows-[minmax(10rem,1fr)] xl:max-w-full xl:w-full">
           {BUILD_STEPS.map((step, i) => (
             <motion.div
               key={step.n}
@@ -86,9 +85,9 @@ export default function BuildProcess() {
 
         {/* Close */}
         <div className="mt-12 flex flex-col items-center gap-4 text-center lg:mt-14">
-          <p className="max-w-md text-ink-body">
-            From a name on a napkin to a business that runs itself — we walk every
-            stage of it with you.
+          <p className="max-w-full text-ink-body">
+            From a name on a napkin to a business that runs itself — we walk
+            every stage of it with you.
           </p>
           <Link href="/contact" className="btn btn-primary">
             Start your journey
@@ -148,7 +147,9 @@ function BentoCard({ step }: { step: BuildStep }) {
           <h3 className="mt-3 font-heading text-base font-semibold text-ink">
             {step.title}
           </h3>
-          <p className="mt-1 text-sm leading-snug text-ink-muted">{step.lead}</p>
+          <p className="mt-1 text-sm leading-snug text-ink-muted">
+            {step.lead}
+          </p>
         </div>
       ) : feature ? (
         /* ── Feature: big illustration, heading, lead, full highlights ── */

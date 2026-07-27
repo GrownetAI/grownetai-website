@@ -4,6 +4,7 @@ import { Toaster } from "react-hot-toast";
 import "../styles/globals.css";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
+import FloatingHireUs from "@/components/layout/FloatingHireUs";
 
 // ─── Font Configuration ────────────────────────────────────────────────
 // Two typefaces, one family. Inter carries all UI and body copy; Inter Tight
@@ -226,6 +227,7 @@ if(t==='dark')document.documentElement.classList.add('dark');
         <Navbar />
 
         {children}
+        <FloatingHireUs />
         <Footer />
       </body>
     </html>

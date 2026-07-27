@@ -18,7 +18,8 @@ export default function PrivacyPage() {
         </div>
       </section>
       <section className="section-padding bg-paper">
-        <div className="container-site max-w-3xl mx-auto space-y-8 text-brand-slate-gray">
+        <div className="container-site">
+          <div className="max-w-3xl mx-auto space-y-8 text-brand-slate-gray">
           {[
             { title: "1. Information We Collect", body: `When you use ${SITE_CONFIG.name} or submit forms on our website, we may collect personal information including your name, email address, phone number, and business details. We also automatically collect usage data such as IP address, browser type, and pages visited.` },
             { title: "2. How We Use Your Information", body: "We use collected information to respond to inquiries, provide our services, send marketing communications (with your consent), improve our website, and comply with legal obligations. We never sell your personal data to third parties." },
@@ -32,6 +33,7 @@ export default function PrivacyPage() {
               <p className="leading-relaxed">{sec.body}</p>
             </div>
           ))}
+          </div>
         </div>
       </section>
     </main>
