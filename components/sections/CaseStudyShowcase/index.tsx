@@ -61,7 +61,7 @@ export default function CaseStudyShowcase() {
           role="tablist"
           aria-label="Case studies"
           onKeyDown={onKeyDown}
-          className="no-scrollbar -mx-5 flex snap-x snap-mandatory gap-2 overflow-x-auto scroll-pl-5 px-5 pb-1 sm:mx-0 sm:scroll-pl-0 sm:px-0 lg:flex-wrap lg:overflow-visible"
+          className="no-scrollbar -mx-6 flex snap-x snap-mandatory gap-2 overflow-x-auto scroll-pl-6 px-6 pb-1 sm:mx-0 sm:scroll-pl-0 sm:px-0 lg:flex-wrap lg:overflow-visible"
         >
           {CASE_STUDIES.map((c, i) => {
             const on = i === active;

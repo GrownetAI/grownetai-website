@@ -90,7 +90,7 @@ function OptionCard({
         ease: [0.22, 1, 0.36, 1],
       }}
       className={cn(
-        "flex flex-col rounded-3xl border border-hairline bg-paper-raised p-8",
+        "flex flex-col rounded-2xl border border-hairline bg-paper-raised p-8",
         /* faint dot-grid texture behind the card content, matching the
            reference's subtle background pattern */
         "bg-[radial-gradient(circle,theme(colors.ink/6%)_1px,transparent_1px)] bg-[length:16px_16px]",
@@ -103,7 +103,7 @@ function OptionCard({
 
         <h3 className="mt-6 text-2xl font-bold text-ink">{option.title}</h3>
 
-        <p className="mt-3 text-[15px] leading-relaxed text-ink/60">
+        <p className="mt-3 text-[15px] leading-relaxed text-ink-body">
           {option.description}
         </p>
       </div>
@@ -127,41 +127,43 @@ export default function WebsiteOptions() {
   const reduce = useReducedMotion();
 
   return (
-    <section className="mx-auto w-full px-6 py-5 xl:px-8">
-      <div className="mx-auto max-w-2xl text-center">
-        <motion.h2
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: reduce ? 0 : 0.6, ease: [0.22, 1, 0.36, 1] }}
-          className="text-4xl font-extrabold tracking-tight text-ink sm:text-5xl"
-        >
-          Scale your business online
-        </motion.h2>
-        <motion.p
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{
-            duration: reduce ? 0 : 0.6,
-            delay: reduce ? 0 : 0.1,
-            ease: [0.22, 1, 0.36, 1],
-          }}
-          className="mt-4 text-lg text-ink/50"
-        >
-          Choose from our range of instant websites tailored to your needs
-        </motion.p>
-      </div>
+    <section className="section-padding-sm">
+      <div className="container-site">
+        <div className="mx-auto max-w-2xl text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: reduce ? 0 : 0.6, ease: [0.22, 1, 0.36, 1] }}
+          >
+            <span className="eyebrow">Websites</span>
+            <h2 className="heading-section mt-3">Scale your business online</h2>
+          </motion.div>
+          <motion.p
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{
+              duration: reduce ? 0 : 0.6,
+              delay: reduce ? 0 : 0.1,
+              ease: [0.22, 1, 0.36, 1],
+            }}
+            className="mt-4 text-body-lg"
+          >
+            Choose from our range of instant websites tailored to your needs
+          </motion.p>
+        </div>
 
-      <div className="mt-16 grid grid-cols-1 items-stretch gap-6 sm:grid-cols-2 lg:grid-cols-4">
-        {OPTIONS.map((option, i) => (
-          <OptionCard
-            key={option.key}
-            option={option}
-            index={i}
-            reduce={reduce}
-          />
-        ))}
+        <div className="mt-10 grid grid-cols-1 items-stretch gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          {OPTIONS.map((option, i) => (
+            <OptionCard
+              key={option.key}
+              option={option}
+              index={i}
+              reduce={reduce}
+            />
+          ))}
+        </div>
       </div>
     </section>
   );

@@ -63,7 +63,7 @@ export default function HeroScrollVideo({
   const blurPx = useTransform(
     scrollYProgress,
     [0.05, 0.3, 0.7, 0.95],
-    [16, 0, 0, 12],
+    [8, 0, 0, 8],
   );
   const filter = useMotionTemplate`blur(${blurPx}px)`;
   const radius = useTransform(
@@ -129,7 +129,10 @@ export default function HeroScrollVideo({
 
       {/* Overlay content */}
       <div className="absolute inset-0 flex flex-col items-center justify-center px-6 text-center">
-        <span className="grid h-16 w-16 place-items-center rounded-full border border-paper/25 bg-paper/10 text-paper backdrop-blur-sm transition-transform duration-300 hover:scale-105">
+        <span
+          aria-hidden
+          className="grid h-16 w-16 place-items-center rounded-full border border-paper/25 bg-paper/10 text-paper backdrop-blur-sm"
+        >
           <Play className="ml-0.5 h-6 w-6 fill-current" />
         </span>
         <span className="mt-6 text-xs font-bold uppercase tracking-widest text-moss-300">
@@ -162,7 +165,7 @@ export default function HeroScrollVideo({
     <section
       ref={sectionRef}
       aria-label="GrownetAI in motion"
-      className="relative h-[180vh] bg-paper"
+      className="relative h-[120vh] bg-paper"
     >
       <div className="sticky top-0 flex h-screen items-center justify-center overflow-hidden px-4 sm:px-6">
         <motion.div

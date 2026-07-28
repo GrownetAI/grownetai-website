@@ -139,7 +139,11 @@ function ProjectTile({ p, big }: { p: CaseStudy; big: boolean }) {
         src={p.image}
         alt={p.client}
         fill
-        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+        sizes={
+          big
+            ? "(max-width: 640px) 100vw, 50vw"
+            : "(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+        }
         className="object-cover transition-transform duration-[600ms] ease-premium group-hover:scale-[1.05]"
       />
       {/* Scrim — the design system permits gradients only as an image scrim. */}
@@ -194,7 +198,7 @@ function TestimonialTile({
 }) {
   return (
     <article className="flex h-full flex-col overflow-hidden rounded-2xl border border-hairline bg-paper-raised p-5 shadow-card transition-[transform,box-shadow,border-color] duration-300 hover:-translate-y-1 hover:border-moss-300 hover:shadow-card-hover">
-      <div className="flex items-center gap-1 text-moss-400">
+      <div className="flex items-center gap-1 text-[#E0A32E]">
         {Array.from({ length: t.rating }).map((_, i) => (
           <Star key={i} className="h-3.5 w-3.5 fill-current" />
         ))}
@@ -208,7 +212,7 @@ function TestimonialTile({
         &ldquo;{t.text}&rdquo;
       </p>
       <div className="mt-4 flex items-center gap-3 border-t border-hairline pt-4">
-        <span className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full bg-moss-600 text-xs font-bold text-white">
+        <span className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full bg-ink text-xs font-bold text-paper">
           {t.name
             .split(" ")
             .map((n) => n[0])

@@ -28,8 +28,8 @@ export default function WhatWeDo() {
   const [requirement, setRequirement] = useState("");
 
   return (
-    <section className="section-padding-sm bg-paper xl:px-8">
-      <div className="container-site max-w-full mx-0">
+    <section className="section-padding-sm bg-paper">
+      <div className="container-site">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}

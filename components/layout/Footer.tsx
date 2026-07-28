@@ -185,7 +185,9 @@ export default function Footer() {
 
       {/* Bottom Bar */}
       <div className="border-t border-paper/10">
-        <div className="container-site py-5 flex flex-col sm:flex-row items-center justify-between gap-4">
+        {/* pb-24 keeps the legal links clear of the floating Hire Us pill;
+            at ≥1728px the FAB sits outside the content column, so normal padding. */}
+        <div className="container-site pt-5 pb-24 min-[1728px]:pb-5 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-paper/65 text-xs text-center sm:text-left">
             © {currentYear} {SITE_CONFIG.name}. All rights reserved. Helping
             businesses grow online.

@@ -28,12 +28,12 @@ export default function UserMenu() {
   // Don't render either state until we know which one is true. Sized to
   // the signed-out pair so the check doesn't jump the layout.
   if (!checked)
-    return <span className="hidden h-9 w-[150px] xl:block" aria-hidden />;
+    return <span className="hidden h-9 w-[150px] lg:block" aria-hidden />;
 
   if (!user) {
     // Quiet text pair; the mobile menu carries its own Log in / Sign up.
     return (
-      <div className="hidden items-center gap-1 xl:flex">
+      <div className="hidden items-center gap-1 lg:flex">
         <Link
           href="/login"
           className="whitespace-nowrap rounded-full px-3.5 py-2.5 text-sm font-medium text-ink-muted transition-colors hover:bg-sand hover:text-ink"

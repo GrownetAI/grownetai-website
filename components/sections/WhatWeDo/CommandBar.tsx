@@ -68,8 +68,8 @@ export default function CommandBar({
           <button
             type="button"
             aria-label={`Business type: ${businessType}`}
-            className="flex h-[52px] flex-shrink-0 items-center gap-2 rounded-full border border-hairline
-                       bg-paper-raised px-3 text-sm font-medium text-ink-body shadow-card
+            className="flex h-[52px] min-w-[44px] flex-shrink-0 items-center justify-center gap-2 rounded-full
+                       border border-hairline bg-paper-raised px-3 text-sm font-medium text-ink-body shadow-card
                        transition-colors hover:border-hairline-strong hover:text-ink sm:px-4"
           >
             <Building2 className="h-4 w-4 flex-shrink-0 text-ink-muted" />
@@ -166,8 +166,8 @@ export default function CommandBar({
             <button
               type="button"
               aria-label={`Showing ${activeTab.label}. Change what's shown`}
-              className="flex flex-shrink-0 items-center gap-1 rounded-full px-2.5 py-2 text-sm
-                         font-medium text-ink-muted transition-colors hover:text-ink lg:hidden"
+              className="grid h-11 w-11 flex-shrink-0 place-items-center rounded-full
+                         text-ink-muted transition-colors hover:text-ink lg:hidden"
             >
               <ChevronDown className="h-4 w-4" />
             </button>

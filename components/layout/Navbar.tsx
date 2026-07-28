@@ -20,16 +20,16 @@ import { cn } from "@/lib/utils";
 
 /* ── Shared item styling, so desktop states never drift apart ────── */
 const topItem =
-  "flex items-center gap-1.5 whitespace-nowrap px-3 py-2 xl:px-5 xl:py-2.5 text-sm xl:text-base font-medium transition-colors duration-150";
+  "flex items-center gap-1.5 whitespace-nowrap px-3 py-2 lg:min-h-[44px] xl:px-5 xl:py-2.5 text-sm xl:text-base font-medium transition-colors duration-150";
 const topItemOn =
   "font-semibold text-ink border-b-2 border-moss-600 shadow-none";
 const topItemOff =
-  "text-ink-muted hover:bg-moss-600/50 hover:text-ink rounded-full transition-all duration-150";
+  "text-ink-muted hover:bg-sand hover:text-ink rounded-full transition-all duration-150";
 /* Trigger whose panel is currently open — a filled pill, not the
    page-active underline. */
 const topItemOpen = "rounded-full bg-sand font-semibold text-ink";
 
-const SEARCH_PLACEHOLDER = "Search services, projects, technologies…";
+const SEARCH_PLACEHOLDER = "Search services, projects…";
 
 type BrowseTrigger = "services" | "work";
 
@@ -296,22 +296,20 @@ export default function Navbar() {
           if (megaOpen && e.target === e.currentTarget) closeMega(false);
         }}
         className={cn(
-          "mx-auto flex w-full items-center gap-2 border-b px-5 py-5 sm:px-4 outline-none",
+          "mx-auto flex w-full items-center gap-2 border-b px-4 py-3 sm:px-6 outline-none",
           "transition-[background-color,border-color,box-shadow] duration-300 bg-paper",
           scrolled ? "border-hairline shadow-card" : "border-transparent",
         )}
       >
-        {/* flex-shrink-0: the logo paints ~256px wide; letting this wrapper
-            shrink slid the nav items underneath it at lg widths. */}
-        <div className="flex flex-shrink-0 items-center justify-start outline-none">
-          <Link href="/" className="flex-shrink-0 outline-none">
+        <div className="flex flex-shrink-0 items-center justify-start">
+          <Link href="/" className="flex-shrink-0 rounded-md">
             <Image
-              src="/images/g_logo2.png"
+              src="/images/g_logo_nav.png"
               alt="GrownetAI"
               width={150}
-              height={8}
+              height={37}
               priority
-              className="block w-full lg:h-full h-10 object-cover"
+              className="block h-8 w-auto lg:h-9"
             />
           </Link>
         </div>
@@ -323,7 +321,7 @@ export default function Navbar() {
             type="button"
             onClick={() => toggleBrowse("services", servicesBtnRef.current)}
             aria-expanded={servicesOpen}
-            aria-controls="mega-panel"
+            {...(megaOpen ? { "aria-controls": "mega-panel" } : {})}
             aria-haspopup="true"
             className={cn(
               topItem,
@@ -355,7 +353,7 @@ export default function Navbar() {
             type="button"
             onClick={() => toggleBrowse("work", workBtnRef.current)}
             aria-expanded={workOpen}
-            aria-controls="mega-panel"
+            {...(megaOpen ? { "aria-controls": "mega-panel" } : {})}
             aria-haspopup="true"
             className={cn(
               topItem,
@@ -387,7 +385,7 @@ export default function Navbar() {
         </nav>
 
         {/* ── Search — the wide pill in the middle ── */}
-        <div className="relative mx-2 hidden min-w-[170px] flex-1 lg:mx-3 lg:block">
+        <div className="relative mx-2 hidden min-w-[170px] max-w-[480px] flex-1 lg:mx-3 lg:block">
           <Search className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-ink-faint" />
           <input
             ref={searchRef}
@@ -396,7 +394,7 @@ export default function Navbar() {
             placeholder={SEARCH_PLACEHOLDER}
             aria-label="Search the site"
             aria-expanded={searching}
-            aria-controls="mega-panel"
+            {...(megaOpen ? { "aria-controls": "mega-panel" } : {})}
             onFocus={() => {
               if (ignoreFocus.current) {
                 ignoreFocus.current = false;
@@ -413,10 +411,14 @@ export default function Navbar() {
             }}
             onKeyDown={(e) => {
               // Close but keep typing position — Escape must not
-              // bounce focus (which would instantly re-open).
-              if (e.key === "Escape") closeMega(false);
+              // bounce focus (which would instantly re-open), and the
+              // native search-clear input event must not either.
+              if (e.key === "Escape") {
+                e.preventDefault();
+                closeMega(false);
+              }
             }}
-            className="w-full rounded-full bg-sand py-3 pl-11 pr-4 text-sm text-ink outline-none transition-shadow placeholder:text-ink-faint focus:ring-2 focus:ring-moss-400/60"
+            className="w-full rounded-full bg-sand py-3 pl-11 pr-4 text-sm text-ellipsis text-ink outline-none transition-shadow placeholder:text-ink-faint focus:ring-2 focus:ring-moss-400/60"
           />
         </div>
 
@@ -426,7 +428,7 @@ export default function Navbar() {
           <UserMenu />
           <Link
             href="/dashboard"
-            className="group hidden items-center gap-1.5 whitespace-nowrap rounded-full bg-ink px-4 py-4 text-sm font-semibold text-paper transition-colors duration-200 hover:bg-black/20   lg:inline-flex xl:px-5"
+            className="group hidden items-center gap-1.5 whitespace-nowrap rounded-full bg-ink px-5 py-2.5 text-sm font-semibold text-paper transition-colors duration-200 hover:bg-forest-ink hover:text-paper lg:inline-flex"
           >
             See Growth
             <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5" />
@@ -434,10 +436,11 @@ export default function Navbar() {
 
           <button
             ref={burgerRef}
-            className="rounded-full p-2.5 text-ink transition-colors hover:bg-sand lg:hidden"
+            className="rounded-full p-3 text-ink transition-colors hover:bg-sand lg:hidden"
             onClick={() => setMobileOpen((v) => !v)}
             aria-label={mobileOpen ? "Close menu" : "Open menu"}
             aria-expanded={mobileOpen}
+            {...(mobileOpen ? { "aria-controls": "mobile-menu" } : {})}
           >
             {mobileOpen ? (
               <X className="h-5 w-5" />
@@ -476,6 +479,7 @@ export default function Navbar() {
             <motion.div
               key="panel"
               ref={panelRef}
+              id="mobile-menu"
               role="dialog"
               aria-modal="true"
               aria-label="Menu"

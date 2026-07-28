@@ -2,10 +2,7 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
-import Image from "next/image";
 import { useState, useRef, useEffect } from "react";
-import type { ForwardRefExoticComponent, RefAttributes } from "react";
-import { cn } from "@/lib/utils";
 import HeroScrollVideo from "@/components/sections/HeroScrollVideo";
 import WhatWeDo from "@/components/sections/WhatWeDo";
 import CaseStudyShowcase from "@/components/sections/CaseStudyShowcase";
@@ -13,49 +10,18 @@ import BuildProcess from "@/components/sections/BuildProcess";
 // import Clients from "@/components/sections/Clients";
 
 import {
-  Search,
-  Share2,
-  Code2,
-  Smartphone,
-  Megaphone,
-  ThumbsUp,
-  Bot,
-  BrainCircuit,
-  Zap,
-  Cpu,
   ArrowRight,
-  ArrowUpRight,
   Star,
-  TrendingUp,
   CheckCircle2,
   ShieldCheck,
   LineChart as LineChartIcon,
   Repeat,
-  Frown,
   Play,
 } from "lucide-react";
-import type { LucideProps } from "lucide-react";
-import { SERVICES, STATS, TESTIMONIALS } from "@/lib/constants";
+import { STATS, TESTIMONIALS } from "@/lib/constants";
 import HeroVisual from "@/components/sections/HeroArt";
 import WebsiteOptions from "@/components/sections/website_services";
 import CapabilityGrid from "@/components/sections/Capability";
-
-/* ── Icon map for feature cards ──────────────────────────── */
-type LucideIcon = ForwardRefExoticComponent<
-  Omit<LucideProps, "ref"> & RefAttributes<SVGSVGElement>
->;
-const SERVICE_ICONS: Record<string, LucideIcon> = {
-  Code2,
-  Smartphone,
-  Search,
-  Megaphone,
-  Share2,
-  ThumbsUp,
-  Bot,
-  BrainCircuit,
-  Zap,
-  Cpu,
-};
 
 /* ── Palette — mirrors the tokens in tailwind.config.ts ──────
    Inline styles need literals, so the handful used here are kept in
@@ -99,29 +65,6 @@ function Counter({ to, suffix = "" }: { to: number; suffix?: string }) {
 }
 
 /* ── Section content ─────────────────────────────────────── */
-const PAINS = [
-  {
-    icon: Megaphone,
-    quote: "I post every day and still hear crickets.",
-    sub: "Effort going in, nothing coming back — no leads, no DMs, no sales.",
-  },
-  {
-    icon: TrendingUp,
-    quote: "My ads burn budget and bring nothing back.",
-    sub: "You boost a post, the money disappears, and results never show up.",
-  },
-  {
-    icon: Search,
-    quote: "We are invisible on Google.",
-    sub: "Competitors rank on page one while customers cannot find you.",
-  },
-  {
-    icon: Frown,
-    quote: "My site looks fine, but nobody buys.",
-    sub: "Traffic lands, looks around, and leaves without taking action.",
-  },
-];
-
 const STORY_PILLARS = [
   {
     icon: LineChartIcon,
@@ -148,7 +91,7 @@ export default function HomePage() {
     <main>
       {/* ══════════════════ HERO ══════════════════ */}
       <section
-        className="relative overflow-hidden bg-paper xl:flex xl:min-h-[840px] xl:items-center 2xl:min-h-[920px] w-full xl:px-8"
+        className="relative overflow-hidden bg-paper lg:min-h-[760px] xl:min-h-[840px] 2xl:min-h-[920px] w-full lg:px-8"
         style={{
           paddingTop: "calc(var(--navbar-height) + 48px)",
           paddingBottom: "72px",
@@ -158,11 +101,13 @@ export default function HomePage() {
             in the upper fold, so the type stays the loudest thing. */}
         <div className="hero-glow w-[720px] h-[420px] max-w-[130vw] -top-40 left-1/2 -translate-x-1/2 bg-moss-400/10" />
 
-        <div
-          className="relative z-10 px-3 sm:px-4 outline-none max-w-max mx-auto"
-          // style={{ marginLeft: "0px", marginRight: "0px" }}
-        >
-          <div className="max-w-3xl mx-auto md:text-center lg:text-center xl:text-start text-center">
+        {/* Bounded wrapper keeps the two columns together on 1920+ screens
+            instead of drifting into separate islands. */}
+        <div className="mx-auto w-full max-w-[1400px] lg:flex lg:items-center lg:gap-10">
+        {/* flex-1 + min-w-0, never max-w-max: the column must shrink with the
+            viewport or the headline forces the whole hero wider than the screen. */}
+        <div className="relative z-10 w-full min-w-0 px-4 sm:px-6 outline-none lg:flex-1">
+          <div className="max-w-3xl mx-auto lg:mx-0 md:text-center lg:text-start text-center">
             <motion.span
               initial={{ opacity: 0, y: 14 }}
               animate={{ opacity: 1, y: 0 }}
@@ -181,13 +126,7 @@ export default function HomePage() {
               initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.05 }}
-              className="display-hero xl:min-w-[32ch] mx-auto mb-7 md:max-w-[24ch] lg:max-w-[32ch] xl:max-w-[40ch] text-center md:text-center lg:text-center xl:text-start sm:text-4xl lg:text-5xl md:text-6xl xl:text-7xl"
-              style={{
-                opacity: "1",
-                transform: "none",
-                marginLeft: "0px",
-                marginRight: "0px",
-              }}
+              className="display-hero mx-auto lg:mx-0 mb-7 max-w-[18ch] md:max-w-[20ch] text-center lg:text-start lg:text-[clamp(2.3rem,3vw,3.7rem)]"
             >
               Become the brand your market{" "}
               {/* The accent is colour, not italic — the reference does the same,
@@ -199,18 +138,18 @@ export default function HomePage() {
               initial={{ opacity: 0, y: 18 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.55, delay: 0.15 }}
-              className="text-ink-body text-lg leading-relaxed mb-9 max-w-max mx-auto"
+              className="text-ink-body text-lg leading-relaxed mb-9 max-w-xl mx-auto lg:mx-0"
             >
               One AI-powered team runs your website, ads, SEO and content — and
               reports to a single dashboard built around the numbers that
               matter.
             </motion.p>
-            <div className="flex flex-col items-start justify-center md:items-center lg:items-center xl:items-start items-center">
+            <div className="flex flex-col justify-center items-center lg:items-start">
               <motion.div
                 initial={{ opacity: 0, y: 18 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.25 }}
-                className="flex flex-col sm:flex-row items-stretch md:text-center lg:text-center xl:text-start text-center justify-center gap-3 mb-9 mx-auto sm:mx-0 sm:justify-center xl:justify-start"
+                className="flex flex-col sm:flex-row items-stretch text-center justify-center gap-3 mb-9 lg:justify-start lg:mx-0"
               >
                 <Link
                   href="/contact"
@@ -222,7 +161,7 @@ export default function HomePage() {
                   href="/login"
                   className="btn btn-secondary btn-lg inline-flex items-center gap-2"
                 >
-                  <Play className="w-4 h-4" style={{ color: MOSS_DEEP }} /> See
+                  <Play className="w-5 h-5" style={{ color: MOSS_DEEP }} /> See
                   the dashboard
                 </Link>
               </motion.div>
@@ -231,7 +170,7 @@ export default function HomePage() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.5, delay: 0.4 }}
-                className="xl:hidden flex items-center justify-center gap-3 text-ink-muted text-sm mx-auto sm:mx-0 sm:justify-start"
+                className="lg:hidden flex items-center justify-center gap-3 text-ink-muted text-sm mx-auto sm:mx-0 sm:justify-start"
               >
                 <div className="flex -space-x-2">
                   {[MOSS_DEEP, MOSS, LAGOON].map((c, i) => (
@@ -256,8 +195,12 @@ export default function HomePage() {
           </div>
         </div>
 
-        <div className="absolute inset-0 md:static md:flex-1 md:order-last">
+        {/* Fixed-width visual column — flex-1 here let the art squeeze the
+            text (and vice versa) at exactly 1280px. Hidden below xl, like
+            the art itself. */}
+        <div className="relative hidden flex-none lg:order-last lg:block lg:w-[420px] xl:w-[500px] 2xl:w-[580px]">
           <HeroVisual />
+        </div>
         </div>
       </section>
 
@@ -273,7 +216,7 @@ export default function HomePage() {
       <BuildProcess />
 
       {/* ══════════════════ STORY ══════════════════ */}
-      <section className="section-padding bg-sand">
+      <section className="section-padding bg-paper">
         <div className="container-site">
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
             <motion.div
@@ -342,7 +285,7 @@ export default function HomePage() {
       {/* <Clients /> */}
 
       {/* ══════════════════ PROOF ══════════════════ */}
-      <section className="section-padding bg-paper">
+      <section className="section-padding bg-sand">
         <div className="container-site">
           <div className="text-center max-w-2xl mx-auto mb-14">
             <span className="eyebrow">The proof</span>
@@ -433,12 +376,8 @@ export default function HomePage() {
 
       {/* ══════════════════ CTA ══════════════════ */}
       <section
-        className="relative overflow-hidden"
-        style={{
-          background: FOREST,
-          paddingTop: "112px",
-          paddingBottom: "112px",
-        }}
+        className="relative overflow-hidden section-padding-lg"
+        style={{ background: FOREST }}
       >
         <div className="absolute inset-0 dot-grid dot-grid-invert opacity-50" />
         <div className="hero-glow w-[680px] h-[360px] max-w-[130vw] -bottom-32 left-1/2 -translate-x-1/2 bg-moss-400/15" />
@@ -450,7 +389,7 @@ export default function HomePage() {
             className="max-w-2xl mx-auto"
           >
             <h2 className="display-lg text-paper mb-5">
-              Ready to grow on <em className="italic text-moss-300">purpose</em>
+              Ready to grow on <em className="not-italic text-moss-300">purpose</em>
               ?
             </h2>
             <p className="text-paper/80 text-lg mb-9 leading-relaxed">

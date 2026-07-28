@@ -65,11 +65,10 @@ export default function ServiceRail({
            cut is what tells you it scrolls.
 
            scroll-pl must mirror the padding: without it, snap-mandatory aligns
-           the first chip *past* the padding and parks scrollLeft at 32px, so
+           the first chip *past* the padding and parks scrollLeft at 24px, so
            the rail thinks it is already scrolled and shows a back-arrow on load. */
-        className="no-scrollbar -mx-5 flex snap-x snap-mandatory gap-2.5 overflow-x-auto
-                   scroll-pl-5 px-5 py-1 sm:-mx-6 sm:scroll-pl-6 sm:px-6
-                   lg:-mx-8 lg:scroll-pl-8 lg:px-8"
+        className="no-scrollbar -mx-6 flex snap-x snap-mandatory gap-2.5 overflow-x-auto
+                   scroll-pl-6 px-6 py-1"
       >
         {/* "All" — the rail's default, so the grid is never empty on load */}
         <li className="shrink-0 snap-start">

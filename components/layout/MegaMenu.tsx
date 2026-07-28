@@ -44,7 +44,7 @@ function Row({
         <span
           className={cn(
             "block truncate font-display font-semibold text-ink",
-            dense ? "text-sm" : "text-lg lg:text-xl",
+            dense ? "text-sm" : "text-lg",
           )}
         >
           {row.label}
@@ -233,7 +233,7 @@ export default function MegaPanel({
                 {searching ? (
                   <SearchResults query={query} onNavigate={onNavigate} />
                 ) : (
-                  <div className="flex flex-col">
+                  <div className="flex max-w-2xl flex-col">
                     {rows.map((row) => (
                       <Row
                         key={`${rail}-${row.label}`}

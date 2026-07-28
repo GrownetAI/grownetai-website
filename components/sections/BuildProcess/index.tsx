@@ -45,14 +45,14 @@ export default function BuildProcess() {
   const reduce = useReducedMotion();
 
   return (
-    <section className="section-padding relative overflow-hidden bg-sand w-full xl:px-8">
+    <section className="section-padding relative overflow-hidden bg-sand">
       <div aria-hidden className="absolute inset-0 dot-grid opacity-30" />
       <div
         aria-hidden
         className="hero-glow left-1/2 top-24 h-[420px] max-w-full w-full -translate-x-1/2 bg-moss-400/[0.06]"
       />
 
-      <div className="container-site relative z-10 max-w-full mx-0">
+      <div className="container-site relative z-10">
         {/* Header */}
         <div className="mx-auto mb-12 max-w-2xl text-center lg:mb-14 w-full">
           <h2 className="heading-section mt-3">How we build your Business</h2>
@@ -111,7 +111,7 @@ function BentoCard({ step }: { step: BuildStep }) {
   return (
     <div
       className={cn(
-        "group relative flex h-full min-w-0 flex-col overflow-hidden rounded-3xl border border-hairline bg-paper-raised shadow-card",
+        "group relative flex h-full min-w-0 flex-col overflow-hidden rounded-2xl border border-hairline bg-paper-raised shadow-card",
         "transition-[transform,box-shadow,border-color] duration-300 ease-premium",
         "hover:-translate-y-1 hover:border-moss-300 hover:shadow-brand",
         feature ? "p-6" : "p-5",

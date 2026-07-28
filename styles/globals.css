@@ -51,10 +51,9 @@
   --sprout: #79d65b;
 
   /* Layout */
-  /* The header pads 12px top and bottom out of this, leaving a 64px pill.
-     Sized so the pill clears the top of the viewport and actually floats,
-     rather than sitting flush against the edge. */
-  --navbar-height: 88px;
+  /* Matches the rendered bar height — the mega panel, mobile drawer and
+     every page's hero offset anchor to this. */
+  --navbar-height: 72px;
   --section-pad: 112px;
 
   /* Radii */
@@ -166,13 +165,17 @@
     text-wrap: pretty;
   }
 
-  a {
+  /* Scoped to unclassed links so utility colors on classed links win. */
+  a:not([class]) {
     @apply text-moss-600;
     text-decoration: none;
     transition: color 0.18s ease;
   }
-  a:hover {
+  a:not([class]):hover {
     @apply text-moss-700;
+  }
+  a {
+    text-decoration: none;
   }
 
   img {
@@ -228,6 +231,10 @@
     padding-top: 70px;
     padding-bottom: 70px;
   }
+  .section-padding-lg {
+    padding-top: var(--section-pad);
+    padding-bottom: var(--section-pad);
+  }
   .section-padding-sm {
     padding-top: 44px;
     padding-bottom: 44px;
@@ -247,9 +254,12 @@
   .display-hero {
     @apply font-display text-ink;
     font-weight: 800;
-    font-size: clamp(2.5rem, 5.6vw, 4.6rem);
+    /* Sized so a 100%-zoom laptop window (~1200-1440px) reads as normal
+       desktop density — the old 5.6vw/4.6rem scale hit ~70px there and the
+       whole fold felt zoomed in. */
+    font-size: clamp(2.3rem, 4.4vw, 3.9rem);
     letter-spacing: -0.038em;
-    line-height: 1.02;
+    line-height: 1.04;
     text-wrap: balance;
   }
 
@@ -257,7 +267,7 @@
   .display-lg {
     @apply font-display text-ink;
     font-weight: 700;
-    font-size: clamp(1.95rem, 3.6vw, 3rem);
+    font-size: clamp(1.75rem, 2.9vw, 2.6rem);
     letter-spacing: -0.032em;
     line-height: 1.1;
     text-wrap: balance;
@@ -894,7 +904,7 @@
 /* ── 30. RESPONSIVE SECTION PADDING ──────────────────── */
 @media (max-width: 768px) {
   :root {
-    --navbar-height: 80px;
+    --navbar-height: 64px;
   }
   .section-padding {
     padding-top: 68px;

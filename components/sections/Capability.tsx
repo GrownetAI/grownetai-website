@@ -110,10 +110,10 @@ export default function CapabilityGrid() {
                   delay: reduce ? 0 : i * 0.06,
                   ease: [0.22, 1, 0.36, 1],
                 }}
-                className="flex items-center gap-3 rounded-2xl bg-moss-100/30 p-4 hover:border-moss-600/80 hover:bg-moss-200/50 transition-colors border-l-4 border-moss-600"
+                className="flex items-center gap-3 rounded-2xl bg-moss-100/30 p-4 border-l-4 border-moss-600"
               >
-                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-brand/10">
-                  <Icon className="h-8 w-8 text-moss-700" />
+                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-moss-400/10">
+                  <Icon className="h-5 w-5 text-moss-700" />
                 </span>
                 <span className="font-semibold text-ink">{item.label}</span>
               </motion.div>
@@ -121,7 +121,7 @@ export default function CapabilityGrid() {
           })}
         </div>
 
-        <div className="mt-10 grid grid-cols-4 gap-4">
+        <div className="mt-10 grid grid-cols-2 xl:grid-cols-2 gap-4">
           {TILES.map((item, i) => {
             const Icon = item.icon;
             return (
@@ -138,12 +138,12 @@ export default function CapabilityGrid() {
                 }}
                 className="flex flex-row gap-3 rounded-2xl border border-hairline bg-paper-raised p-5 transition-colors hover:bg-paper"
               >
-                <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-brand text-paper">
-                  <Icon className="h-8 w-8 text-moss-700" />
+                <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-moss-600 text-paper">
+                  <Icon className="h-5 w-5" />
                 </span>
-                <span>
+                <span className="min-w-0">
                   <span className="block font-bold text-ink">{item.title}</span>
-                  <span className="block text-sm text-ink/70 w-max">
+                  <span className="block text-sm text-ink/70">
                     {item.subtitle}
                   </span>
                 </span>

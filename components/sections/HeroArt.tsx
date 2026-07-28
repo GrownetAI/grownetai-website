@@ -75,7 +75,7 @@ export default function HeroVisual() {
   return (
     <div
       aria-hidden="true"
-      className="relative mx-auto hidden h-[560px] w-full max-w-[530px] xl:block xl:mr-[0px]"
+      className="relative mx-auto hidden h-[620px] xl:h-[560px] w-full max-w-[530px] lg:block"
     >
       {/* ─── Person cutout ─────────────────────────────────────── */}
       <motion.div
@@ -86,24 +86,26 @@ export default function HeroVisual() {
           delay: reduce ? 0 : 0.15,
           ease: [0.22, 1, 0.36, 1],
         }}
-        className="absolute bottom-0 md:bottom-0 xl:bottom-0 lg:bottom-0 -left-1/4 md:-left-1/2 sm:-left-1/2 xl:-left-1/4 lg:-left-1/2 h-[520px] w-[340px] -translate-x-1/2"
+        /* Positioned with right-4, NOT translate classes — framer's inline
+           transform (the y entrance) overwrites Tailwind translate utilities,
+           which is exactly how this cutout used to drift off-viewport. */
+        className="absolute bottom-0 right-2 h-[460px] w-[300px] xl:h-[520px] xl:w-[340px]"
       >
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src="/images/business_women.png"
           alt=""
-          className="h-full w-full object-cover object-top"
+          className="h-full w-full object-cover object-top [mask-image:linear-gradient(to_bottom,black_86%,transparent_100%)]"
         />
         {/* soft ground shadow so the cutout doesn't float */}
         <div className="absolute -bottom-2 left-1/2 h-6 w-[70%] -translate-x-1/2 rounded-full bg-ink/10 blur-xl" />
-        <div className="hero-glow left-1/2 -bottom-40 h-[360px] w-[720px] max-w-[130vw] -translate-x-1/2 bg-moss-400/10"></div>
       </motion.div>
 
       {/* ─── Assistant / chat card ─────────────────────────────── */}
       <FloatingCard
         reduce={reduce}
         delay={0.4}
-        className="xl:-left-1/3 lg:-left-1/2 md:-left-1/2 sm:-left-1/2 -bottom-12 w-[350px] p-5"
+        className="-left-2 top-40 xl:top-44 w-[290px] p-5 xl:w-[320px]"
       >
         <div className="flex items-center gap-2.5">
           <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-moss-400/10 text-moss-600">
@@ -113,14 +115,14 @@ export default function HeroVisual() {
             Introducing Interactive Dashboard
           </p>
         </div>
-        <p className="mt-1 pl-[42px] text-xs text-ink/60">
+        <p className="mt-1 pl-[42px] text-xs text-ink-body">
           Your personal business workspace.
         </p>
 
-        <div className="mt-4 flex items-center justify-between gap-3 rounded-full border border-hairline bg-paper px-4 py-2.5 bg-primary">
+        <div className="mt-4 flex items-center justify-between gap-3 rounded-full bg-moss-600 px-4 py-2.5">
           <span className="flex text-xs text-paper items-center flex-1 justify-center ">
             <p>Manage your Leads and more </p>{" "}
-            <ArrowRightCircle className="ml-1 h-4.5 w-4.5 text-moss-600" />
+            <ArrowRightCircle className="ml-1 h-4 w-4 text-paper" />
           </span>
         </div>
       </FloatingCard>
@@ -129,7 +131,7 @@ export default function HeroVisual() {
       <FloatingCard
         reduce={reduce}
         delay={0.55}
-        className="right-0 top-20 w-[300px] p-4"
+        className="left-0 top-4 w-[260px] p-4 xl:w-[300px]"
       >
         <motion.div
           initial={{ opacity: 0 }}
@@ -156,14 +158,14 @@ export default function HeroVisual() {
         <p className="mt-3 font-semibold text-ink">
           People Say &ldquo;Excellent&rdquo;
         </p>
-        <p className="text-sm text-ink/50">Based on 1000+ feedbacks</p>
+        <p className="text-sm text-ink-muted">Based on 1000+ feedbacks</p>
       </FloatingCard>
 
       {/* ─── Feature list card ─────────────────────────────────── */}
       <FloatingCard
         reduce={reduce}
         delay={0.7}
-        className="-bottom-12 right-0 w-[320px] overflow-hidden"
+        className="-bottom-6 left-0 w-[290px] overflow-hidden xl:left-auto xl:right-0 xl:w-[320px]"
       >
         <div className="border-b border-hairline bg-amber-100/60 px-5 py-3">
           <p className="font-semibold text-ink">Why Choose GrownetAI?</p>
@@ -172,7 +174,7 @@ export default function HeroVisual() {
           {FEATURES.map(({ label, value }) => (
             <div key={label} className="flex items-center justify-between py-3">
               <dt className="font-medium text-ink">{label}</dt>
-              <dd className="text-sm text-ink/60">{value}</dd>
+              <dd className="text-sm text-ink-body">{value}</dd>
             </div>
           ))}
         </dl>
