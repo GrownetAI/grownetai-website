@@ -52,18 +52,18 @@ const LABELS: LabelItem[] = [
   { key: "ai-services", icon: Bot, label: "AI-Integrated Services" },
   { key: "automation", icon: Settings2, label: "Business Automation" },
   {
-    key: "Social Media",
+    key: "digital-marketing",
     icon: MonitorCheck,
-    label: "Social Media Management",
+    label: "Digital Marketing",
   },
 ];
 
 const TILES: TileItem[] = [
   {
-    key: "Social Media",
+    key: "digital-marketing",
     icon: ViewIcon,
-    title: "Social Media",
-    subtitle: "Insta/Facebook",
+    title: "Ads Management",
+    subtitle: "Insta/Facebook/Google/LinkedIn",
     href: "/services",
   },
   {

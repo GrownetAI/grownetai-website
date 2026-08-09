@@ -16,7 +16,7 @@ import {
   ShieldCheck,
   LineChart as LineChartIcon,
   Repeat,
-  Play,
+  Tag,
 } from "lucide-react";
 import { STATS, TESTIMONIALS } from "@/lib/constants";
 import HeroVisual from "@/components/sections/HeroArt";
@@ -99,7 +99,7 @@ export default function HomePage() {
       >
         {/* One soft emerald bloom behind the headline — the only colour
             in the upper fold, so the type stays the loudest thing. */}
-        <div className="hero-glow w-[720px] h-[420px] max-w-[130vw] -top-40 left-1/2 -translate-x-1/2 bg-moss-400/10" />
+        <div className="hero-glow w-[720px] h-[420px] max-w-[130vw]" />
 
         {/* Bounded wrapper keeps the two columns together on 1920+ screens
             instead of drifting into separate islands. */}
@@ -158,11 +158,11 @@ export default function HomePage() {
                   Get my free growth plan <ArrowRight className="w-5 h-5" />
                 </Link>
                 <Link
-                  href="/login"
+                  href="/pricing"
                   className="btn btn-secondary btn-lg inline-flex items-center gap-2"
                 >
-                  <Play className="w-5 h-5" style={{ color: MOSS_DEEP }} /> See
-                  the dashboard
+                  <Tag className="w-5 h-5" style={{ color: MOSS_DEEP }} /> View
+                  Pricing
                 </Link>
               </motion.div>
 

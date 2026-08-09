@@ -90,10 +90,35 @@ export const metadata: Metadata = {
     images: ["/og-image.jpg"],
     creator: "@grownetai",
   },
+  // ─── Icons ───────────────────────────────────────────────────────────
+  // Every file below lives at the web root (`public/`), copied verbatim from
+  // the brand logo kit's `01-favicon-web/` set. Deliberately NOT wired up:
+  // the master `grownetai-logo.svg`. An SVG favicon outranks every PNG in
+  // Chrome/Firefox, and that master is the transparent lockup — its `G`
+  // stroke is white negative space and the `ai` is solid black, so it half
+  // vanishes against dark browser chrome. The PNGs and .ico carry a solid
+  // green plate and read correctly on any tab background.
   icons: {
-    icon: "/favicon.png",
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/favicon-16x16.png", type: "image/png", sizes: "16x16" },
+      { url: "/favicon-32x32.png", type: "image/png", sizes: "32x32" },
+      { url: "/favicon-96x96.png", type: "image/png", sizes: "96x96" },
+      { url: "/favicon-256x256.png", type: "image/png", sizes: "256x256" },
+    ],
+    shortcut: "/favicon.ico",
+    apple: [
+      { url: "/apple-touch-icon.png", type: "image/png", sizes: "180x180" },
+    ],
+    other: [
+      { rel: "mask-icon", url: "/safari-pinned-tab.svg", color: "#00BF34" },
+    ],
   },
   manifest: "/site.webmanifest",
+  other: {
+    "msapplication-TileColor": "#00BF34",
+    "msapplication-config": "/browserconfig.xml",
+  },
   alternates: {
     canonical: "https://grownetai.com",
   },
@@ -154,23 +179,6 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <head>
-        {/* Pre-paint theme. Server-rendered into <head> so it runs during HTML
-            parse — the old version lived inside the CRM shell and keyed off
-            `document.currentScript`, which is null for React-inserted scripts,
-            so it silently no-opped on every client-side navigation.
-            Path-scoped: the marketing site has no dark mode, and must never
-            inherit `color-scheme: dark`. */}
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `(function(){try{
-var p=location.pathname;
-if(p.indexOf('/dashboard')!==0&&p.indexOf('/admin')!==0)return;
-var s=localStorage.getItem('crm-theme');
-var t=(s==='dark'||s==='light')?s:(window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');
-if(t==='dark')document.documentElement.classList.add('dark');
-}catch(e){}})();`,
-          }}
-        />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -185,7 +193,7 @@ if(t==='dark')document.documentElement.classList.add('dark');
           crossOrigin="anonymous"
         />
       </head>
-      <body className="font-sans antialiased bg-paper text-ink-body dark:bg-page dark:text-fg">
+      <body className="font-sans antialiased bg-paper text-ink-body">
         {/* Toast Notifications */}
         <Toaster
           position="top-right"

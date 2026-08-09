@@ -21,13 +21,8 @@ import { ArrowUpRight } from "lucide-react";
    (z-50+), so an open mega menu or dialog always covers it.
 ════════════════════════════════════════════════════════════════ */
 
-const HIDDEN_PREFIXES = [
-  "/login",
-  "/register",
-  "/dashboard",
-  "/admin",
-  "/contact",
-];
+/* Only /contact — the button would just point at the page you're already on. */
+const HIDDEN_PREFIXES = ["/contact"];
 
 export default function FloatingHireUs() {
   const pathname = usePathname();

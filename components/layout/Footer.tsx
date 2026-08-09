@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { usePathname } from "next/navigation";
 import {
   Instagram,
   Facebook,
@@ -49,16 +48,9 @@ const SOCIAL_ICONS = [
 ];
 
 export default function Footer() {
+  // Client-side so the year comes from the visitor's clock; as a server
+  // component it would bake in at build time and go stale each January.
   const currentYear = new Date().getFullYear();
-  const pathname = usePathname();
-
-  // Hide the marketing footer on the authenticated app routes.
-  const APP_PREFIXES = ["/login", "/register", "/dashboard", "/admin"];
-  if (
-    APP_PREFIXES.some((p) => pathname === p || pathname.startsWith(p + "/"))
-  ) {
-    return null;
-  }
 
   return (
     <footer className="aurora-footer text-paper xl:px-8">

@@ -28,7 +28,17 @@ export default function FadeIn({
   className,
   duration = 0.55,
 }: FadeInProps) {
-  const { ref, inView } = useInView({ threshold: 0.1, triggerOnce: true });
+  /* threshold 0 + a small bottom inset, NOT a percentage threshold.
+     `threshold: 0.1` demands 10% of the element be on screen at once, which a
+     tall element can never satisfy — 10% of a 7000px mobile stack is taller
+     than the viewport, so the observer never fires and the content is stuck at
+     opacity 0. That is exactly how the pricing packages went invisible on
+     phones. Firing on first pixel keeps the same feel and cannot deadlock. */
+  const { ref, inView } = useInView({
+    threshold: 0,
+    rootMargin: "0px 0px -80px 0px",
+    triggerOnce: true,
+  });
   return (
     <motion.div
       ref={ref}

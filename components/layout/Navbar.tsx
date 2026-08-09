@@ -2,7 +2,7 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
 import { Menu, X, ChevronDown, ArrowRight, Search } from "lucide-react";
 import {
@@ -13,9 +13,7 @@ import {
   type RailId,
 } from "@/lib/navigation";
 import MegaPanel, { SearchResults } from "./MegaMenu";
-import UserMenu from "./UserMenu";
-import { isAdmin, logout } from "@/lib/api";
-import { useAuthUser, resetAuthUserCache } from "@/hooks/useAuthUser";
+import UtilityBar from "./UtilityBar";
 import { cn } from "@/lib/utils";
 
 /* ── Shared item styling, so desktop states never drift apart ────── */
@@ -99,10 +97,6 @@ export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [mobileQuery, setMobileQuery] = useState("");
   const pathname = usePathname();
-  const router = useRouter();
-  // Session state for the mobile panel; UserMenu shares the same
-  // cached check, so this never double-fetches.
-  const { user, checked } = useAuthUser();
 
   /* Mega panel state. One panel serves three openers (two nav
      triggers + the search field); openTrigger is the single source of
@@ -273,15 +267,6 @@ export default function Navbar() {
     return pathname === href || pathname.startsWith(href + "/");
   }
 
-  // Hide the marketing navbar on the authenticated app routes.
-  // (/portfolio is a marketing page — the navbar shows there.)
-  const APP_PREFIXES = ["/login", "/register", "/dashboard", "/admin"];
-  if (
-    APP_PREFIXES.some((p) => pathname === p || pathname.startsWith(p + "/"))
-  ) {
-    return null;
-  }
-
   const servicesOpen = openTrigger === "services";
   const workOpen = openTrigger === "work";
 
@@ -290,6 +275,7 @@ export default function Navbar() {
       className="fixed left-0 right-0 top-0 z-50 w-full"
       style={{ height: "var(--navbar-height)", paddingBottom: 12 }}
     >
+      <UtilityBar />
       <div
         onClick={(e) => {
           // Blank bar space is outside the menu too — close on it.
@@ -348,6 +334,9 @@ export default function Navbar() {
             About
           </Link>
 
+          {/* No Pricing item here — the "View Pricing" button in the right
+              cluster already covers it. */}
+
           <button
             ref={workBtnRef}
             type="button"
@@ -373,15 +362,8 @@ export default function Navbar() {
             />
           </button>
 
-          <Link
-            href="/contact"
-            className={cn(
-              topItem,
-              isActive("/contact") ? topItemOn : topItemOff,
-            )}
-          >
-            Hire Us
-          </Link>
+          {/* No Hire Us item either — the floating Hire Us button covers it,
+              and it renders at every breakpoint. */}
         </nav>
 
         {/* ── Search — the wide pill in the middle ── */}
@@ -424,13 +406,11 @@ export default function Navbar() {
 
         {/* ── Right cluster ── */}
         <div className="ml-auto flex flex-none items-center justify-end gap-3">
-          {/* Log in / Sign up when signed out; avatar menu when signed in. */}
-          <UserMenu />
           <Link
-            href="/dashboard"
+            href="/pricing"
             className="group hidden items-center gap-1.5 whitespace-nowrap rounded-full bg-ink px-5 py-2.5 text-sm font-semibold text-paper transition-colors duration-200 hover:bg-forest-ink hover:text-paper lg:inline-flex"
           >
-            See Growth
+            View Pricing
             <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5" />
           </Link>
 
@@ -546,7 +526,6 @@ export default function Navbar() {
                     {[
                       { label: "About", href: "/about" },
                       { label: "Blog", href: "/blog" },
-                      { label: "Hire Us", href: "/contact" },
                     ].map((link) => (
                       <Link
                         key={link.href}
@@ -564,70 +543,12 @@ export default function Navbar() {
                     ))}
 
                     <div className="mt-2 flex flex-col gap-2 border-t border-hairline pt-3">
-                      {/* Session-aware rows; nothing until the check lands. */}
-                      {checked &&
-                        (user ? (
-                          <div className="flex flex-col gap-0.5">
-                            <div className="px-4 pb-1 pt-2">
-                              <p className="truncate text-sm font-semibold text-ink">
-                                {user.name}
-                              </p>
-                              <p className="truncate text-xs text-ink-muted">
-                                {user.email}
-                              </p>
-                            </div>
-                            <Link
-                              href={isAdmin(user) ? "/admin" : "/dashboard"}
-                              onClick={() => setMobileOpen(false)}
-                              className="rounded-2xl px-4 py-3.5 text-sm font-medium text-ink-body transition-colors hover:bg-sand/60 hover:text-ink"
-                            >
-                              {isAdmin(user) ? "Admin panel" : "My dashboard"}
-                            </Link>
-                            <Link
-                              href="/dashboard/settings"
-                              onClick={() => setMobileOpen(false)}
-                              className="rounded-2xl px-4 py-3.5 text-sm font-medium text-ink-body transition-colors hover:bg-sand/60 hover:text-ink"
-                            >
-                              Profile settings
-                            </Link>
-                            <button
-                              type="button"
-                              onClick={async () => {
-                                await logout();
-                                resetAuthUserCache();
-                                setMobileOpen(false);
-                                router.push("/");
-                                router.refresh();
-                              }}
-                              className="rounded-2xl px-4 py-3.5 text-left text-sm font-medium text-rose-700 transition-colors hover:bg-rose-500/10"
-                            >
-                              Sign out
-                            </button>
-                          </div>
-                        ) : (
-                          <div className="grid grid-cols-2 gap-2">
-                            <Link
-                              href="/login"
-                              onClick={() => setMobileOpen(false)}
-                              className="rounded-full border border-hairline px-4 py-3 text-center text-sm font-medium text-ink-body transition-colors hover:bg-sand"
-                            >
-                              Log in
-                            </Link>
-                            <Link
-                              href="/register"
-                              onClick={() => setMobileOpen(false)}
-                              className="rounded-full border border-hairline px-4 py-3 text-center text-sm font-medium text-ink-body transition-colors hover:bg-sand"
-                            >
-                              Sign up
-                            </Link>
-                          </div>
-                        ))}
                       <Link
-                        href="/dashboard"
+                        href="/pricing"
                         onClick={() => setMobileOpen(false)}
                         className="group inline-flex items-center justify-center gap-1.5 rounded-full bg-ink px-4 py-4 text-center text-base font-semibold text-paper transition-[background-color,transform] duration-200 hover:bg-forest-ink active:scale-[0.98]"
                       >
-                        See Growth
+                        View Pricing
                         <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5" />
                       </Link>
                     </div>

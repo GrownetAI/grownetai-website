@@ -53,7 +53,11 @@
   /* Layout */
   /* Matches the rendered bar height — the mega panel, mobile drawer and
      every page's hero offset anchor to this. */
-  --navbar-height: 72px;
+  /* TOTAL height of the fixed header: 36px utility strip + 72px nav row.
+     Pages pad their top by this, and the mega/search panels position off it,
+     so it must always equal the real rendered header height. If UtilityBar's
+     h-9 or the nav row's padding changes, change this too. */
+  --navbar-height: 108px;
   --section-pad: 112px;
 
   /* Radii */
@@ -904,7 +908,7 @@
 /* ── 30. RESPONSIVE SECTION PADDING ──────────────────── */
 @media (max-width: 768px) {
   :root {
-    --navbar-height: 64px;
+    --navbar-height: 100px; /* 36px utility strip + 64px nav row */
   }
   .section-padding {
     padding-top: 68px;
